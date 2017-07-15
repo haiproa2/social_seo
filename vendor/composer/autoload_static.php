@@ -15,8 +15,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '9f394da3192a168c4633675768d80428' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/helpers.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -63,14 +61,9 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
             'Psr\\Log\\' => 8,
             'PhpParser\\' => 10,
         ),
-        'N' => 
-        array (
-            'Nwidart\\Modules\\' => 16,
-        ),
         'M' => 
         array (
             'Monolog\\' => 8,
-            'Modules\\' => 8,
         ),
         'L' => 
         array (
@@ -94,7 +87,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'C' => 
         array (
             'Cron\\' => 5,
-            'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
         ),
         'A' => 
@@ -194,17 +186,9 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'Nwidart\\Modules\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nwidart/laravel-modules/src',
-        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-        ),
-        'Modules\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/Modules',
         ),
         'League\\Flysystem\\' => 
         array (
@@ -237,10 +221,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
-        ),
-        'Collective\\Html\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
         ),
         'Carbon\\' => 
         array (
@@ -299,7 +279,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -314,13 +293,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
-        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
-        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
-        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
-        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
-        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
-        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
-        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
@@ -1655,9 +1627,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Mockery\\Undefined' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Undefined.php',
         'Mockery\\VerificationDirector' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/VerificationDirector.php',
         'Mockery\\VerificationExpectation' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/VerificationExpectation.php',
-        'Modules\\Blog\\Database\\Seeders\\BlogDatabaseSeeder' => __DIR__ . '/../..' . '/Modules/Blog/Database/Seeders/BlogDatabaseSeeder.php',
-        'Modules\\Blog\\Http\\Controllers\\BlogController' => __DIR__ . '/../..' . '/Modules/Blog/Http/Controllers/BlogController.php',
-        'Modules\\Blog\\Providers\\BlogServiceProvider' => __DIR__ . '/../..' . '/Modules/Blog/Providers/BlogServiceProvider.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
         'Monolog\\Formatter\\ElasticaFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',
@@ -1746,73 +1715,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Monolog\\Processor\\UidProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/UidProcessor.php',
         'Monolog\\Processor\\WebProcessor' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
         'Monolog\\Registry' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Registry.php',
-        'Nwidart\\Modules\\Collection' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Collection.php',
-        'Nwidart\\Modules\\Commands\\CommandCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/CommandCommand.php',
-        'Nwidart\\Modules\\Commands\\ControllerCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/ControllerCommand.php',
-        'Nwidart\\Modules\\Commands\\DisableCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/DisableCommand.php',
-        'Nwidart\\Modules\\Commands\\DumpCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/DumpCommand.php',
-        'Nwidart\\Modules\\Commands\\EnableCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/EnableCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateEventCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateEventCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateJobCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateJobCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateListenerCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateListenerCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateMailCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateMailCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateMiddlewareCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateMiddlewareCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateNotificationCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateNotificationCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateProviderCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateProviderCommand.php',
-        'Nwidart\\Modules\\Commands\\GenerateRouteProviderCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GenerateRouteProviderCommand.php',
-        'Nwidart\\Modules\\Commands\\GeneratorCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/GeneratorCommand.php',
-        'Nwidart\\Modules\\Commands\\InstallCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/InstallCommand.php',
-        'Nwidart\\Modules\\Commands\\ListCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/ListCommand.php',
-        'Nwidart\\Modules\\Commands\\MakeCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MakeCommand.php',
-        'Nwidart\\Modules\\Commands\\MakeRequestCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MakeRequestCommand.php',
-        'Nwidart\\Modules\\Commands\\MigrateCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateCommand.php',
-        'Nwidart\\Modules\\Commands\\MigrateRefreshCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateRefreshCommand.php',
-        'Nwidart\\Modules\\Commands\\MigrateResetCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateResetCommand.php',
-        'Nwidart\\Modules\\Commands\\MigrateRollbackCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrateRollbackCommand.php',
-        'Nwidart\\Modules\\Commands\\MigrationCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/MigrationCommand.php',
-        'Nwidart\\Modules\\Commands\\ModelCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/ModelCommand.php',
-        'Nwidart\\Modules\\Commands\\PublishCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/PublishCommand.php',
-        'Nwidart\\Modules\\Commands\\PublishConfigurationCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/PublishConfigurationCommand.php',
-        'Nwidart\\Modules\\Commands\\PublishMigrationCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/PublishMigrationCommand.php',
-        'Nwidart\\Modules\\Commands\\PublishTranslationCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/PublishTranslationCommand.php',
-        'Nwidart\\Modules\\Commands\\SeedCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/SeedCommand.php',
-        'Nwidart\\Modules\\Commands\\SeedMakeCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/SeedMakeCommand.php',
-        'Nwidart\\Modules\\Commands\\SetupCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/SetupCommand.php',
-        'Nwidart\\Modules\\Commands\\UpdateCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/UpdateCommand.php',
-        'Nwidart\\Modules\\Commands\\UseCommand' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Commands/UseCommand.php',
-        'Nwidart\\Modules\\Contracts\\PublisherInterface' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Contracts/PublisherInterface.php',
-        'Nwidart\\Modules\\Contracts\\RepositoryInterface' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Contracts/RepositoryInterface.php',
-        'Nwidart\\Modules\\Contracts\\RunableInterface' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Contracts/RunableInterface.php',
-        'Nwidart\\Modules\\Exceptions\\FileAlreadyExistException' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Exceptions/FileAlreadyExistException.php',
-        'Nwidart\\Modules\\Exceptions\\InvalidAssetPath' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Exceptions/InvalidAssetPath.php',
-        'Nwidart\\Modules\\Exceptions\\InvalidJsonException' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Exceptions/InvalidJsonException.php',
-        'Nwidart\\Modules\\Exceptions\\ModuleNotFoundException' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Exceptions/ModuleNotFoundException.php',
-        'Nwidart\\Modules\\Facades\\Module' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Facades/Module.php',
-        'Nwidart\\Modules\\Generators\\FileGenerator' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Generators/FileGenerator.php',
-        'Nwidart\\Modules\\Generators\\Generator' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Generators/Generator.php',
-        'Nwidart\\Modules\\Generators\\ModuleGenerator' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Generators/ModuleGenerator.php',
-        'Nwidart\\Modules\\Json' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Json.php',
-        'Nwidart\\Modules\\LaravelModulesServiceProvider' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/LaravelModulesServiceProvider.php',
-        'Nwidart\\Modules\\Migrations\\Migrator' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Migrations/Migrator.php',
-        'Nwidart\\Modules\\Module' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Module.php',
-        'Nwidart\\Modules\\Process\\Installer' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Process/Installer.php',
-        'Nwidart\\Modules\\Process\\Runner' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Process/Runner.php',
-        'Nwidart\\Modules\\Process\\Updater' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Process/Updater.php',
-        'Nwidart\\Modules\\Providers\\BootstrapServiceProvider' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Providers/BootstrapServiceProvider.php',
-        'Nwidart\\Modules\\Providers\\ConsoleServiceProvider' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Providers/ConsoleServiceProvider.php',
-        'Nwidart\\Modules\\Providers\\ContractsServiceProvider' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Providers/ContractsServiceProvider.php',
-        'Nwidart\\Modules\\Publishing\\AssetPublisher' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Publishing/AssetPublisher.php',
-        'Nwidart\\Modules\\Publishing\\LangPublisher' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Publishing/LangPublisher.php',
-        'Nwidart\\Modules\\Publishing\\MigrationPublisher' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Publishing/MigrationPublisher.php',
-        'Nwidart\\Modules\\Publishing\\Publisher' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Publishing/Publisher.php',
-        'Nwidart\\Modules\\Repository' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Repository.php',
-        'Nwidart\\Modules\\Routing\\Controller' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Routing/Controller.php',
-        'Nwidart\\Modules\\Support\\Migrations\\NameParser' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Support/Migrations/NameParser.php',
-        'Nwidart\\Modules\\Support\\Migrations\\SchemaParser' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Support/Migrations/SchemaParser.php',
-        'Nwidart\\Modules\\Support\\Stub' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Support/Stub.php',
-        'Nwidart\\Modules\\Traits\\CanClearModulesCache' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Traits/CanClearModulesCache.php',
-        'Nwidart\\Modules\\Traits\\MigrationLoaderTrait' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Traits/MigrationLoaderTrait.php',
-        'Nwidart\\Modules\\Traits\\ModuleCommandTrait' => __DIR__ . '/..' . '/nwidart/laravel-modules/src/Traits/ModuleCommandTrait.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
         'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
         'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
@@ -3292,7 +3194,6 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
-        'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',

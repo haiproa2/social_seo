@@ -6,8 +6,6 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-use Modules\User\Contracts\Authentication;
-
 class Handler extends ExceptionHandler
 {
     /**
