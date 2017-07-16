@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('fontend.index');
 
-
 // Auth::routes();
 Route::get('dang-nhap', ['as' => 'auth.getLogin', 'uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('dang-nhap', ['as' => 'auth.postLogin', 'uses' => 'Auth\LoginController@login']);
@@ -28,5 +27,9 @@ Route::get('quen-mat-khau', ['as' => 'auth.getFormForget', 'uses' => 'Auth\Login
 Route::post('quen-mat-khau', ['as' => 'auth.postFormForget', 'uses' => 'Auth\LoginController@sendResetLinkEmail']);
 Route::get('doi-mat-khau/{token}', ['as' => 'auth.getRequest', 'uses' => 'Auth\LoginController@showResetForm']);
 Route::post('doi-mat-khau', ['as' => 'auth.postRequest', 'uses' => 'Auth\LoginController@reset']);
+
+Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
+	Route::get('/', ['as' => 'backend.index', 'uses' => 'Admin\DashboardController@index']);
+});
 
 Route::get('/home', 'HomeController@index')->name('home');

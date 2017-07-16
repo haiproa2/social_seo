@@ -106,6 +106,7 @@ jQuery(document).ready(function(){
 	
 	// hide left panel
 	function hideLeftPanel() {
+		jQuery('.showmenu span').toggleClass('iconfa-arrow-right iconfa-arrow-left');
 		jQuery('.leftpanel').css({marginLeft: '-260px'}).addClass('hide');
 		jQuery('.rightpanel').css({marginLeft: 0});
 		jQuery('.mainwrapper').css({backgroundPosition: '-260px 0'});
@@ -115,6 +116,7 @@ jQuery(document).ready(function(){
 	
 	// show left panel
 	function showLeftPanel() {
+		jQuery('.showmenu span').toggleClass('iconfa-arrow-right iconfa-arrow-left');
 		jQuery('.leftpanel').css({marginLeft: '0px'}).removeClass('hide');
 		jQuery('.rightpanel').css({marginLeft: '260px'});
 		jQuery('.mainwrapper').css({backgroundPosition: '0 0'});
@@ -125,10 +127,12 @@ jQuery(document).ready(function(){
 	// show and hide left panel
 	jQuery('.showmenu').click(function() {
 		jQuery(this).addClass('clicked');
-		if(jQuery('.leftpanel').hasClass('hide'))
+		if(jQuery('.leftpanel').hasClass('hide')){
 			showLeftPanel();
-		else
+		}
+		else{
 			hideLeftPanel();
+		}
 		return false;
 	});
 	
