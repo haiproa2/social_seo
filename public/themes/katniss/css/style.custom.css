@@ -1,0 +1,14 @@
+/* Form auth ... */
+.logintitle span[class*=iconfa]{font-size: 48px; margin-top: 14px; float: left; margin-right: 10px;}
+.loginwrapper .control-group a, .loginwrapper .control-group label{color: #c1c0c0; font-size: 14px; min-height: auto;}
+.loginwrapper .control-group:last-child{margin: 0px;}
+.loginwrapper .help-inline{display: block; margin-top: 2px; background: #fff;}
+.loginwrapper .help-inline a{color: #b94a48; font-size: 12px; text-decoration: underline;}
+.loginwrapper input#password-confirm{background: #eee url(../img/password.png) no-repeat 8px 12px}
+.loginwrapper input#name{background: #eee url(../img/glyphicons-info.png) no-repeat 8px 12px}
+.loginwrapper input#login{background: #eee url(../img/username.png) no-repeat 8px 12px}
+.loginwrapper input#email{background: #eee url(../img/glyphicons-email.png) no-repeat 8px 12px}
+.loginwrapper .control-group input:focus{background-color: #fff!important;}
+.loginwrapper .btn:focus{background-position: 0;}
+.loginwrap .alert{margin-bottom: 0px; font-size: 13px;}
+.loginwrap .alert-success a{color: #468847; text-decoration: underline;}
