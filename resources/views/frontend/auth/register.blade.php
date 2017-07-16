@@ -11,10 +11,9 @@
         </div>
         @endif
         <div class="loginwrapperinner">
-            <form id="loginform" action="{{ route('auth.postRegister') }}" method="post">
-                {{ csrf_field() }}
+            {{ Form::open(['route' => 'auth.postRegister']) }}
                 <div class="control-group animate4 bounceIn{{ $errors->has('name') ? ' error' : '' }}">
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="{{ trans('auth.placeholder_name') }}" autofocus />
+                    {{ Form::text('name', null, ['id'=>'name', 'placeholder'=>trans('auth.placeholder_name'), 'autofocus'=>true]) }}
                     @if ($errors->has('name'))
                     <span class="help-inline">
                         <strong>{{ $errors->first('name') }}</strong>
@@ -22,7 +21,7 @@
                     @endif
                 </div>
                 <div class="control-group animate5 bounceIn{{ $errors->has('username') ? ' error' : '' }}">
-                    <input type="text" id="username" name="username" value="{{ old('username') }}" placeholder="{{ trans('auth.placeholder_username') }}" />
+                    {{ Form::text('username', null, ['id'=>'username', 'placeholder'=>trans('auth.placeholder_username')]) }}
                     @if ($errors->has('username'))
                     <span class="help-inline">
                         <strong>{{ $errors->first('username') }}</strong>
@@ -30,7 +29,7 @@
                     @endif
                 </div>
                 <div class="control-group animate6 bounceIn{{ $errors->has('email') ? ' error' : '' }}">
-                    <input type="text" id="email" name="email" value="{{ old('email') }}" placeholder="{{ trans('auth.placeholder_email') }}" />
+                    {{ Form::text('email', null, ['id'=>'email', 'placeholder'=>trans('auth.placeholder_email')]) }}
                     @if ($errors->has('email'))
                     <span class="help-inline">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -38,7 +37,7 @@
                     @endif
                 </div>
                 <div class="control-group animate7 bounceIn{{ $errors->has('password') ? ' error' : '' }}">
-                    <input type="password" id="password" name="password" placeholder="{{ trans('auth.placeholder_password') }}" />
+                    {{ Form::password('password', ['id'=>'password', 'placeholder'=>trans('auth.placeholder_password')]) }}
                     @if ($errors->has('password'))
                     <span class="help-inline">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -46,7 +45,7 @@
                     @endif
                 </div>
                 <div class="control-group animate8 bounceIn">
-                    <input type="password" id="password-confirm" name="password_confirmation" placeholder="{{ trans('auth.placeholder_password_confirm') }}" />
+                    {{ Form::password('password_confirmation', ['id'=>'password-confirm', 'placeholder'=>trans('auth.placeholder_password_confirm')]) }}
                 </div>
                 <div class="control-group animate10 bounceIn">
                     <button class="btn btn-default btn-block">{{ trans('auth.btn_register') }}</button>
@@ -55,7 +54,7 @@
                     <a href="{{ route('auth.getLogin') }}" class="span6"><span class="icon-arrow-left icon-white"></span> {{ trans('auth.anchor_login') }}</a>
                     <a href="{{ route('auth.getFormForget') }}" class="span6 text-right"><span class="icon-question-sign icon-white"></span> {{ trans('auth.anchor_forgot_pass') }}</a>
                 </div>
-            </form>
+            {{ Form::close() }}
         </div><!--loginwrapperinner-->
     </div>
     <div class="loginshadow animate3 fadeInUp"></div>

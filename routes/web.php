@@ -18,7 +18,7 @@ Route::get('/', function () {
 // Auth::routes();
 Route::get('dang-nhap', ['as' => 'auth.getLogin', 'uses' => 'Auth\LoginController@showLoginForm']);
 Route::post('dang-nhap', ['as' => 'auth.postLogin', 'uses' => 'Auth\LoginController@login']);
-Route::get('dang-xuat', ['as' => 'auth.getLogout', 'uses' => 'Auth\LoginController@logout']);
+Route::get('dang-xuat', ['as' => 'auth.logout', 'uses' => 'Auth\LoginController@logout']);
 // Registration Routes...
 Route::get('dang-ky', ['as' => 'auth.getRegister', 'uses' => 'Auth\LoginController@showRegistrationForm']);
 Route::post('dang-ky', ['as' => 'auth.postRegister', 'uses' => 'Auth\LoginController@register']);
@@ -30,6 +30,11 @@ Route::post('doi-mat-khau', ['as' => 'auth.postRequest', 'uses' => 'Auth\LoginCo
 
 Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::get('/', ['as' => 'backend.index', 'uses' => 'Admin\DashboardController@index']);
+
+	Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
+		Route::get('/', ['as' => 'backend.user', 'uses' => 'Admin\UserController@index']);
+		Route::post('/', ['as' => 'backend.user.saveDetail', 'uses' => 'Admin\UserController@saveDetail']);
+	});
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

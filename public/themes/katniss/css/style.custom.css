@@ -6,8 +6,16 @@
 .userinfo .dropdown-toggle{color: #fff;}
 .showmenu:focus, .notification .dropdown-toggle:focus, .userinfo .dropdown-toggle:focus, .showmenu:hover, .notification .dropdown-toggle:hover, .userinfo .dropdown-toggle:hover{text-decoration: none; color: #fff; opacity: 0.7}
 .headerright .dropdown{margin-left: 0px;}
+.notification .dropdown-toggle:first-child{margin-right: 8px;}
+.dropdown-menu .divider{border-color: #e2e2e2;}
 
 .searchwidget input.search-query{height: 36px;}
+.leftmenu .nav-tabs.nav-stacked > .dropdown > a{background: transparent url(../img/arrowleft.png) no-repeat right center !important}
+.leftmenu .nav-tabs ul li.active{position: relative;}
+.leftmenu .nav-tabs ul li.active:after{
+	content: ''; display: inline-block; position: absolute; right: 3px; top: 12px;
+    border: 2px solid #797979; border-radius: 100%;
+}
 
 .rightpanel{
 	transition: margin 0.05s;
@@ -15,6 +23,13 @@
     -webkit-transition: margin 0.05s;
     -o-transition: margin 0.05s;
 }
+
+.profilethumb{display: block; text-align: center;}
+.profilethumb img{margin: auto;}
+.fileupload .input-append{display: block; text-align: center;}
+.fileupload .input-append .btn, .fileupload .input-prepend .btn{padding-top: 4px; padding-bottom: 4px;}
+.uneditable-input.span12{width: calc(100% - 82px); min-height: 30px;}
+.fileupload-exists .uneditable-input.span12{width: calc(100% - 142px);}
 
 /* Form auth ... */
 .logintitle span[class*=iconfa]{font-size: 48px; margin-top: 14px; float: left; margin-right: 10px;}

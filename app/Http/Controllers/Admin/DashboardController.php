@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 
-class DashboardController extends Controller
+use Auth;
+
+class DashboardController extends AdminController
 {
-	
     public function index(){
-    	return view('backend.index');
+    	return view('backend.index')->with([
+    		'com' => 'index',
+    		]);
     }
 }

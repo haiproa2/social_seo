@@ -6,16 +6,15 @@
     <div class="loginwrap zindex100 animate2 bounceInDown">
     <h1 class="logintitle"><span class="iconfa-lock"></span> Sign In <span class="subtitle">Hello! Sign in to get you started!</span></h1>
         <div class="loginwrapperinner">
-            <form id="loginform" action="{{ route('auth.postLogin') }}" method="post">
-                {{ csrf_field() }}
+            {{ Form::open(['route' => 'auth.postLogin']) }}
                 <div class="control-group animate4 bounceIn{{ $errors->has('login') ? ' error' : '' }}">
-                    <input type="text" id="login" name="login" value="{{ old('login') }}" placeholder="{{ trans('auth.placeholder_login') }}" required autofocus />
+                    {{ Form::text('login', 'minhhai.dw@gmail.com', ['id'=>'login', 'placeholder'=>trans('auth.placeholder_login'), 'required'=>true, 'autofocus'=>true]) }}
                     @if ($errors->has('login'))
                     <span class="help-inline">{!! $errors->first('login') !!}</span>
                     @endif
                 </div>
                 <div class="control-group animate5 bounceIn{{ $errors->has('password') ? ' error' : '' }}">
-                    <input type="password" id="password" name="password" placeholder="{{ trans('auth.placeholder_password') }}" required />
+                    {{ Form::password('password', ['id'=>'password', 'placeholder'=>trans('auth.placeholder_password'), 'required'=>true]) }}
                     @if ($errors->has('password'))
                     <span class="help-inline">
                         <strong>{{ $errors->first('password') }}</strong>
@@ -23,7 +22,7 @@
                     @endif
                 </div>
                 <div class="control-group animate6 bounceIn">
-                    <label><input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ trans('auth.text_remember') }}</label>
+                    <label>{{ Form::checkbox('remember') }} {{ trans('auth.text_remember') }}</label>
                 </div>
                 <div class="control-group animate7 bounceIn">
                     <button class="btn btn-default btn-block">{{ trans('auth.btn_login') }}</button>
@@ -32,7 +31,7 @@
                     <a href="{{ route('auth.getFormForget') }}" class="span6"><span class="icon-question-sign icon-white"></span> {{ trans('auth.anchor_forgot_pass') }}</a>
                     <a href="{{ route('auth.getRegister') }}" class="span6 text-right"><span class="icon-pencil icon-white"></span> {{ trans('auth.anchor_register') }}</a>
                 </div>
-            </form>
+            {{ Form::close() }}
         </div><!--loginwrapperinner-->
     </div>
     <div class="loginshadow animate3 fadeInUp"></div>

@@ -138,7 +138,7 @@ jQuery(document).ready(function(){
 	
 	// transform checkbox and radio box using uniform plugin
 	if(jQuery().uniform)
-		jQuery('input:checkbox, input:radio, select.uniformselect').uniform();
+		jQuery('input:checkbox, input:radio, select.uniformselect, .uniform-file').uniform();
 	
 	
 	// show/hide widget content or widget content's child	
@@ -238,6 +238,13 @@ jQuery(document).ready(function(){
 		});
 	}
 
+	/*if(jQuery('.profilethumb').length > 0){
+		jQuery('.profilethumb').hover(function(){
+			jQuery(this).find('a').fadeIn();
+		},function(){
+			jQuery(this).find('a').fadeOut();
+		});
+	}*/
 	
 	// date picker
 	if(jQuery('#datepicker').length > 0)

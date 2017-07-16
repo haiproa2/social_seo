@@ -8,11 +8,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title_bar }} {{ config('app.name', 'Laravel') }} [ADMIN AREA]</title>
 
     <!-- Styles -->
     <link href="{{ asset('themes/katniss/css/style.default.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/prettify/prettify.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/katniss/css/bootstrap-fileupload.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/katniss/css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/css/style.custom.css?v='.time()) }}" rel="stylesheet">
 
     <script type="text/javascript" src="{{ asset('themes/katniss/prettify/prettify.js') }}"></script>
@@ -20,6 +22,8 @@
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery-migrate-1.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery-ui-1.9.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('themes/katniss/js/bootstrap-fileupload.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('themes/katniss/js/bootstrap-timepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.cookie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.flot.min.js') }}"></script>
@@ -36,14 +40,13 @@
 
 		<div class="rightpanel">
 			@include('backend.layouts.header')
-
+            
 			@yield('content')
+        </div>
 
-		</div>
+        <div class="clearfix"></div>
 
-		<div class="clearfix"></div>
-
-		@include('backend.layouts.footer')
-	</div>
+        @include('backend.layouts.footer')
+    </div>
 </body>
 </html>
