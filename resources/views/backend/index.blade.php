@@ -13,11 +13,11 @@
     </ul><!--skins-->
     <ul class="breadcrumb">
         <li><a href="{{ route('backend.index') }}">Admin Area</a> <span class="divider">/</span></li>
-        <li class="active">Dashboard</li>
+        <li class="active">Trang chủ</li>
     </ul>
 </div><!--breadcrumbs-->
 <div class="pagetitle animate5 fadeInUp">
-    <h1>Dashboard</h1> <span>Thống kê dữ liệu website</span>
+    <h1>Trang chủ</h1> <span>Thống kê dữ liệu website</span>
 </div><!--pagetitle-->
 <div class="contentinner content-charts animate7 fadeInUp">
 	<div class="alert alert-info">

@@ -1,3 +1,12 @@
+<?php
+session_start();
+    $_SESSION['ckfinder']['isLogged'] = Auth::user()->active;
+
+    $_SESSION['ckfinder']['canView'] = Auth::user()->active;
+    $_SESSION['ckfinder']['canCreate'] = Auth::user()->active;
+    $_SESSION['ckfinder']['canEdit'] = Auth::user()->active;
+    $_SESSION['ckfinder']['canDelete'] = Auth::user()->active;
+?>
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -33,6 +42,14 @@
     @if (session('redirect'))
     <meta http-equiv="refresh" content="{!! session('redirect_second') !!}; url={!! session('redirect') !!}" />
     @endif
+
+    <script type="text/javascript">
+        var base = "{{ route('fontend.index') }}";
+    </script>
+
+    <script type="text/javascript" src="{{ asset('plugins/ckeditor_4.6.0/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/ckfinder_2.6.2.1/ckfinder.js') }}"></script>
+
 </head>
 <body>
 	<div class="mainwrapper fullwrapper">

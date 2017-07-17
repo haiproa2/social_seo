@@ -13,6 +13,7 @@ class UserController extends AdminController
     	return view('backend.users.index')->with([
     		'com' => 'user',
     		'com_type' => 'user_detail',
+            'title_bar' => 'Cập nhật thông tin cá nhân - ',
     		'item' => $item,
     		]);
     }

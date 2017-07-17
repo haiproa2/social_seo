@@ -13,16 +13,16 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.extraPlugins = 'youtube';
 	
-	/*config.filebrowserBrowseUrl = baseURL+'public/admin/plugin/ckfinder/ckfinder.html';
-	config.filebrowserImageBrowseUrl = baseURL+'public/admin/plugin/ckfinder/ckfinder.html?type=Images';
-	config.filebrowserFlashBrowseUrl = baseURL+'public/admin/plugin/ckfinder/ckfinder.html?type=Flash';
-	config.filebrowserUploadUrl = baseURL+'public/admin/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
-	config.filebrowserImageUploadUrl = baseURL+'public/admin/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
-	config.filebrowserFlashUploadUrl = baseURL+'public/admin/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';*/
+	/*config.filebrowserBrowseUrl = baseURL+'admin/plugin/ckfinder/ckfinder.html';
+	config.filebrowserImageBrowseUrl = baseURL+'admin/plugin/ckfinder/ckfinder.html?type=Images';
+	config.filebrowserFlashBrowseUrl = baseURL+'admin/plugin/ckfinder/ckfinder.html?type=Flash';
+	config.filebrowserUploadUrl = baseURL+'admin/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
+	config.filebrowserImageUploadUrl = baseURL+'admin/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
+	config.filebrowserFlashUploadUrl = baseURL+'admin/plugin/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';*/
 
-	config.filebrowserBrowseUrl = base+'plugins/ckfinder_2.6.2.1/ckfinder.html';
-	config.filebrowserImageBrowseUrl = base+'plugins/ckfinder_2.6.2.1/ckfinder.html?type=Images';
-	config.filebrowserFlashBrowseUrl = base+'plugins/ckfinder_2.6.2.1/ckfinder.html?type=Flashs';
+	config.filebrowserBrowseUrl = base+'/plugins/ckfinder_2.6.2.1/ckfinder.html';
+	config.filebrowserImageBrowseUrl = base+'/plugins/ckfinder_2.6.2.1/ckfinder.html?type=Images';
+	config.filebrowserFlashBrowseUrl = base+'/plugins/ckfinder_2.6.2.1/ckfinder.html?type=Flashs';
 
 	config.toolbar = [
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Preview', 'Print', '-', 'Templates' ] },

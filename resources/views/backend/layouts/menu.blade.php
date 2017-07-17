@@ -26,7 +26,7 @@
     <div class="leftmenu animate8 fadeInUp">        
         <ul class="nav nav-tabs nav-stacked">
         	<li class="nav-header">Menu Administrator</li>
-            <li{!! ($com=='index')?' class="active"':'' !!}><a href="{{ route('backend.index') }}"><span class="icon-align-justify"></span> Dashboard</a></li>
+            <li{!! ($com=='index')?' class="active"':'' !!}><a href="{{ route('backend.index') }}"><span class="icon-home"></span> Trang chủ</a></li>
             <li class="dropdown{!! ($com=='user')?' active':'' !!}"><a href="{{ route('backend.user') }}"><span class="icon-user"></span> Thành viên</a>
             	<ul{!! ($com=='user')?' style="display:block"':'' !!}>
                 	<li{!! ($com_type=='user_detail')?' class="active"':'' !!}><a href="{{ route('backend.user') }}">Thông tin cá nhân</a></li>

@@ -16,10 +16,10 @@
         <li class="active">Thành viên</li>
     </ul>
 </div><!--breadcrumbs-->
-<div class="pagetitle animate5 fadeInUp">
-    <h1>Thông tin cá nhân</h1> <span>Xem chi tiết và cập nhật tất cả thông tin cá nhân.</span>
+<div class="pagetitle animate4 fadeInUp">
+    <h1>Trang cá nhân</h1> <span>Quản lý và cập nhật tất cả thông tin cá nhân.</span>
 </div><!--pagetitle-->
-<div class="contentinner content-editprofile animate7 fadeInUp">
+<div class="contentinner content-editprofile animate5 fadeInUp">
 	<div class="row-fluid">
 		<div class="span12">
 			<h4 class="widgettitle nomargin shadowed"></h4>
@@ -48,30 +48,91 @@
                                 	</div>
                                 </div>
                             </div>
-							<div class="text-center hidden" id="area-photo">
-								<span class="area-photos" id-img="image" id-thumb="thumb" id-photo="photo" data-width="200" data-height="200" data-type="background" data-startup-path="members/">
-									<span class="area-photo">
-										<span class="profilethumb">
-											<img src="/themes/katniss/img/preview/image.png" alt="Chưa có hình" title="Chọn hình khác" class="chooseFile" id="image">
-											<span id="link-upload-image" class="chooseFile" style="display: none;">Chọn hình khác</span>
+						</div>
+						<div class="span9">
+							<div class="row-fluid">
+								<div class="span6">
+									<h4>Thông tin đăng nhập</h4>
+									<p class="row-fluid">
+										<span class="span4"><label for="username" style="padding:0px">Tài khoản</label></span>
+										<span class="span8"><span>{{ Auth::user()->username }}</span></span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4"><label for="name">Họ và tên <span class="text-error">*</span></label></span>
+										<span class="span8">{{ Form::text('name', Auth::user()->name, ['id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true]) }}</span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4"><label for="email">Địa chỉ Email <span class="text-error">*</span></label></span>
+										<span class="span8">{{ Form::email('email', Auth::user()->email, ['id'=>'email', 'class'=>'span12', 'required'=>true]) }}</span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4"><label for="phone">Số điện thoại</label></span>
+										<span class="span8">{{ Form::text('phone', Auth::user()->phone, ['id'=>'phone', 'class'=>'span12']) }}</span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4"><label for="birthday">Ngày sinh</label></span>
+										<span class="span8">{{ Form::text('birthday', Auth::user()->birthday, ['id'=>'birthday', 'class'=>'span12']) }}</span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4"><label for="sex">Giới tính</label></span>
+										<span class="span8">
+											<label class="uniform-label">{{ Form::radio('sex', 1, Auth::user()->sex, ['id'=>'sex-1', 'class'=>'span12']) }} Nam</label>
+											<label class="uniform-label">{{ Form::radio('sex', 0, Auth::user()->sex, ['id'=>'sex-0', 'class'=>'span12']) }} Nữ</label>
 										</span>
-										<small>Click hình ảnh để thay đổi hoặc chỉnh sửa.</small>
-										<input id="thumb" name="thumb" type="hidden" value="/uploads/images/members/admin-small(200x200-crop).jpg">
-										<input id="photo" name="photo" type="hidden" value="members/admin.jpg">
-									</span>
-									<a href="choose-photo" class="chooseFile" title="Chọn hình ảnh">Chọn hình ảnh</a> /
-									<a href="remove-photo" class="btn-remove-file" title="Loại bỏ ảnh">Loại bỏ ảnh</a>
-								</span>
+									</p>
+								</div>
+								<div class="span6">
+									<div class="row-fluid">
+										<div class="span12">
+											<h4>Quan trọng</h4>
+											<p class="row-fluid">
+												<span class="span4">
+													<label for="role" style="padding:0px">Nhóm</label>
+												</span>
+												<span class="span8">--</span>
+											</p>
+											<p class="row-fluid">
+												<span class="span4">
+													<label for="status" style="padding:0px">Trạng thái</label>
+												</span>
+												<span class="span8">Đang hoạt động</span>
+											</p>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span12">
+											<h4>Thay đổi mật khẩu</h4>
+											<p class="row-fluid">
+												<span class="span4"><label for="new_password">Mật khẩu mới</label></span>
+												<span class="span8">{{ Form::password('new_password', ['id'=>'new_password', 'class'=>'span12']) }}</span>
+											</p>
+											<p class="row-fluid">
+												<span class="span4"><label for="comfirm_password">Nhắc lại mật khẩu</label></span>
+												<span class="span8">{{ Form::password('comfirm_password', ['id'=>'comfirm_password', 'class'=>'span12']) }}</span>
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="span3">
-							<h4>Quan trọng</h4>
-						</div>
-						<div class="span6"></div>
+					</div>
+					<div class="row-fluid">
+						<h4>Tự giới thiệu</h4>
+						<p>{{ Form::textarea('content', '', ['id'=>'content_user', 'class'=>'span12 ckeditor']) }}</p>
 					</div>
 				</div>
 			{{ Form::close() }}
 		</div>
 	</div><!--row-fluid-->
 </div><!--contentinner-->
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery("#birthday").datepicker({
+			dateFormat: 'd MM, yy',
+			changeMonth: true,
+			changeYear: true,
+			maxDate: '-12Y'
+		});
+	});
+</script>
 @endsection
