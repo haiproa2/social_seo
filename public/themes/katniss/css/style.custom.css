@@ -50,6 +50,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .ui-datepicker-title{margin: auto; width: calc(100% - 30px)}
 .ui-datepicker-title:after{content: ''; display: table; clear: both;}
 .ui-datepicker-title select{width: calc(50% - 6px); margin: 0px 3px; display: block; float: left;}
+.ui-datepicker-calendar td.ui-state-disabled{background: #f8f8f8}
 
 .editprofileform p{margin: 10px 0px;}
 .editprofileform label{width: 100%;}
