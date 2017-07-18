@@ -51,6 +51,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .ui-datepicker-title:after{content: ''; display: table; clear: both;}
 .ui-datepicker-title select{width: calc(50% - 6px); margin: 0px 3px; display: block; float: left;}
 .ui-datepicker-calendar td.ui-state-disabled{background: #f8f8f8}
+.ui-datepicker-calendar td.ui-datepicker-current-day > a{background: #235688; color: #fff; font-weight: bold;}
+.ui-datepicker-calendar td.ui-datepicker-current-day > a:hover{background: #3b77b3;}
 
 .editprofileform p{margin: 10px 0px;}
 .editprofileform label{width: 100%;}
@@ -85,6 +87,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .loginwrap .alert-success a{color: #468847; text-decoration: underline;}
 
 /** jQuery jgrowl Styling themes **/
+div.jGrowl.top-right{top: 77px;}
+div.jGrowl.top-left{top: 77px;}
+div.jGrowl.bottom-right{bottom: 45px;}
+div.jGrowl.bottom-left{bottom: 45px;}
 div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer{position: relative;}
 div.jGrowl div.jGrowl-notification div.jGrowl-close{position: absolute; right: 3px; top: 0px;}
 div.jGrowl div.jGrowl-notification.success, div.jGrowl div.jGrowl-closer{

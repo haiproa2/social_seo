@@ -80,11 +80,11 @@ else $updateForm = false;
 										</span>
 									</p>
 									<p class="row-fluid">
-										<span class="span4"><label for="phone">Số điện thoại</label></span>
-										<span class="span8{{ $errors->has('password') ? ' error' : '' }}">
-											{{ Form::text('phone', $user->phone, ['id'=>'phone', 'class'=>'span12']) }}
-											@if ($errors->has('phone'))
-											<span class="help-inline">{!! $errors->first('phone') !!}</span>
+										<span class="span4"><label for="telephone">Số điện thoại</label></span>
+										<span class="span8{{ $errors->has('telephone') ? ' error' : '' }}">
+											{{ Form::text('telephone', $user->telephone, ['id'=>'telephone', 'class'=>'span12']) }}
+											@if ($errors->has('telephone'))
+											<span class="help-inline">{!! $errors->first('telephone') !!}</span>
 											@endif
 										</span>
 									</p>
@@ -162,14 +162,14 @@ else $updateForm = false;
 </div><!--contentinner-->
 <script type="text/javascript">
 	jQuery(document).ready(function(){
-		<?php if ($errors->isEmpty()): ?>
-		var msg = "Dữ liệu đã được cập nhật."; 
-		var theme = "success"; 
-		<?php else: ?>
-		var msg = "Có một vài lỗi xãy ra, vui lòng xem lại dữ liệu."; 
-		var theme = "error"; 
-		<?php endif ?>
-		jQuery.jGrowl(msg, { life: 1000000, theme: theme});
+		<?php if (!$errors->isEmpty()){ ?>
+		var msg = "Đã xảy ra một vài lỗi.<br/>Vui lòng xem lại các trường dữ liệu."; 
+		var type = "error"; 
+		<?php } if (Session::has('flash_type')){ ?>
+		var msg = "{!! Session::get('flash_messager') !!}"; 
+		var type = "{{ Session::get('flash_type') }}"; 
+		<?php } ?>
+		jQuery.jGrowl(msg, { life: 5000, theme: type});
 	});
 </script>
 @endsection
