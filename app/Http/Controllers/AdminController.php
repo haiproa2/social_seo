@@ -9,16 +9,17 @@ use Auth, View;
 
 class AdminController extends Controller
 {
-	protected $user;
+    protected $prefix = '';
+    protected $action = '';
 
-	public $com = '';
+    public function __construct(Request $request){
+        $this->prefix = ($request->segment(2))?$request->segment(2):'index';
+        $this->action = ($request->segment(4))?$request->segment(4):'list';
 
-	public function __construct(){
-		$this->user = $this->getAuth();
-        view::share(['member' => $this->user, 'title_bar' => '', 'com' => '', 'com_type' => '']);
-	}
-
-	protected function getAuth(){
-		$this->user = Auth::user();
-	}
+        view::share([
+        	'title_bar' => '', 
+        	'prefix' => ($request->segment(2))?$request->segment(2):'index', 
+        	'action' => ($request->segment(4))?$request->segment(4):'list'
+        ]);
+    }
 }

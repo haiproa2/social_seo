@@ -13,9 +13,13 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('options', function (Blueprint $table) {
+        Schema::connection('mysql_data')->create('options', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type', 250)->nullable();
+            $table->integer('id_type')->default(0);
+            $table->string('value_type', 250)->nullable();
             $table->timestamps();
+            $table->integer('active')->default(0);
         });
     }
 
@@ -26,6 +30,6 @@ class CreateOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('options');
+        Schema::connection('mysql_data')->dropIfExists('options');
     }
 }

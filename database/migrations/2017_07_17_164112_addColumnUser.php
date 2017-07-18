@@ -14,7 +14,9 @@ class AddColumnUser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->integer('sex')->after('photo')->default(0);
+            $table->string('birthday', 250)->after('sex')->nullable();
+            $table->text('content')->after('birthday')->nullable();
         });
     }
 
@@ -26,7 +28,7 @@ class AddColumnUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn(['sex', 'birthday', 'content']);
         });
     }
 }

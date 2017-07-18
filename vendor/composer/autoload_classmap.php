@@ -1462,6 +1462,7 @@ return array(
     'Monolog\\Processor\\UidProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/UidProcessor.php',
     'Monolog\\Processor\\WebProcessor' => $vendorDir . '/monolog/monolog/src/Monolog/Processor/WebProcessor.php',
     'Monolog\\Registry' => $vendorDir . '/monolog/monolog/src/Monolog/Registry.php',
+    'OptionsTableSeeder' => $baseDir . '/database/seeds/OptionsTableSeeder.php',
     'PHPUnit\\Framework\\Assert' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
     'PHPUnit\\Framework\\AssertionFailedError' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
     'PHPUnit\\Framework\\BaseTestListener' => $vendorDir . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',

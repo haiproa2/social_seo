@@ -11,6 +11,8 @@ div.jGrowl.bottom-left { left: 0px; bottom:	0px; }
 div.jGrowl.bottom-right { right: 0px; bottom: 0px; }
 div.jGrowl.center { top: 30px; width: 50%; left: 40%; }
 
+/** Styling themes **/
+
 /** Cross Browser Styling **/
 div.center div.jGrowl-notification, div.center div.jGrowl-closer {
 	margin-left: 		auto;

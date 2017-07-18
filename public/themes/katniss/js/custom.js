@@ -1,10 +1,50 @@
 jQuery.noConflict();
+function randomPassword(leng){
+	var text = "";
+	leng = leng | 6;
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+
+	for (var i = 0; i < leng; i++)
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	return text;
+}
 
 jQuery(document).ready(function(){
 	
 	prettyPrint();			//syntax highlighter
 	mainwrapperHeight();
 	responsive();
+
+	/* User detail */
+	jQuery(".btn-generate-password").click(function(){
+		jQuery(this).find('span').toggleClass('iconfa-random iconfa-refresh').addClass('icon-spin');
+		var pass = randomPassword(10);
+		jQuery("."+jQuery(this).attr('rel-class')).val(pass);
+		jQuery(this).val(pass);
+		jAlert('<p class="text-success text-center">'+pass+'</p>', 'Gợi ý mật khẩu', function(){
+			console.log('done');
+			jQuery(".btn-generate-password").find('span').toggleClass('iconfa-random iconfa-refresh').removeClass('icon-spin');
+	    });
+	});
+	jQuery(".btn-show-password").click(function(){
+		var type = jQuery(this).prev().attr('type');
+		if(type=='password'){
+			jQuery("."+jQuery(this).attr('rel-class')).attr('type', 'text');
+			jQuery(this).attr('data-original-title', 'Click ẩn mật khẩu');
+		} else {
+			jQuery("."+jQuery(this).attr('rel-class')).attr('type', 'password');
+			jQuery(this).attr('data-original-title', 'Click xem mật khẩu');
+		}
+		jQuery(this).find('span').toggleClass('iconfa-eye-close iconfa-eye-open');
+	});
+	jQuery("#birthday").datepicker({
+		dateFormat: 'd MM, yy',
+		changeMonth: true,
+		changeYear: true,
+		maxDate: '-12Y'
+	});
+	/* End User detail */
 	
 	
 	// animation
@@ -319,11 +359,11 @@ jQuery(document).ready(function(){
 		});
 	}
 	
-	// tooltip sample
-	if(jQuery('.tooltipsample').length > 0)
-		jQuery('.tooltipsample').tooltip({selector: "a[rel=tooltip]"});
-		
-	jQuery('.popoversample').popover({selector: 'a[rel=popover]', trigger: 'hover'});
+	// tooltip and popover
+	jQuery('[data-toggle="tooltip"]').tooltip()
+	jQuery('[data-toggle="popover"]').popover({
+		trigger: 'hover'
+	})
 	
 	
 	

@@ -34,6 +34,8 @@ session_start();
     <script type="text/javascript" src="{{ asset('themes/katniss/js/bootstrap-fileupload.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/bootstrap-timepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.cookie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.jgrowl.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.alerts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.flot.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('themes/katniss/js/jquery.flot.pie.js') }}"></script>

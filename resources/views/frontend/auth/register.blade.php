@@ -16,7 +16,7 @@
                     {{ Form::text('name', null, ['id'=>'name', 'placeholder'=>trans('auth.placeholder_name'), 'autofocus'=>true]) }}
                     @if ($errors->has('name'))
                     <span class="help-inline">
-                        <strong>{{ $errors->first('name') }}</strong>
+                        <strong>{!! $errors->first('name') !!}</strong>
                     </span>
                     @endif
                 </div>
@@ -24,7 +24,7 @@
                     {{ Form::text('username', null, ['id'=>'username', 'placeholder'=>trans('auth.placeholder_username')]) }}
                     @if ($errors->has('username'))
                     <span class="help-inline">
-                        <strong>{{ $errors->first('username') }}</strong>
+                        <strong>{!! $errors->first('username') !!}</strong>
                     </span>
                     @endif
                 </div>
@@ -32,7 +32,7 @@
                     {{ Form::text('email', null, ['id'=>'email', 'placeholder'=>trans('auth.placeholder_email')]) }}
                     @if ($errors->has('email'))
                     <span class="help-inline">
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <strong>{!! $errors->first('email') !!}</strong>
                     </span>
                     @endif
                 </div>
@@ -40,7 +40,7 @@
                     {{ Form::password('password', ['id'=>'password', 'placeholder'=>trans('auth.placeholder_password')]) }}
                     @if ($errors->has('password'))
                     <span class="help-inline">
-                        <strong>{{ $errors->first('password') }}</strong>
+                        <strong>{!! $errors->first('password') !!}</strong>
                     </span>
                     @endif
                 </div>

@@ -2,6 +2,11 @@
 *{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{min-height: 30px;}
 .row-fluid [class*="span"]{min-height: auto;}
+
+.hasDatepicker{cursor: pointer!important; background-color: #eee!important;}
+
+.icon-spin{-webkit-animation: icon-spin 2s infinite linear; animation: icon-spin 2s infinite linear;}
+
 .logopanel{text-align: center;}
 .showmenu{background-image: none; font-size: 20px; padding: 7px 10px; color: #fff; text-align: center;}
 .notification .dropdown-toggle .caret{color: #fff; border-top-color: #fff;}
@@ -26,9 +31,16 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     -o-transition: margin 0.05s;
 }
 
+.input-append{display: block; margin: 0px;}
+.input-append input.one-item.with-btn-icon{width: calc(100% - 40px);}
+.input-append input.two-item.with-btn-icon{width: calc(100% - 80px);}
+.input-append input.three-item.with-btn-icon{width: calc(100% - 120px);}
+.input-append .btn-icon{width: 40px; text-align: center; padding: 4px 0px;}
+.input-append .btn-icon [class^='iconfa-']{font-size: 16px; display: inline-block; vertical-align: middle; line-height: 1.2}
+
 .profilethumb{display: block; text-align: center; margin-bottom: 5px;}
 .profilethumb img{margin: auto; max-width: 170px;}
-.fileupload .input-append{display: block; text-align: center;}
+.fileupload .input-append{text-align: center;}
 .fileupload .input-append .btn, .fileupload .input-prepend .btn{padding-top: 4px; padding-bottom: 4px;}
 .uneditable-input.span12{width: calc(100% - 82px); min-height: 30px;}
 .fileupload-exists .uneditable-input.span12{width: calc(100% - 142px);}
@@ -48,6 +60,14 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 	margin-bottom: 0; font-size: 12px; color: #000; background: #fcfcfc; min-height: 30px;
 }
 
+*[class^='span'].error input{
+	border-color: #b94a48; background: rgba(185, 74, 72, 0.2)!important;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+*[class^='span'].error .help-inline{color: #b94b49;}
+
 /* Form auth ... */
 .logintitle span[class*=iconfa]{font-size: 48px; margin-top: 14px; float: left; margin-right: 10px;}
 .loginwrapper .control-group a, .loginwrapper .control-group label{color: #c1c0c0; font-size: 14px; min-height: auto;}
@@ -62,3 +82,37 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .loginwrapper .btn:focus{background-position: 0;}
 .loginwrap .alert{margin-bottom: 0px; font-size: 13px;}
 .loginwrap .alert-success a{color: #468847; text-decoration: underline;}
+
+/** jQuery jgrowl Styling themes **/
+div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer{position: relative;}
+div.jGrowl div.jGrowl-notification div.jGrowl-close{position: absolute; right: 3px; top: 0px;}
+div.jGrowl div.jGrowl-notification.success, div.jGrowl div.jGrowl-closer{
+	background-color: #468847;
+	border-color: #134814; 
+}
+div.jGrowl div.jGrowl-notification.error, div.jGrowl div.jGrowl-closer{
+	background-color: #d86f6e;
+	border-color: #b94a48; 
+}
+
+
+@-webkit-keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
