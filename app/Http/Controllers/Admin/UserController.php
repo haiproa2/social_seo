@@ -9,12 +9,17 @@ use Auth, Hash, App\Option, App\User;
 
 class UserController extends AdminController
 {
+    public function __construct(Request $request){
+        parent::__construct($request);
+    }
     public function index(){
     	$item = Auth::user();
         $item->active = Option::where([['type', 'active'], ['active', 1], ['id_type', $item->active]])->pluck('value_type')->first();
     	return view('backend.users.index')->with([
-    		'action' => 'detail',
-            'title_bar' => 'Cập nhật thông tin cá nhân - ',
+            'action' => 'detail',
+    		'updateForm' => true,
+            'title' => 'Thông tin cá nhân',
+            'description' => 'Quản lý và cập nhật tất cả thông tin cá nhân.',
     		'user' => $item,
     		]);
     }
@@ -58,5 +63,38 @@ class UserController extends AdminController
 
         $user->save();
         return redirect()->route('backend.user')->with(['flash_type'=>'success', 'flash_messager'=>'<b>Chúc Mừng</b><br/>Dữ liệu đã được cập nhật.']);
+    }
+    public function listUsers(Request $request){
+        $limit = $request->limit ? $request->limit : 10;
+        $keyword = $request->keyword ? $request->keyword : '';
+
+        $flash_type = $flash_messager = '';
+
+        $items = User::orwhere([['username', 'LIKE', '%'.$keyword.'%']])->orwhere([['email', 'LIKE', '%'.$keyword.'%']])->orwhere([['name', 'LIKE', '%'.$keyword.'%']])->where([['id', '<>', Auth::user()->id], ['id', '<>', 89]])->orderBy('id','DESC')->paginate($limit);
+        /*if(Entrust::hasRole('root')){
+            $items = User::where([['id', '<>', Auth::user()->id], ['name', 'LIKE', '%'.$keyword.'%']])->orwhere([['username', 'LIKE', '%'.$keyword.'%']])->orwhere([['email', 'LIKE', '%'.$keyword.'%']])->orderBy('id','DESC')->paginate($limit);
+        }*/
+
+        if($keyword)
+            $items->appends(['keyword' => $keyword]);
+        if($request->limit)
+            $items->appends(['limit' => $limit]);
+
+        if($keyword){
+            $flash_type = 'info';
+            $flash_messager = 'Danh sách thành viên đã được lọc.';
+        }
+        return view('backend.users.list')->with([
+            'action' => 'list',
+            'title' => 'Danh sách thành viên',
+            'description' => 'Xem, thêm, sửa hoặc xóa thành viên.',
+            'items' => $items,
+            'flash_type' => $flash_type,
+            'flash_messager' => $flash_messager
+            ]);
+    }
+    public function updatePosition(Request $request){
+        return redirect()->route('backend.user.list')->with(['flash_type'=>'success', 'flash_messager'=>'Cập nhật STT thành viên thành công.']);
+
     }
 }

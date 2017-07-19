@@ -16,9 +16,7 @@
         <li class="active">Trang chủ</li>
     </ul>
 </div><!--breadcrumbs-->
-<div class="pagetitle animate5 fadeInUp">
-    <h1>Trang chủ</h1> <span>Thống kê dữ liệu website</span>
-</div><!--pagetitle-->
+<div class="pagetitle animate5 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
 <div class="contentinner content-charts animate7 fadeInUp">
 	<div class="alert alert-info">
     	<button type="button" class="close" data-dismiss="alert">×</button>

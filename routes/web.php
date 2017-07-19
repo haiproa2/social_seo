@@ -34,6 +34,8 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 		Route::get('/', ['as' => 'backend.user', 'uses' => 'Admin\UserController@index']);
 		Route::post('/', ['as' => 'backend.user.saveDetail', 'uses' => 'Admin\UserController@saveDetail']);
+		Route::get('/list', ['as' => 'backend.user.list', 'uses' => 'Admin\UserController@listUsers']);
+		Route::post('/list', ['as' => 'backend.user.updatePosition', 'uses' => 'Admin\UserController@updatePosition']);
 	});
 });
 

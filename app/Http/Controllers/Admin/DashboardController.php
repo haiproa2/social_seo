@@ -11,7 +11,8 @@ class DashboardController extends AdminController
 {
     public function index(){
     	return view('backend.index')->with([
-            'title_bar' => 'Trang chủ, thống kê website - ',
+            'title' => 'Trang chủ',
+            'description' => 'Thống kê website',
     		]);
     }
 }

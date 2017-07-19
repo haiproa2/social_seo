@@ -1,11 +1,6 @@
 @extends('backend.layouts.master')
 
 @section('content')
-<?php
-if(Request::segment(4))
-	$updateForm = true;
-else $updateForm = false;
-?>
 <div class="breadcrumbwidget animate3 fadeInUp">
     <ul class="skins">
         <li><a href="default" class="skin-color default"></a></li>
@@ -20,9 +15,7 @@ else $updateForm = false;
         <li class="active">Thành viên</li>
     </ul>
 </div><!--breadcrumbs-->
-<div class="pagetitle animate4 fadeInUp">
-    <h1>Trang cá nhân</h1> <span>Quản lý và cập nhật tất cả thông tin cá nhân.</span>
-</div><!--pagetitle-->
+<div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
 <div class="contentinner content-editprofile animate5 fadeInUp">
 	<div class="row-fluid">
 		<div class="span12">

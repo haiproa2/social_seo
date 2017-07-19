@@ -17,7 +17,11 @@ session_start();
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title_bar }} {{ config('app.name', 'Laravel') }} [ADMIN AREA]</title>
+    <title>{{ $title }} - {{ config('app.name', 'Laravel') }} [ADMIN AREA]</title>
+
+    <meta name="description" content="{{ $description }}" />
+
+    <link rel="shortcut icon" href="{{ asset('images/admin_favicon.ico') }}" />
 
     <!-- Styles -->
     <link href="{{ asset('themes/katniss/css/style.default.css') }}" rel="stylesheet">

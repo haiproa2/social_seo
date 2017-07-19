@@ -9,11 +9,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
 .logopanel{text-align: center;}
 .showmenu{background-image: none; font-size: 20px; padding: 7px 10px; color: #fff; text-align: center;}
-.notification .dropdown-toggle .caret{color: #fff; border-top-color: #fff;}
+.notification .dropdown-toggle .caret{color: #fff; border-top-color: #fff; margin-top: 15px;}
 .userinfo .dropdown-toggle{color: #fff;}
 .showmenu:focus, .notification .dropdown-toggle:focus, .userinfo .dropdown-toggle:focus, .showmenu:hover, .notification .dropdown-toggle:hover, .userinfo .dropdown-toggle:hover{text-decoration: none; color: #fff; opacity: 0.7}
 .headerright .dropdown{margin-left: 0px;}
 .notification .dropdown-toggle:first-child{margin-right: 8px;}
+.notification .dropdown-toggle{position: relative;}
+.notification .dropdown-toggle .notifiNumber{position: absolute; right: 0px; top: 0px; padding: 3px 0px; width: 20px; text-align: center;}
 .dropdown-menu .divider{border-color: #e2e2e2;}
 
 .searchwidget input.search-query{height: 36px;}
@@ -94,13 +96,64 @@ div.jGrowl.bottom-left{bottom: 45px;}
 div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer{position: relative;}
 div.jGrowl div.jGrowl-notification div.jGrowl-close{position: absolute; right: 3px; top: 0px;}
 div.jGrowl div.jGrowl-notification.success, div.jGrowl div.jGrowl-closer{
-	background-color: #468847;
-	border-color: #134814; 
+	border-color: #b4da95; color: #468847;
+	background: rgb(223,240,216);
+	background: -moz-linear-gradient(top, rgba(223,240,216,1) 0%, rgba(208,242,195,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(223,240,216,1)), color-stop(100%,rgba(208,242,195,1)));
+	background: -webkit-linear-gradient(top, rgba(223,240,216,1) 0%,rgba(208,242,195,1) 100%);
+	background: -o-linear-gradient(top, rgba(223,240,216,1) 0%,rgba(208,242,195,1) 100%);
+	background: -ms-linear-gradient(top, rgba(223,240,216,1) 0%,rgba(208,242,195,1) 100%);
+	background: linear-gradient(to bottom, rgba(223,240,216,1) 0%,rgba(208,242,195,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dff0d8', endColorstr='#d0f2c3',GradientType=0 );
 }
 div.jGrowl div.jGrowl-notification.error, div.jGrowl div.jGrowl-closer{
-	background-color: #d86f6e;
-	border-color: #b94a48; 
+	border-color: #e18d9a; color: #da5251;
+	background: rgb(246,216,216);
+	background: -moz-linear-gradient(top, rgba(246,216,216,1) 0%, rgba(245,197,197,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,216,216,1)), color-stop(100%,rgba(245,197,197,1)));
+	background: -webkit-linear-gradient(top, rgba(246,216,216,1) 0%,rgba(245,197,197,1) 100%);
+	background: -o-linear-gradient(top, rgba(246,216,216,1) 0%,rgba(245,197,197,1) 100%);
+	background: -ms-linear-gradient(top, rgba(246,216,216,1) 0%,rgba(245,197,197,1) 100%);
+	background: linear-gradient(to bottom, rgba(246,216,216,1) 0%,rgba(245,197,197,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6d8d8', endColorstr='#f5c5c5',GradientType=0 );
 }
+div.jGrowl div.jGrowl-notification.info, div.jGrowl div.jGrowl-closer{
+	border-color: #88c4e2; color: #3a87ad;
+	background: rgb(217,237,247);
+	background: -moz-linear-gradient(top, rgba(217,237,247,1) 0%, rgba(186,230,252,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(217,237,247,1)), color-stop(100%,rgba(186,230,252,1)));
+	background: -webkit-linear-gradient(top, rgba(217,237,247,1) 0%,rgba(186,230,252,1) 100%);
+	background: -o-linear-gradient(top, rgba(217,237,247,1) 0%,rgba(186,230,252,1) 100%);
+	background: -ms-linear-gradient(top, rgba(217,237,247,1) 0%,rgba(186,230,252,1) 100%);
+	background: linear-gradient(to bottom, rgba(217,237,247,1) 0%,rgba(186,230,252,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9edf7', endColorstr='#bae6fc',GradientType=0 );
+}
+
+/* Table */
+.text-top .actionfull{margin-bottom: 10px;}
+.text-bottom .actionfull{margin-top: 10px;}
+.actionfull .btn{margin-right: 7px;}
+.actionfull .btn:last-child{margin-right: 0px;}
+.table th, .table td{text-align: center;}
+.table .text-center, .table .text-center{text-align: center;}
+.table .text-left, .table .text-left{text-align: left;}
+.table .text-right, .table .text-right{text-align: right;}
+#table-header, #table-footer {border: 1px solid #ddd; background: #eee; padding: 10px; font-size: 11px; margin: 0px;}
+#table-header{border-bottom: none;}
+#table-footer{border-top: none;}
+#table-header select{width: auto;}
+#table-header input{width: 150px;}
+.table .inputNo{width: 40px; text-align: center; min-height: auto; padding: 0px;}
+.table .action a{display: inline-block; margin-left: 3px;}
+.table .action a:first-child{margin: 0px;}
+.table .action a:hover{text-decoration: none;}
+.table .action [class^='iconfa-']{display: block; padding: 0px; width: 15px; text-align: center; font-size: 16px; line-height: 1; margin: auto;}
+.table .action.text-left [class^='iconfa-']{margin: 0px;}
+.table .btn-read:hover span{color: #00c0ef;}
+.table .btn-update:hover span{color: #ec971f;}
+.table .btn-delete:hover span{color: #c9302c;}
+.pagination{margin: 0px 0px 0px 270px; line-height: 0;}
+.pagination ul > li > a, .pagination ul > li > span{padding: 2px 10px;}
 
 
 @-webkit-keyframes icon-spin {

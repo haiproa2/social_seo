@@ -22,13 +22,13 @@
         </div>
         <small><strong>38% full</strong></small>
     </div><!--plainwidget-->
-    
     <div class="leftmenu animate8 fadeInUp">        
         <ul class="nav nav-tabs nav-stacked">
         	<li class="nav-header">Menu Administrator</li>
             <li{!! ($prefix=='index')?' class="active"':'' !!}><a href="{{ route('backend.index') }}"><span class="icon-home"></span> Trang chủ</a></li>
             <li class="dropdown{!! ($prefix=='user')?' active':'' !!}"><a href="{{ route('backend.user') }}"><span class="icon-user"></span> Thành viên</a>
             	<ul{!! ($prefix=='user')?' style="display:block"':'' !!}>
+                    <li{!! ($prefix.$action=='userlist')?' class="active"':'' !!}><a href="{{ route('backend.user.list') }}">Danh sách</a></li>
                 	<li{!! ($prefix.$action=='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user') }}">Thông tin cá nhân</a></li>
                 </ul>
             </li>

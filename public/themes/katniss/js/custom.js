@@ -45,6 +45,11 @@ jQuery(document).ready(function(){
 		maxDate: '-12Y'
 	});
 	/* End User detail */
+
+	/* Table */
+	jQuery(".btn-update").click(function(){
+		jQuery('#update_position').submit();
+	});
 	
 	
 	// animation

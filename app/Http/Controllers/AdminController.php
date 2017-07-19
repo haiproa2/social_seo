@@ -11,15 +11,20 @@ class AdminController extends Controller
 {
     protected $prefix = '';
     protected $action = '';
+    protected $updateForm = false;
 
     public function __construct(Request $request){
         $this->prefix = ($request->segment(2))?$request->segment(2):'index';
-        $this->action = ($request->segment(4))?$request->segment(4):'list';
+        $this->action = ($request->segment(3))?(($request->segment(4))?'edit':'add'):'list';
+        if($request->segment(3) == 'add' || $request->segment(4) == 'edit')
+            $this->updateForm = true;
 
         view::share([
-        	'title_bar' => '', 
-        	'prefix' => ($request->segment(2))?$request->segment(2):'index', 
-        	'action' => ($request->segment(4))?$request->segment(4):'list'
+            'title' => '', 
+        	'description' => '', 
+        	'prefix' => $this->prefix, 
+            'action' => $this->action,
+        	'updateForm' => $this->updateForm,
         ]);
     }
 }
