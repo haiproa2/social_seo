@@ -39,6 +39,34 @@ class OptionsTableSeeder extends Seeder
             'created_at' => '2017-07-01 00:00:01',
             'updated_at' => '2017-07-01 00:00:01',
             'active' => 1,
+        ], [
+            'type' => 'limit',
+            'id_type' => '10',
+            'value_type' => '10',
+            'created_at' => '2017-07-01 00:00:01',
+            'updated_at' => '2017-07-01 00:00:01',
+            'active' => 1,
+        ], [
+            'type' => 'limit',
+            'id_type' => '20',
+            'value_type' => '20',
+            'created_at' => '2017-07-01 00:00:01',
+            'updated_at' => '2017-07-01 00:00:01',
+            'active' => 1,
+        ], [
+            'type' => 'limit',
+            'id_type' => '50',
+            'value_type' => '50',
+            'created_at' => '2017-07-01 00:00:01',
+            'updated_at' => '2017-07-01 00:00:01',
+            'active' => 1,
+        ], [
+            'type' => 'limit',
+            'id_type' => '100',
+            'value_type' => '100',
+            'created_at' => '2017-07-01 00:00:01',
+            'updated_at' => '2017-07-01 00:00:01',
+            'active' => 1,
         ]]);
     }
 }
