@@ -11,6 +11,9 @@ class AdminController extends Controller
 {
     protected $prefix = '';
     protected $action = '';
+    protected $title = '';
+    protected $description = '';
+    protected $disabled = false;
     protected $updateForm = false;
 
     public function __construct(Request $request){
@@ -20,11 +23,12 @@ class AdminController extends Controller
             $this->updateForm = true;
 
         view::share([
-            'title' => '', 
-        	'description' => '', 
-        	'prefix' => $this->prefix, 
+            'prefix' => $this->prefix, 
             'action' => $this->action,
-        	'updateForm' => $this->updateForm,
+            'title' => $this->title,
+        	'description' => $this->description,
+            'disabled' => $this->disabled,
+            'updateForm' => $this->updateForm,
         ]);
     }
 }

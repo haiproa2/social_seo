@@ -50,6 +50,10 @@ jQuery(document).ready(function(){
 	jQuery(".btn-update").click(function(){
 		jQuery('#update_position').submit();
 	});
+
+	/* Show messager */
+	if(msg)
+		jQuery.jGrowl(msg, { life: 5000, theme: type});
 	
 	
 	// animation

@@ -71,5 +71,16 @@ session_start();
 
         @include('backend.layouts.footer')
     </div>
+    
+    <script type="text/javascript">
+        var msg = type = '';
+        <?php if (!$errors->isEmpty()){ ?>
+        msg = "Đã xảy ra một vài lỗi.<br/>Vui lòng xem lại các trường dữ liệu."; 
+        type = "error"; 
+        <?php } if (Session::has('flash_type')){ ?>
+        msg = '{!! Session::get("flash_messager") !!}'; 
+        type = '{{ Session::get("flash_type") }}'; 
+        <?php } ?>
+    </script>
 </body>
 </html>

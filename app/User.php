@@ -26,4 +26,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function option_active(){
+        return $this->hasOne('App\Option', 'id_type', 'active')->where('type', 'active');
+    }
 }

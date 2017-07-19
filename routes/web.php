@@ -36,6 +36,12 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 		Route::post('/', ['as' => 'backend.user.saveDetail', 'uses' => 'Admin\UserController@saveDetail']);
 		Route::get('/list', ['as' => 'backend.user.list', 'uses' => 'Admin\UserController@listUsers']);
 		Route::post('/list', ['as' => 'backend.user.updatePosition', 'uses' => 'Admin\UserController@updatePosition']);
+		Route::get('/create', ['as' => 'backend.user.create', 'uses' => 'Admin\UserController@create']);
+		Route::post('/create', ['as' => 'backend.user.store', 'uses' => 'Admin\UserController@store']);
+		Route::get('{id}/edit', ['as' => 'backend.user.edit', 'uses' => 'Admin\UserController@edit']);
+		Route::post('{id}/edit', ['as' => 'backend.user.update', 'uses' => 'Admin\UserController@update']);
+		Route::get('{id}/active', ['as' => 'backend.user.active', 'uses' => 'Admin\UserController@activeStatus']);
+		Route::get('{id}', ['as' => 'backend.user.view', 'uses' => 'Admin\UserController@view']);
 	});
 });
 

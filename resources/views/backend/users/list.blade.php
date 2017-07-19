@@ -12,8 +12,7 @@
     </ul><!--skins-->
     <ul class="breadcrumb">
         <li><a href="{{ route('backend.index') }}">Admin Area</a> <span class="divider">/</span></li>
-        <li><a href="{{ route('backend.user') }}">Thành viên</a> <span class="divider">/</span></li>
-        <li class="active">Danh sách</li>
+        <li class="active">Thành viên</li>
     </ul>
 </div><!--breadcrumbs-->
 <div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
@@ -21,7 +20,7 @@
 	<div class="row-fluid">
 		<div class="span12 text-right text-top">
 			<div class="actionfull">
-				<a href="" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
+				<a href="{{ route('backend.user.create') }}" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
 				<button class="btn btn-info btn-update"><i class="iconfa-refresh"></i> Cập nhật STT</button>
 				<button class="btn btn-danger delall"><i class="iconfa-trash"></i> Xóa nhiều</button>
 			</div>
@@ -32,16 +31,13 @@
 			<div id="table-header" class="row-fluid">
 				<div class="span6">
 					<span>Hiển thị:</span>
-					<select name="limit" id="limit">
-						<option value="10">10</option>
-						<option value="20"<?=(Request::get('limit') == 20)?'selected':''?>>20</option>
-						<option value="50"<?=(Request::get('limit') == 50)?'selected':''?>>50</option>
-						<option value="100"<?=(Request::get('limit') == 100)?'selected':''?>>100</option>
-					</select>
+					@if(count($limits))
+					{!! Form::select('limit', $limits, Request::get('limit'), ['id'=>'limit']) !!}
+					@endif
 				</div>
 				<div class="span6 text-right">
 					<span>Tìm kiếm:</span>
-					<input type="text" name="k" id="keyword" value="{{ Request::get('keyword') }}"/>
+					{{ Form::text('k', Request::get('keyword'), ['id'=>'keyword', 'autofocus'=>true]) }}
 				</div>
 			</div>
 			{!! Form::open(['route'=>'backend.user.updatePosition', 'id'=>'update_position']) !!}
@@ -67,29 +63,23 @@
 							@foreach($items as $key => $value)
 							<tr>
 			            		<input type="hidden" name="no[id][]" value="{!! $value['id'] !!}">
-			            		<td style="width:3%;"><input type="checkbox" name="chose" id="chose" value="{!! $value['id'] !!}" class="chose" /></td>
-			            		<td style="width:5%;" data-order="<?=$key?>"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value['no'] !!}" class="inputNo"/></td>
+			            		<td style="width:3%;"><input type="checkbox" name="chose" id="chose" value="{!! $value->id !!}" class="chose" /></td>
+			            		<td style="width:5%;" data-order="<?=$key?>"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/></td>
 			            		<td class="text-left">{!! str_limit($value->name, 70) !!}</td>
 								<td style="width:17%;" class="text-left">{!! str_limit($value->email, 70) !!}</td>
 								<td style="width:17%;" class="text-left">--</td>
-								<td style="width:10%;" class="action">{!! $value['updated_at'] !!}</td>
+								<td style="width:10%;" class="action">{!! $value->updated_at !!}</td>
 								<td style="width:10%;" class="action">
 									<?php if(Auth::check()){ ?>
-									<?php if($value['active']){ ?>
-										<a href="" title="Đang hoạt động<br/>Click để khóa lại" data-toggle="tooltip" data-html="true"><span class="iconfa-ok-circle text-success"></span></a>
+									<a href="{!! route('backend.user.active', $value->id) !!}" title="Click để {!! ($value->active)?'khóa lại':'mở khóa' !!}" data-toggle="tooltip" data-html="true">{!! $value->option_active->value_type !!}</a>
 									<?php } else { ?>
-										<a href="" title="Bị tạm khóa<br/>Click để mở khóa" data-toggle="tooltip" data-html="true"><span class="iconfa-ban-circle muted"></span></a>
-									<?php } } else { ?>
-									<?php if($value['active']){ ?>
-										<span class="iconfa-ok-circle text-success" title="Đang hoạt động" data-toggle="tooltip"></span>
-									<?php } else{ ?>
-										<span class="iconfa-ban-circle muted" title="Bị tạm khóa" data-toggle="tooltip"></span>
-									<?php } } ?>
+									{!! $value->option_active->value_type !!}
+									<?php } ?>
 								</td>
 								<td style="width:10%;" class="action">
-									<a href="" title="Xem chi tiết" data-toggle="tooltip" class="btn-read"><span class="iconfa-eye-open muted"></span></a>
-									<a href="" title="Chỉnh sửa" data-toggle="tooltip" class="btn-update"><span class="iconfa-edit muted"></span></a>
-									<a href="javascript: void(0)" title="Xóa" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Bạn muốn xóa tài khoản [<strong>{{ strip_tags($value['name']) }}</strong>] có Email [<strong>{{ strip_tags($value['name']) }}</strong>]?', '')"><span class="iconfa-trash muted"></span></a>
+									<a href="{!! route('backend.user.view', $value->id) !!}" title="Xem chi tiết" data-toggle="tooltip" class="btn-read"><span class="iconfa-eye-open muted"></span></a>
+									<a href="{{ route('backend.user.edit', $value->id) }}" title="Chỉnh sửa" data-toggle="tooltip" class="btn-update"><span class="iconfa-edit muted"></span></a>
+									<a href="javascript: void(0)" title="Xóa" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Bạn muốn xóa tài khoản [<strong>{{ strip_tags($value->name) }}</strong>] có Email [<strong>{{ strip_tags($value->name) }}</strong>]?', '')"><span class="iconfa-trash muted"></span></a>
 								</td>
 							</tr>
 							@endforeach
@@ -108,7 +98,7 @@
 	<div class="row-fluid">
 		<div class="span12 text-right text-bottom">
 			<div class="actionfull">
-				<a href="" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
+				<a href="{{ route('backend.user.create') }}" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
 				<button class="btn btn-info btn-update"><i class="iconfa-refresh"></i> Cập nhật STT</button>
 				<button class="btn btn-danger delall"><i class="iconfa-trash"></i> Xóa nhiều</button>
 			</div>
@@ -149,16 +139,6 @@
 				fillter();
 			}
 		});
-		var msg = type = '';
-		<?php if (!$errors->isEmpty()){ ?>
-		msg = "Đã xảy ra một vài lỗi.<br/>Vui lòng xem lại các trường dữ liệu."; 
-		type = "error"; 
-		<?php } if (Session::has('flash_type')){ ?>
-		msg = "{!! Session::get('flash_messager') !!}"; 
-		type = "{{ Session::get('flash_type') }}"; 
-		<?php } ?>
-		if(msg)
-			jQuery.jGrowl(msg, { life: 5000, theme: type});
 	});
 </script>
 @endsection
