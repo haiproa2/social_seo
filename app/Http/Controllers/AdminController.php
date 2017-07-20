@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Auth, View;
+use Auth, View, Session, DB;
 
 class AdminController extends Controller
 {
@@ -30,5 +30,28 @@ class AdminController extends Controller
             'disabled' => $this->disabled,
             'updateForm' => $this->updateForm,
         ]);
+    }
+    public function ajaxDeleteImage(Request $request){
+        $_token = $request->_token;
+        $table = $request->table_item;
+        $table .= 's';
+        $id = $request->id_item;
+        if($table=='users'){
+            $item = DB::table($table)->where('id', $id)->get()->toArray();
+            unlink('upload/'.$item->photo);
+            DB::table($table)->where('id', $id)->update(['photo'=>null]);
+        }
+        else{
+            $item = DB::connection('mysql_data')->table($table)->where('id', $id)->get()->toArray();
+            unlink('upload/'.$item->photo);
+            DB::connection('mysql_data')->table($table)->where('id', $id)->update(['photo'=>null]);
+        }
+
+        
+        return json_encode([
+            'token' => Session::token(),
+            'status' => 'success',
+            'item' => $item
+            ]);
     }
 }

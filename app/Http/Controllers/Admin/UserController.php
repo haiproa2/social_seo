@@ -43,6 +43,25 @@ class UserController extends AdminController
                 'password.same' => trans('auth.same_password'),
             ]
         );
+		if($request->photo){
+	        $file = $request->photo;
+	        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+	        $ext = $file->getClientOriginalExtension();
+	        $pathImageUser = 'users/';
+	        $image = Image::make($file);
+	        $newFilename = str_slug($user->username).date('-YdmHis', time()).'.'.$ext;
+
+	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
+	        if(!$uploadSuccess){
+	            $flash_type = 'error';
+	            $flash_messager = 'Không thể upload hình ảnh.';
+
+	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+	        } else{
+	        	Image::delete('uploads/'.$user->photo);
+	        	$user->photo = $pathImageUser.$newFilename;
+	        }
+	    }
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -73,9 +92,9 @@ class UserController extends AdminController
         $flash_type = $flash_messager = '';
 
         if($keyword)
-        	$items = User::orwhere([['username', 'LIKE', '%'.$keyword.'%']])->orwhere([['email', 'LIKE', '%'.$keyword.'%']])->orwhere([['name', 'LIKE', '%'.$keyword.'%']])->where([['id', '<>', Auth::user()->id], ['id', '<>', 89]])->orderBy('id','DESC')->paginate($limit);
+        	$items = User::orwhere([['username', 'LIKE', '%'.$keyword.'%']])->orwhere([['email', 'LIKE', '%'.$keyword.'%']])->orwhere([['name', 'LIKE', '%'.$keyword.'%']])->where([['id', '<>', Auth::user()->id], ['id', '<>', 89]])->orderBy('no','ASC')->orderBy('id','DESC')->paginate($limit);
         else
-        	$items = User::where([['id', '<>', Auth::user()->id], ['id', '<>', 89]])->orderBy('id','DESC')->paginate($limit);
+        	$items = User::where([['id', '<>', Auth::user()->id], ['id', '<>', 89]])->orderBy('no','ASC')->orderBy('id','DESC')->paginate($limit);
         /*if(Entrust::hasRole('root')){
             $items = User::where([['id', '<>', Auth::user()->id], ['name', 'LIKE', '%'.$keyword.'%']])->orwhere([['username', 'LIKE', '%'.$keyword.'%']])->orwhere([['email', 'LIKE', '%'.$keyword.'%']])->orderBy('id','DESC')->paginate($limit);
         }*/
@@ -169,12 +188,19 @@ class UserController extends AdminController
     public function store(Request $request){
     	$user = new User;
         $this->validate($request, [
+                'photo' => 'nullable|max:3000',
                 'name' => 'required',
+                'username' => 'required|min:3|max:255|unique:users,username',
                 'email' => 'required|string|email|max:255|unique:users,email',
                 'telephone' => 'nullable|min:10|max:11|unique:users,telephone',
                 'password' => 'nullable|min:6|same:password_confirmation',
             ], [
+                'photo.max' => trans('admin.max.file'),
                 'name.required' => trans('admin.required'),
+                'username.required' => trans('admin.required'),
+                'username.min' => trans('admin.min.string'),
+                'username.max' => trans('admin.max.string'),
+                'username.unique' => trans('admin.username_unique'),
                 'email.required' => trans('admin.required'),
                 'email.email' => trans('admin.email'),
                 'email.max' => trans('admin.max.string'),
@@ -187,8 +213,25 @@ class UserController extends AdminController
                 'password.same' => trans('auth.same_password'),
             ]
         );
+		if($request->photo){
+	        $file = $request->photo;
+	        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+	        $ext = $file->getClientOriginalExtension();
+	        $pathImageUser = 'users/';
+	        $image = Image::make($file);
+	        $newFilename = str_slug($request->username).date('-YdmHis', time()).'.'.$ext;
 
-        $user->username = $request->username;
+	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
+	        if(!$uploadSuccess){
+	            $flash_type = 'error';
+	            $flash_messager = 'Không thể upload hình ảnh.';
+
+	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+	        } else
+	        	$user->photo = $pathImageUser.$newFilename;
+	    }
+
+        $user->username = preg_replace('/\s+/', '', strip_tags(strtolower($request->username)));
         $user->slug = str_slug($request->username).date('-Ymd-His', time());
         $user->name = $request->name;
         $user->email = $request->email;
@@ -251,20 +294,25 @@ class UserController extends AdminController
             ]
         );
 
-        $file = $request->photo;
-        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
-        $ext = $file->getClientOriginalExtension();
-        $pathImageUser = 'users/';
-        $image = Image::make($file);
-        $newFilename = str_slug($filename).'.'.$ext;
+		if($request->photo){
+	        $file = $request->photo;
+	        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+	        $ext = $file->getClientOriginalExtension();
+	        $pathImageUser = 'users/';
+	        $image = Image::make($file);
+	        $newFilename = str_slug($user->username).date('-YdmHis', time()).'.'.$ext;
 
-        $uploadSuccess = $file->move('images/'.$pathImageUser, $newFilename);
-        if(!$uploadSuccess){
-            $flash_type = 'error';
-            $flash_messager = 'Không thể upload hình ảnh.';
+	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
+	        if(!$uploadSuccess){
+	            $flash_type = 'error';
+	            $flash_messager = 'Không thể upload hình ảnh.';
 
-            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
-        }
+	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+	        } else{
+	        	Image::delete('uploads/'.$user->photo);
+	        	$user->photo = $pathImageUser.$newFilename;
+	        }
+	    }
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -272,7 +320,6 @@ class UserController extends AdminController
         $user->birthday = $request->birthday;
         $user->sex = $request->sex;
         $user->content = $request->content;
-        $user->photo = $pathImageUser.$newFilename;
         $user->no = $request->no;
         $user->active = $request->active;
         $user->updated_by = Auth::user()->id;

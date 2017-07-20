@@ -28,8 +28,14 @@
 						<div class="span3">
 							<h4>Ảnh đại diện</h4>
 							<div class="profilethumb">
-								<a href="">Change Thumbnail</a>
-                                <img src="/themes/katniss/img/profilethumb.png" alt="" class="img-polaroid">
+								{!! Form::hidden('image_default', Image::url(('/themes/katniss/img/profilethumb.png'), 230, 230, array('crop')), ['id'=>'image_default', 'class'=>'image_default']) !!}
+								{!! Form::image(Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:'/themes/katniss/img/profilethumb.png'), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false']) !!}
+								@if(isset($user->photo) && $user->photo)
+								<div class="info-photo">
+									<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$user->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh</a> - Or - 
+									{!! Form::button('<span class="iconfa-trash"></span> Xóa ảnh', ['title'=>'Xóa ảnh', 'class'=>'btn btn-small btn-danger btn-delete-photo', 'data-table'=>$prefix, 'data-id'=>$user->id, 'disabled'=>$disabled]) !!}
+								</div>
+								@endif
 							</div>
 		    				<div class="row-fluid">
                                 <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
@@ -38,12 +44,12 @@
                                 			<i class="icon-file fileupload-exists"></i>
                                 			<span class="fileupload-preview"></span>
                                 		</div>
-                                		<span class="btn btn-file">
-                                			<span class="fileupload-new">Select file</span>
-	                                		<span class="fileupload-exists">Change</span>
-	                                		{{ Form::file('photo', ['id'=>'photo']) }}
+                                		<span class="btn btn-file{!! ($disabled)?' disabled':'' !!}">
+                                			<span class="fileupload-new">Chọn ảnh</span>
+	                                		<span class="fileupload-exists">Đổi</span>
+	                                		{{ Form::file('photo', ['id'=>'photo', 'disabled'=>$disabled]) }}
 	                                	</span>
-                                		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Hủy</a>
                                 	</div>
 									@if ($errors->has('photo'))
 									<span class="help-inline">{!! $errors->first('photo') !!}</span>
@@ -103,7 +109,7 @@
 									<p class="row-fluid">
 										<span class="span4"><label for="no">Số thứ tự</label></span>
 										<span class="span8{{ $errors->has('no') ? ' error' : '' }}">
-											{{ Form::number('no', $user->no, ['id'=>'no', 'class'=>'span3', 'min'=>0, 'max'=>999, 'disabled'=>$disabled]) }}
+											{{ Form::number('no', $user->no, ['id'=>'no', 'class'=>'span6', 'min'=>0, 'max'=>999, 'disabled'=>$disabled]) }}
 											@if ($errors->has('no'))
 											<span class="help-inline">{!! $errors->first('no') !!}</span>
 											@endif

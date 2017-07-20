@@ -20,29 +20,32 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<h4 class="widgettitle nomargin shadowed"></h4>
-			{{ Form::open(['route' => 'backend.user.saveDetail']) }}
+			{{ Form::open(['route' => 'backend.user.saveDetail', 'enctype'=>'multipart/form-data']) }}
 				<div class="widgetcontent bordered editprofileform">
 					<div class="row-fluid">
 						<div class="span3">
 							<h4>Ảnh đại diện</h4>
 							<div class="profilethumb">
-								<a href="">Change Thumbnail</a>
-                                <img src="/themes/katniss/img/profilethumb.png" alt="" class="img-polaroid">
+								{!! Form::image(Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:'/themes/katniss/img/profilethumb.png'), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false']) !!}
 							</div>
 		    				<div class="row-fluid">
-                                <div class="fileupload fileupload-new span12" data-provides="fileupload">
+                                <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                                 	<div class="input-append">
                                 		<div class="uneditable-input span12">
                                 			<i class="icon-file fileupload-exists"></i>
                                 			<span class="fileupload-preview"></span>
                                 		</div>
-                                		<span class="btn btn-file">
+                                		<span class="btn btn-file{!! ($disabled)?' disabled':'' !!}">
                                 			<span class="fileupload-new">Select file</span>
 	                                		<span class="fileupload-exists">Change</span>
-	                                		{{ Form::file('photo', ['id'=>'photo']) }}
+	                                		{{ Form::file('photo', ['id'=>'photo', 'disabled'=>$disabled]) }}
 	                                	</span>
                                 		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                                 	</div>
+									@if ($errors->has('photo'))
+									<span class="help-inline">{!! $errors->first('photo') !!}</span>
+									@endif
+                                	<small class="help-inline">(Chỉ tải hình ảnh, dung lượng tối đa 3Mb)</small>
                                 </div>
                             </div>
 						</div>

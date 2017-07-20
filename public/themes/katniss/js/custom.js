@@ -16,6 +16,33 @@ jQuery(document).ready(function(){
 	mainwrapperHeight();
 	responsive();
 
+	/*  */
+	jQuery(".btn-delete-photo").click(function(){
+		var table_item = jQuery(this).attr('data-table');
+		var id_item = jQuery(this).attr('data-id');
+		var image_default = jQuery(".image_default").val();
+		var CSRF_TOKEN = jQuery('input[name="_token"]').attr('value');
+		jConfirm('Bạn có chắc là muốn <b class="text-error">xóa</b> bức ảnh này?', 'Thông báo', function(r) {
+			if(r){
+				jQuery.ajax({
+					url: route_delete_image,
+					method: "POST",
+					data: {_token: CSRF_TOKEN, table_item: table_item, id_item: id_item},
+					success: function (data) {
+						jQuery("#img-polaroid").attr('src', image_default); // Set src for img
+						jQuery(".info-photo").addClass('animate0 fadeOut hidden'); // Set val for thumb
+						jQuery('input[name="_token"]').attr('value', data.token);
+					},
+					error: function (data) {
+						console.log("Cannot get thumbnail.");
+						console.log(data);
+					}
+				});
+			}
+		});
+
+	});
+
 	/* User detail */
 	jQuery(".btn-generate-password").click(function(){
 		jQuery(this).find('span').toggleClass('iconfa-random iconfa-refresh').addClass('icon-spin');
@@ -45,7 +72,8 @@ jQuery(document).ready(function(){
 		dateFormat: 'd MM, yy',
 		changeMonth: true,
 		changeYear: true,
-		maxDate: '-12Y'
+		maxDate: '-12Y',
+		yearRange: "-42:-12",
 	});
 	/* End User detail */
 

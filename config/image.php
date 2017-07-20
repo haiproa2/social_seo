@@ -77,7 +77,7 @@ return array(
     | Example: /uploads/photo-image(300x300-grayscale).jpg
     |
     */
-    'url_parameter' => '-image({options})',
+    'url_parameter' => '-thumb({options})',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return array(
     | as the original image so the next request will serve this static file
     |
     */
-    'write_image' => false,
+    'write_image' => true,
 
     /*
     |--------------------------------------------------------------------------

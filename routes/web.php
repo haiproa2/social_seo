@@ -30,6 +30,7 @@ Route::post('doi-mat-khau', ['as' => 'auth.postRequest', 'uses' => 'Auth\LoginCo
 
 Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::get('/', ['as' => 'backend.index', 'uses' => 'Admin\DashboardController@index']);
+	Route::post('/delete-image', ['as' => 'backend.ajax.deleteImage', 'uses' => 'AdminController@ajaxDeleteImage']);
 
 	Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 		Route::get('/', ['as' => 'backend.user', 'uses' => 'Admin\UserController@index']);

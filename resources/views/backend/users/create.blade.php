@@ -20,14 +20,13 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<h4 class="widgettitle nomargin shadowed"></h4>
-			{{ Form::open(['route' => 'backend.user.store']) }}
+			{{ Form::open(['route' => 'backend.user.store', 'enctype'=>'multipart/form-data', 'file'=>true]) }}
 				<div class="widgetcontent bordered editprofileform">
 					<div class="row-fluid">
 						<div class="span3">
 							<h4>Ảnh đại diện</h4>
 							<div class="profilethumb">
-								<a href="">Change Thumbnail</a>
-                                <img src="/themes/katniss/img/profilethumb.png" alt="" class="img-polaroid">
+								{!! Form::image(Image::url(('/themes/katniss/img/profilethumb.png'), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false']) !!}
 							</div>
 		    				<div class="row-fluid">
                                 <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
@@ -97,9 +96,21 @@
 									<p class="row-fluid">
 										<span class="span4"><label for="no">Số thứ tự</label></span>
 										<span class="span8{{ $errors->has('no') ? ' error' : '' }}">
-											{{ Form::number('no', 1, ['id'=>'no', 'class'=>'span3', 'min'=>0, 'max'=>999]) }}
+											{{ Form::number('no', 1, ['id'=>'no', 'class'=>'span6', 'min'=>0, 'max'=>999]) }}
 											@if ($errors->has('no'))
 											<span class="help-inline">{!! $errors->first('no') !!}</span>
+											@endif
+										</span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4">
+											<label for="status" style="padding:0px">Trạng thái</label>
+										</span>
+										<span class="span8">
+											@if(count($actives))
+											@foreach($actives as $k => $val)
+											<label class="uniform-label">{!! Form::radio('active', $val->id_type, (($val->id_type == 1)?1:0), ['id'=>'active-'.$val->id_type, 'class'=>'span12']) !!} {!! $val->value_type !!}</label>
+											@endforeach
 											@endif
 										</span>
 									</p>
@@ -168,18 +179,6 @@
 														]) }}
 														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-show-password' }}" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip" data-placement="left"><span class="iconfa-eye-close"></span></button>
 													</span>
-												</span>
-											</p>
-											<p class="row-fluid">
-												<span class="span4">
-													<label for="status" style="padding:0px">Trạng thái</label>
-												</span>
-												<span class="span8">
-													@if(count($actives))
-													@foreach($actives as $k => $val)
-													<label class="uniform-label">{!! Form::radio('active', $val->id_type, (($val->id_type == 1)?1:0), ['id'=>'active-'.$val->id_type, 'class'=>'span12']) !!} {!! $val->value_type !!}</label>
-													@endforeach
-													@endif
 												</span>
 											</p>
 										</div>
