@@ -24,6 +24,7 @@ session_start();
     <link rel="shortcut icon" href="{{ asset('images/admin_favicon.ico') }}" />
 
     <!-- Styles -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,700,700i" rel="stylesheet">
     <link href="{{ asset('themes/katniss/css/style.default.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/prettify/prettify.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/css/bootstrap-fileupload.min.css') }}" rel="stylesheet">

@@ -28,7 +28,7 @@
             <li{!! ($prefix=='index')?' class="active"':'' !!}><a href="{{ route('backend.index') }}"><span class="icon-home"></span> Trang chủ</a></li>
             <li class="dropdown{!! ($prefix=='user')?' active':'' !!}"><a href="{{ route('backend.user') }}"><span class="icon-user"></span> Thành viên</a>
             	<ul{!! ($prefix=='user')?' style="display:block"':'' !!}>
-                    <li{!! ($prefix.$action!='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user.list') }}">Danh sách</a></li>
+                    <li{!! ($prefix=='user'&&$prefix.$action!='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user.list') }}">Danh sách</a></li>
                 	<li{!! ($prefix.$action=='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user') }}">Thông tin cá nhân</a></li>
                 </ul>
             </li>

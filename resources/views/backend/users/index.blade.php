@@ -85,8 +85,8 @@
 										<span class="span4"><label for="birthday">Ngày sinh</label></span>
 										<span class="span8">
 											<span class="input-append">
-												{{ Form::text('birthday', $user->birthday, ['id'=>'birthday', 'class'=>'one-item with-btn-icon', 'readonly'=>true, 'title'=>'Click để chọn ngày', 'data-toggle'=>'tooltip']) }}
-												<button type="button" class="btn btn-icon disabled"><span class="iconfa-calendar"></span></button>
+												{{ Form::text('birthday', $user->birthday, ['id'=>'birthday', 'class'=>'one-item with-btn-icon input-datepicker', 'readonly'=>true]) }}
+												<button type="button" class="btn btn-icon btn-datepicker" title="Click để chọn ngày" data-toggle="tooltip" data-placement="left"><span class="iconfa-calendar"></span></button>
 											</span>
 										</span>
 									</p>
@@ -120,7 +120,7 @@
 												<span class="span8{{ $errors->has('password') ? ' error' : '' }}">
 													<span class="input-append">
 														{{ Form::password('password', ['id'=>'password', 'class'=>'one-item with-btn-icon password_result']) }}
-														<button type="button" class="btn btn-icon btn-generate-password" rel-class="password_result" title="Tạo ngẫu nhiên" data-toggle="tooltip"><span class="iconfa-random"></span></button>
+														<button type="button" class="btn btn-icon btn-generate-password" rel-class="password_result" title="Tạo ngẫu nhiên" data-toggle="tooltip" data-placement="left"><span class="iconfa-random"></span></button>
 													</span>
 													@if ($errors->has('password'))
 													<span class="help-inline">{!! $errors->first('password') !!}</span>
@@ -132,7 +132,7 @@
 												<span class="span8">
 													<span class="input-append">
 														{{ Form::password('password_confirmation', ['id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result']) }}
-														<button type="button" class="btn btn-icon btn-show-password" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip"><span class="iconfa-eye-close"></span></button>
+														<button type="button" class="btn btn-icon btn-show-password" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip" data-placement="left"><span class="iconfa-eye-close"></span></button>
 													</span>
 												</span>
 											</p>

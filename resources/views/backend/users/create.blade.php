@@ -30,7 +30,7 @@
                                 <img src="/themes/katniss/img/profilethumb.png" alt="" class="img-polaroid">
 							</div>
 		    				<div class="row-fluid">
-                                <div class="fileupload fileupload-new span12" data-provides="fileupload">
+                                <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                                 	<div class="input-append">
                                 		<div class="uneditable-input span12">
                                 			<i class="icon-file fileupload-exists"></i>
@@ -43,6 +43,10 @@
 	                                	</span>
                                 		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                                 	</div>
+									@if ($errors->has('photo'))
+									<span class="help-inline">{!! $errors->first('photo') !!}</span>
+									@endif
+                                	<small class="help-inline">(Chỉ tải hình ảnh, dung lượng tối đa 3Mb)</small>
                                 </div>
                             </div>
 						</div>
@@ -53,7 +57,10 @@
 									<p class="row-fluid">
 										<span class="span4"><label for="name">Họ và tên <span class="text-error">*</span></label></span>
 										<span class="span8{{ $errors->has('name') ? ' error' : '' }}">
-											{{ Form::text('name', '', ['id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true]) }}
+											{{ Form::text('name', '', [
+												'id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true, 
+												'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Họ và tên thành viên<br/>- Cần nhập đầy đủ, tiện việc liên hệ<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-html'=>'true'
+											]) }}
 											@if ($errors->has('name'))
 											<span class="help-inline">{!! $errors->first('name') !!}</span>
 											@endif
@@ -72,8 +79,8 @@
 										<span class="span4"><label for="birthday">Ngày sinh</label></span>
 										<span class="span8">
 											<span class="input-append">
-												{{ Form::text('birthday', '', ['id'=>'birthday', 'class'=>'one-item with-btn-icon', 'readonly'=>true, 'title'=>'Click để chọn ngày', 'data-toggle'=>'tooltip']) }}
-												<button type="button" class="btn btn-icon disabled"><span class="iconfa-calendar"></span></button>
+												{{ Form::text('birthday', '', ['id'=>'birthday', 'class'=>'one-item with-btn-icon input-datepicker', 'readonly'=>true]) }}
+												<button type="button" class="btn btn-icon btn-datepicker" title="Click để chọn ngày" data-toggle="tooltip" data-placement="left"><span class="iconfa-calendar"></span></button>
 											</span>
 										</span>
 									</p>
@@ -115,7 +122,10 @@
 											<p class="row-fluid">
 												<span class="span4"><label for="username">Tài khoản <span class="text-error">*</span></label></span>
 												<span class="span8{{ $errors->has('username') ? ' error' : '' }}">
-													{{ Form::text('username', '', ['id'=>'username', 'class'=>'span12', 'required'=>true]) }}
+													{{ Form::text('username', '', [
+														'id'=>'username', 'class'=>'span12', 'required'=>true,
+														'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Tài khoản đăng nhập website<br/>- Không chứa các ký tự đặc biệt, chỉ bao gồm các ký tự thường hoặc số, viết liền và không có dấu.<br/>- Ví dụ: taikhoandangnhap<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-placement'=>'left', 'data-html'=>'true'
+													]) }}
 													@if ($errors->has('username'))
 													<span class="help-inline">{!! $errors->first('username') !!}</span>
 													@endif
@@ -124,7 +134,10 @@
 											<p class="row-fluid">
 												<span class="span4"><label for="email">Địa chỉ Email <span class="text-error">*</span></label></span>
 												<span class="span8{{ $errors->has('email') ? ' error' : '' }}">
-													{{ Form::email('email', '', ['id'=>'email', 'class'=>'span12', 'required'=>true]) }}
+													{{ Form::email('email', '', [
+														'id'=>'email', 'class'=>'span12', 'required'=>true, 
+														'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Địa chỉ Email thành viên<br/>- Nhập đúng Email đang được sử dụng.<br/>- Email này có thể dùng để gửi yêu cầu tạo mật khẩu mới khi quên mật khẩu cũ.<br/>- Có thể dùng Email để đăng nhập website thay cho tài khoản.<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-placement'=>'left', 'data-html'=>'true'
+													]) }}
 													@if ($errors->has('email'))
 													<span class="help-inline">{!! $errors->first('email') !!}</span>
 													@endif
@@ -134,8 +147,11 @@
 												<span class="span4"><label for="password">Mật khẩu <span class="text-error">*</span></label></span>
 												<span class="span8{{ $errors->has('password') ? ' error' : '' }}">
 													<span class="input-append">
-														{{ Form::password('password', ['id'=>'password', 'class'=>'one-item with-btn-icon password_result', 'required'=>true]) }}
-														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-generate-password' }}" rel-class="password_result" title="Tạo ngẫu nhiên" data-toggle="tooltip"><span class="iconfa-random"></span></button>
+														{{ Form::password('password', [
+															'id'=>'password', 'class'=>'one-item with-btn-icon password_result', 'required'=>true,
+															'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Mật khẩu đăng nhập website<br/>- Cần tối thiểu 6 ký tự.<br/>- Bao gồm các ký tự thường, Hoa, số và các ký tự đặc biệt như: ~!@#$%^&*<br/>- Click <span class="iconfa-random"></span> kế bên để tạo mật khẩu đúng yêu cầu và đảm bảo độ bảo mật cao.<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-placement'=>'left', 'data-html'=>'true'
+														]) }}
+														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-generate-password' }}" rel-class="password_result" title="Click tạo mật khẩu ngẫu nhiên" data-toggle="tooltip" data-placement="left"><span class="iconfa-random"></span></button>
 													</span>
 													@if ($errors->has('password'))
 													<span class="help-inline">{!! $errors->first('password') !!}</span>
@@ -146,8 +162,11 @@
 												<span class="span4"><label for="password_confirmation">Nhắc lại mật khẩu <span class="text-error">*</span></label></span>
 												<span class="span8">
 													<span class="input-append">
-														{{ Form::password('password_confirmation', ['id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result', 'required'=>true]) }}
-														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-show-password' }}" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip"><span class="iconfa-eye-close"></span></button>
+														{{ Form::password('password_confirmation', [
+															'id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result', 'required'=>true,
+															'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Nhắc lại mật khẩu<br/>- Cần trùng khớp với mật khẩu bên trên<br/>- Click <span class="iconfa-eye-close"></span> kế bên để Xem/Ẩn mật khẩu.<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-placement'=>'left', 'data-html'=>'true'
+														]) }}
+														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-show-password' }}" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip" data-placement="left"><span class="iconfa-eye-close"></span></button>
 													</span>
 												</span>
 											</p>

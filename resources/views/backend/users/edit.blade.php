@@ -21,7 +21,7 @@
 		<div class="span12">
 			<h4 class="widgettitle nomargin shadowed"></h4>
 			@if($updateForm)
-			{{ Form::open(['route' => ['backend.user.update', $user->id]]) }}
+			{{ Form::open(['route' => ['backend.user.update', $user->id], 'enctype'=>'multipart/form-data']) }}
 			@endif
 				<div class="widgetcontent bordered editprofileform">
 					<div class="row-fluid">
@@ -32,26 +32,30 @@
                                 <img src="/themes/katniss/img/profilethumb.png" alt="" class="img-polaroid">
 							</div>
 		    				<div class="row-fluid">
-                                <div class="fileupload fileupload-new span12" data-provides="fileupload">
+                                <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                                 	<div class="input-append">
-                                		<div class="uneditable-input span12{{ ($disabled)?' disabled':'' }}">
+                                		<div class="uneditable-input span12">
                                 			<i class="icon-file fileupload-exists"></i>
                                 			<span class="fileupload-preview"></span>
                                 		</div>
-                                		<span class="btn btn-file{{ ($disabled)?' disabled':'' }}">
+                                		<span class="btn btn-file">
                                 			<span class="fileupload-new">Select file</span>
 	                                		<span class="fileupload-exists">Change</span>
-	                                		{{ Form::file('photo', ['id'=>'photo', 'disabled'=>$disabled]) }}
+	                                		{{ Form::file('photo', ['id'=>'photo']) }}
 	                                	</span>
                                 		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                                 	</div>
+									@if ($errors->has('photo'))
+									<span class="help-inline">{!! $errors->first('photo') !!}</span>
+									@endif
+                                	<small class="help-inline">(Chỉ tải hình ảnh, dung lượng tối đa 3Mb)</small>
                                 </div>
                             </div>
 						</div>
 						<div class="span9">
 							<div class="row-fluid">
 								<div class="span6">
-									<h4>Thông tin đăng nhập</h4>
+									<h4>Thông tin cá nhân</h4>
 									<p class="row-fluid">
 										<span class="span4"><label for="username" style="padding:0px">Tài khoản</label></span>
 										<span class="span8"><span>{{ $user->username }}</span></span>
@@ -59,18 +63,12 @@
 									<p class="row-fluid">
 										<span class="span4"><label for="name">Họ và tên <span class="text-error">*</span></label></span>
 										<span class="span8{{ $errors->has('name') ? ' error' : '' }}">
-											{{ Form::text('name', $user->name, ['id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true, 'disabled'=>$disabled]) }}
+											{{ Form::text('name', $user->name, [
+												'id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true, 'disabled'=>$disabled,
+												'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Họ và tên thành viên<br/>- Cần nhập đầy đủ, tiện việc liên hệ<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-html'=>'true'
+											]) }}
 											@if ($errors->has('name'))
 											<span class="help-inline">{!! $errors->first('name') !!}</span>
-											@endif
-										</span>
-									</p>
-									<p class="row-fluid">
-										<span class="span4"><label for="email">Địa chỉ Email <span class="text-error">*</span></label></span>
-										<span class="span8{{ $errors->has('email') ? ' error' : '' }}">
-											{{ Form::email('email', $user->email, ['id'=>'email', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled]) }}
-											@if ($errors->has('email'))
-											<span class="help-inline">{!! $errors->first('email') !!}</span>
 											@endif
 										</span>
 									</p>
@@ -87,8 +85,8 @@
 										<span class="span4"><label for="birthday">Ngày sinh</label></span>
 										<span class="span8">
 											<span class="input-append">
-												{{ Form::text('birthday', $user->birthday, ['id'=>'birthday', 'class'=>'one-item with-btn-icon', 'readonly'=>true, 'title'=>'Click để chọn ngày', 'data-toggle'=>'tooltip', 'disabled'=>$disabled]) }}
-												<button type="button" class="btn btn-icon disabled"><span class="iconfa-calendar"></span></button>
+												{{ Form::text('birthday', $user->birthday, ['id'=>'birthday', 'class'=>'one-item with-btn-icon input-datepicker', 'readonly'=>true, 'disabled'=>$disabled]) }}
+												<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-datepicker' }}" title="Click để chọn ngày" data-toggle="tooltip" data-placement="left"><span class="iconfa-calendar"></span></button>
 											</span>
 										</span>
 									</p>
@@ -102,6 +100,27 @@
 											@endif
 										</span>
 									</p>
+									<p class="row-fluid">
+										<span class="span4"><label for="no">Số thứ tự</label></span>
+										<span class="span8{{ $errors->has('no') ? ' error' : '' }}">
+											{{ Form::number('no', $user->no, ['id'=>'no', 'class'=>'span3', 'min'=>0, 'max'=>999, 'disabled'=>$disabled]) }}
+											@if ($errors->has('no'))
+											<span class="help-inline">{!! $errors->first('no') !!}</span>
+											@endif
+										</span>
+									</p>
+									<p class="row-fluid">
+										<span class="span4">
+											<label for="status" style="padding:0px">Trạng thái</label>
+										</span>
+										<span class="span8">
+											@if(count($actives))
+											@foreach($actives as $k => $val)
+											<label class="uniform-label">{!! Form::radio('active', $val->id_type, (($user->active == $val->id_type)?1:0), ['id'=>'active-'.$val->id_type, 'class'=>'span12', 'disabled'=>$disabled]) !!} {!! $val->value_type !!}</label>
+											@endforeach
+											@endif
+										</span>
+									</p>
 								</div>
 								<div class="span6">
 									<div class="row-fluid">
@@ -109,19 +128,24 @@
 											<h4>Quan trọng</h4>
 											<p class="row-fluid">
 												<span class="span4">
-													<label for="role" style="padding:0px">Nhóm</label>
+													<label for="role">Nhóm</label>
 												</span>
-												<span class="span8">--</span>
+												<span class="span8{{ $errors->has('role') ? ' error' : '' }}">
+													{{ Form::text('role', '--', ['id'=>'role', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled]) }}
+													@if ($errors->has('role'))
+													<span class="help-inline">{!! $errors->first('role') !!}</span>
+													@endif
+												</span>
 											</p>
 											<p class="row-fluid">
-												<span class="span4">
-													<label for="status" style="padding:0px">Trạng thái</label>
-												</span>
-												<span class="span8">
-													@if(count($actives))
-													@foreach($actives as $k => $val)
-													<label class="uniform-label">{!! Form::radio('active', $val->id_type, (($user->active == $val->id_type)?1:0), ['id'=>'active-'.$val->id_type, 'class'=>'span12', 'disabled'=>$disabled]) !!} {!! $val->value_type !!}</label>
-													@endforeach
+												<span class="span4"><label for="email">Địa chỉ Email <span class="text-error">*</span></label></span>
+												<span class="span8{{ $errors->has('email') ? ' error' : '' }}">
+													{{ Form::email('email', $user->email, [
+														'id'=>'email', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled,
+														'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Địa chỉ Email thành viên<br/>- Nhập đúng Email đang được sử dụng.<br/>- Email này có thể dùng để gửi yêu cầu tạo mật khẩu mới khi quên mật khẩu cũ.<br/>- Có thể dùng Email để đăng nhập website thay cho tài khoản.<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-placement'=>'left', 'data-html'=>'true'
+													]) }}
+													@if ($errors->has('email'))
+													<span class="help-inline">{!! $errors->first('email') !!}</span>
 													@endif
 												</span>
 											</p>
@@ -130,8 +154,11 @@
 												<span class="span4"><label for="password">Mật khẩu</label></span>
 												<span class="span8{{ $errors->has('password') ? ' error' : '' }}">
 													<span class="input-append">
-														{{ Form::password('password', ['id'=>'password', 'class'=>'one-item with-btn-icon password_result', 'disabled'=>$disabled]) }}
-														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-generate-password' }}" rel-class="password_result" title="Tạo ngẫu nhiên" data-toggle="tooltip"><span class="iconfa-random"></span></button>
+														{{ Form::password('password', [
+															'id'=>'password', 'class'=>'one-item with-btn-icon password_result', 'disabled'=>$disabled,
+															'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Mật khẩu đăng nhập website<br/>- Cần tối thiểu 6 ký tự.<br/>- Bao gồm các ký tự thường, Hoa, số và các ký tự đặc biệt như: ~!@#$%^&*<br/>- Click <span class="iconfa-random"></span> kế bên để tạo mật khẩu đúng yêu cầu và đảm bảo độ bảo mật cao.', 'data-placement'=>'left', 'data-html'=>'true'
+														]) }}
+														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-generate-password' }}" rel-class="password_result" title="Click tạo mật khẩu ngẫu nhiên" data-toggle="tooltip" data-placement="left"><span class="iconfa-random"></span></button>
 													</span>
 													@if ($errors->has('password'))
 													<span class="help-inline">{!! $errors->first('password') !!}</span>
@@ -142,8 +169,11 @@
 												<span class="span4"><label for="password_confirmation">Nhắc lại mật khẩu</label></span>
 												<span class="span8">
 													<span class="input-append">
-														{{ Form::password('password_confirmation', ['id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result', 'disabled'=>$disabled]) }}
-														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-show-password' }}" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip"><span class="iconfa-eye-close"></span></button>
+														{{ Form::password('password_confirmation', [
+															'id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result', 'disabled'=>$disabled,
+															'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Nhắc lại mật khẩu<br/>- Cần trùng khớp với mật khẩu bên trên<br/>- Click <span class="iconfa-eye-close"></span> kế bên để Xem/Ẩn mật khẩu.', 'data-placement'=>'left', 'data-html'=>'true'
+														]) }}
+														<button type="button" class="btn btn-icon {{ ($disabled)?'disabled':'btn-show-password' }}" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip" data-placement="left"><span class="iconfa-eye-close"></span></button>
 													</span>
 												</span>
 											</p>
@@ -158,8 +188,8 @@
 						<p>{{ Form::textarea('content', $user->content, ['id'=>'content_user', 'class'=>'span12 ckeditor', 'disabled'=>$disabled]) }}</p>
 					</div>					
 					<p class="stdformbutton">
-						@if(isset($item['id']))
-						{{ Form::hidden('id', $item['id']) }}
+						@if(isset($user->id))
+						{{ Form::hidden('id', $user->id) }}
 						@endif
 						@if($updateForm)
 						{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -

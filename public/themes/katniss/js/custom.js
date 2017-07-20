@@ -38,6 +38,9 @@ jQuery(document).ready(function(){
 		}
 		jQuery(this).find('span').toggleClass('iconfa-eye-close iconfa-eye-open');
 	});
+	jQuery(".btn-datepicker").click(function(){
+		jQuery(".input-datepicker").datepicker("show");
+	});
 	jQuery("#birthday").datepicker({
 		dateFormat: 'd MM, yy',
 		changeMonth: true,
@@ -372,6 +375,9 @@ jQuery(document).ready(function(){
 	jQuery('[data-toggle="tooltip"]').tooltip()
 	jQuery('[data-toggle="popover"]').popover({
 		trigger: 'hover'
+	})
+	jQuery('[data-toggle="popfocus"]').popover({
+		trigger: 'focus'
 	})
 	
 	

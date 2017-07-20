@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
-use Auth, Hash, App\Option, App\User;
+use Auth, Hash, Image, App\Option, App\User;
 
 class UserController extends AdminController
 {
@@ -107,7 +107,7 @@ class UserController extends AdminController
     			$item = User::findOrFail($positions['id'][$i]);
     			if($item->id && $item->no != $positions['no'][$i]){
     				$mess .= '<b>'.$item->name.'</b>, ';
-    				User::where("id", $item->id)->update(['no' => $positions['no'][$i]]);
+    				User::where("id", $item->id)->update(['no' => $positions['no'][$i], 'updated_by' => Auth::user()->id]);
     			}
     		}
     		if($mess){
@@ -133,6 +133,7 @@ class UserController extends AdminController
         	$status = Option::select('value_type')->where([['type', 'active'], ['id_type', $user->active]])->first();
 	        $flash_messager = 'Thành viên [<b>'.$user->name.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
 	        $flash_type = 'success';
+            $user->updated_by = Auth::user()->id;
             $user->save();
         } else {
 	        $flash_messager = 'Không tìm thấy thông tin thành viên';
@@ -146,7 +147,7 @@ class UserController extends AdminController
     	$actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	$item = User::findOrFail($id);
     	return view('backend.users.edit')->with([
-            'title' => 'Xem chi tiết',
+            'title' => 'Xem chi tiết thành viên',
             'description' => 'Xem tất cả thông tin của thành viên.',
     		'disabled'=>true,
     		'sexs'=>$sexs,
@@ -171,7 +172,7 @@ class UserController extends AdminController
                 'name' => 'required',
                 'email' => 'required|string|email|max:255|unique:users,email',
                 'telephone' => 'nullable|min:10|max:11|unique:users,telephone',
-                'password' => 'required|min:6|same:password_confirmation',
+                'password' => 'nullable|min:6|same:password_confirmation',
             ], [
                 'name.required' => trans('admin.required'),
                 'email.required' => trans('admin.required'),
@@ -188,6 +189,7 @@ class UserController extends AdminController
         );
 
         $user->username = $request->username;
+        $user->slug = str_slug($request->username).date('-Ymd-His', time());
         $user->name = $request->name;
         $user->email = $request->email;
         $user->telephone = $request->telephone;
@@ -196,6 +198,8 @@ class UserController extends AdminController
         $user->content = $request->content;
         $user->no = $request->no;
         $user->active = $request->active;
+        $user->created_by = Auth::user()->id;
+        $user->updated_by = Auth::user()->id;
 		$user->password = Hash::make(strval($request->password_confirmation));
 
         /*
@@ -222,5 +226,72 @@ class UserController extends AdminController
     		'actives'=>$actives,
     		'user'=>$item
     		]);
+    }
+    public function update(Request $request){
+        $id = $request->id;
+        $user = User::findOrFail($id);
+        $this->validate($request, [
+                'photo' => 'nullable|max:3000',
+                'name' => 'required',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+                'telephone' => 'nullable|min:10|max:11|unique:users,telephone,'.$id,
+                'password' => 'nullable|min:6|same:password_confirmation',
+            ], [
+                'photo.max' => trans('admin.max.file'),
+                'name.required' => trans('admin.required'),
+                'email.required' => trans('admin.required'),
+                'email.email' => trans('admin.email'),
+                'email.max' => trans('admin.max.string'),
+                'email.unique' => trans('admin.email_unique'),
+                'telephone.min' => trans('admin.telephone_min'),
+                'telephone.max' => trans('admin.telephone_max'),
+                'telephone.unique' => trans('admin.telephone_unique'),
+                'password.min' => trans('admin.min.string'),
+                'password.same' => trans('auth.same_password'),
+            ]
+        );
+
+        $file = $request->photo;
+        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+        $ext = $file->getClientOriginalExtension();
+        $pathImageUser = 'users/';
+        $image = Image::make($file);
+        $newFilename = str_slug($filename).'.'.$ext;
+
+        $uploadSuccess = $file->move('images/'.$pathImageUser, $newFilename);
+        if(!$uploadSuccess){
+            $flash_type = 'error';
+            $flash_messager = 'Không thể upload hình ảnh.';
+
+            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->telephone = $request->telephone;
+        $user->birthday = $request->birthday;
+        $user->sex = $request->sex;
+        $user->content = $request->content;
+        $user->photo = $pathImageUser.$newFilename;
+        $user->no = $request->no;
+        $user->active = $request->active;
+        $user->updated_by = Auth::user()->id;
+        if($request->password && $request->password_confirmation){
+            $user->password = Hash::make(strval($request->password_confirmation));
+        }
+
+        /*
+        - Còn thiếu photo.
+        - Các trường # trong bảng detail.
+        - Ghi log những thay đổi.
+        */
+
+        $user->save();
+
+        $flash_type = 'success';
+        $flash_messager = 'Thành viên [<b>'.$user->name.'</b>]<br/>đã được cập nhật dữ liệu.';
+
+        return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+
     }
 }
