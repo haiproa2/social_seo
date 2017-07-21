@@ -26,7 +26,7 @@
 						<div class="span3">
 							<h4>Ảnh đại diện</h4>
 							<div class="profilethumb">
-								{!! Form::image(Image::url(('/themes/katniss/img/profilethumb.png'), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false']) !!}
+								{!! Form::image(Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false']) !!}
 							</div>
 		    				<div class="row-fluid">
                                 <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">

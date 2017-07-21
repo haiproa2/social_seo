@@ -155,7 +155,7 @@ return array(
     | as the original image so the next request will serve this static file
     |
     */
-    'write_image' => true,
+    'write_image' => false,
 
     /*
     |--------------------------------------------------------------------------

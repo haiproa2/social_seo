@@ -25,7 +25,7 @@
 		<div class="dropdown userinfo"> 
             <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">Hi, {{ Auth::user()->name }}! <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{{ route('backend.user') }}"><span class="icon-edit"></span> Cập nhật thông tin cá nhân</a></li>
+                <li><a href="{{ route('backend.user') }}">{!! Form::image(Image::url(((isset(Auth::user()->photo) && Auth::user()->photo)?'uploads/'.Auth::user()->photo:''), 50, 50, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 50, 50, array('crop'))."';"]) !!}<br/>Cập nhật thông tin cá nhân</a></li>
                 <li class="divider"></li>
                 @if(Auth::user()->email=='minhhai.dw@gmail.com')
                 <li><a href=""><span class="icon-wrench"></span> Account Settings</a></li>

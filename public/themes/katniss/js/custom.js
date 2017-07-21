@@ -20,18 +20,22 @@ jQuery(document).ready(function(){
 	jQuery(".btn-delete-photo").click(function(){
 		var table_item = jQuery(this).attr('data-table');
 		var id_item = jQuery(this).attr('data-id');
-		var image_default = jQuery(".image_default").val();
 		var CSRF_TOKEN = jQuery('input[name="_token"]').attr('value');
-		jConfirm('Bạn có chắc là muốn <b class="text-error">xóa</b> bức ảnh này?', 'Thông báo', function(r) {
+		jConfirm('Bạn có chắc là muốn <b class="text-error">Xóa Bức Ảnh</b> này?', 'Thông báo', function(r) {
 			if(r){
 				jQuery.ajax({
 					url: route_delete_image,
 					method: "POST",
 					data: {_token: CSRF_TOKEN, table_item: table_item, id_item: id_item},
 					success: function (data) {
-						jQuery("#img-polaroid").attr('src', image_default); // Set src for img
-						jQuery(".info-photo").addClass('animate0 fadeOut hidden'); // Set val for thumb
-						jQuery('input[name="_token"]').attr('value', data.token);
+						console.log(data);						
+						var data = jQuery.parseJSON(data);
+						if(data.status == 'success'){
+							jQuery("#img-polaroid").attr('src', ''); // Set src for img
+							jQuery(".info-photo").addClass('animate0 fadeOut hidden'); // Set val for thumb
+							jQuery('input[name="_token"]').attr('value', data.token);
+						}
+						jQuery.jGrowl(data.messager, { life: 5000, theme: data.status});
 					},
 					error: function (data) {
 						console.log("Cannot get thumbnail.");
@@ -50,7 +54,6 @@ jQuery(document).ready(function(){
 		jQuery("."+jQuery(this).attr('rel-class')).val(pass);
 		jQuery(this).val(pass);
 		jAlert('<p class="text-success text-center">'+pass+'</p>', 'Gợi ý mật khẩu', function(){
-			console.log('done');
 			jQuery(".btn-generate-password").find('span').toggleClass('iconfa-random iconfa-refresh').removeClass('icon-spin');
 	    });
 	});

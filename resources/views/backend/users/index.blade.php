@@ -26,7 +26,13 @@
 						<div class="span3">
 							<h4>Ảnh đại diện</h4>
 							<div class="profilethumb">
-								{!! Form::image(Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:'/themes/katniss/img/profilethumb.png'), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false']) !!}
+								{!! Form::image(Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:''), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 230, 230, array('crop'))."';"]) !!}
+								@if(isset($user->photo) && $user->photo)
+								<div class="info-photo">
+									<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$user->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 
+									{!! Form::button('<span class="iconfa-trash"></span> Xóa ảnh', ['title'=>'Xóa ảnh', 'class'=>'btn btn-small btn-danger btn-delete-photo', 'data-table'=>$prefix, 'data-id'=>$user->id, 'disabled'=>$disabled]) !!}
+								</div>
+								@endif
 							</div>
 		    				<div class="row-fluid">
                                 <div class="fileupload fileupload-new span12{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
@@ -36,11 +42,11 @@
                                 			<span class="fileupload-preview"></span>
                                 		</div>
                                 		<span class="btn btn-file{!! ($disabled)?' disabled':'' !!}">
-                                			<span class="fileupload-new">Select file</span>
-	                                		<span class="fileupload-exists">Change</span>
+                                			<span class="fileupload-new">Chọn ảnh</span>
+	                                		<span class="fileupload-exists">Đổi</span>
 	                                		{{ Form::file('photo', ['id'=>'photo', 'disabled'=>$disabled]) }}
 	                                	</span>
-                                		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Hủy</a>
                                 	</div>
 									@if ($errors->has('photo'))
 									<span class="help-inline">{!! $errors->first('photo') !!}</span>
