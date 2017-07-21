@@ -24,11 +24,11 @@ class UserController extends AdminController
     		]);
     }
     public function saveDetail(Request $request){
-    	$user = User::findOrFail(Auth::user()->id);
+    	$item = User::findOrFail(Auth::user()->id);
         $this->validate($request, [
                 'name' => 'required',
-                'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
-                'telephone' => 'nullable|min:10|max:11|unique:users,telephone,'.$user->id,
+                'email' => 'required|string|email|max:255|unique:users,email,'.$item->id,
+                'telephone' => 'nullable|min:10|max:11|unique:users,telephone,'.$item->id,
                 'password' => 'nullable|min:6|same:password_confirmation',
             ], [
                 'name.required' => trans('admin.required'),
@@ -49,7 +49,7 @@ class UserController extends AdminController
 	        $ext = $file->getClientOriginalExtension();
 	        $pathImageUser = 'users/';
 	        $image = Image::make($file);
-	        $newFilename = str_slug($user->username).date('-YdmHis', time()).'.'.$ext;
+	        $newFilename = str_slug($item->username).date('-YdmHis', time()).'.'.$ext;
 
 	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
 	        if(!$uploadSuccess){
@@ -58,20 +58,20 @@ class UserController extends AdminController
 
 	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else{
-	        	Image::delete('uploads/'.$user->photo);
-	        	$user->photo = $pathImageUser.$newFilename;
+	        	Image::delete('uploads/'.$item->photo);
+	        	$item->photo = $pathImageUser.$newFilename;
 	        }
 	    }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telephone = $request->telephone;
-        $user->birthday = $request->birthday;
-        $user->sex = $request->sex;
-        $user->content = $request->content;
+        $item->name = $request->name;
+        $item->email = $request->email;
+        $item->telephone = $request->telephone;
+        $item->birthday = $request->birthday;
+        $item->sex = $request->sex;
+        $item->content = $request->content;
 
         if($request->password && $request->password_confirmation){
-        	$user->password = Hash::make(strval($request->password_confirmation));
+        	$item->password = Hash::make(strval($request->password_confirmation));
         }
 
         /*
@@ -80,7 +80,7 @@ class UserController extends AdminController
 		- Ghi log những thay đổi.
         */
 
-        $user->save();
+        $item->save();
         return redirect()->route('backend.user')->with(['flash_type'=>'success', 'flash_messager'=>'Thông tin cá nhân đã được cập nhật.']);
     }
     public function listUsers(Request $request){
@@ -143,17 +143,17 @@ class UserController extends AdminController
         return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
     public function activeStatus($id){
-        $user = User::findOrFail($id);
+        $item = User::findOrFail($id);
         if($id!=89){
-            if($user->active==0)
-                $user->active = 1;
+            if($item->active==0)
+                $item->active = 1;
             else
-                $user->active = 0;
-        	$status = Option::select('value_type')->where([['type', 'active'], ['id_type', $user->active]])->first();
-	        $flash_messager = 'Thành viên [<b>'.$user->name.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
+                $item->active = 0;
+        	$status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
+	        $flash_messager = 'Thành viên [<b>'.$item->name.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
 	        $flash_type = 'success';
-            $user->updated_by = Auth::user()->id;
-            $user->save();
+            $item->updated_by = Auth::user()->id;
+            $item->save();
         } else {
 	        $flash_messager = 'Không tìm thấy thông tin thành viên';
 	        $flash_type = 'info';
@@ -186,7 +186,7 @@ class UserController extends AdminController
     		]);
     }
     public function store(Request $request){
-    	$user = new User;
+    	$item = new User;
         $this->validate($request, [
                 'photo' => 'nullable|max:3000',
                 'name' => 'required',
@@ -228,22 +228,22 @@ class UserController extends AdminController
 
 	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else
-	        	$user->photo = $pathImageUser.$newFilename;
+	        	$item->photo = $pathImageUser.$newFilename;
 	    }
 
-        $user->username = preg_replace('/\s+/', '', strip_tags(strtolower($request->username)));
-        $user->slug = str_slug($request->username).date('-Ymd-His', time());
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telephone = $request->telephone;
-        $user->birthday = $request->birthday;
-        $user->sex = $request->sex;
-        $user->content = $request->content;
-        $user->no = $request->no;
-        $user->active = $request->active;
-        $user->created_by = Auth::user()->id;
-        $user->updated_by = Auth::user()->id;
-		$user->password = Hash::make(strval($request->password_confirmation));
+        $item->username = preg_replace('/\s+/', '', strip_tags(strtolower($request->username)));
+        $item->slug = str_slug($request->username).date('-Ymd-His', time());
+        $item->name = $request->name;
+        $item->email = $request->email;
+        $item->telephone = $request->telephone;
+        $item->birthday = $request->birthday;
+        $item->sex = $request->sex;
+        $item->content = $request->content;
+        $item->no = $request->no;
+        $item->active = $request->active;
+        $item->created_by = Auth::user()->id;
+        $item->updated_by = Auth::user()->id;
+		$item->password = Hash::make(strval($request->password_confirmation));
 
         /*
 		- Còn thiếu photo.
@@ -251,10 +251,10 @@ class UserController extends AdminController
 		- Ghi log những thay đổi.
         */
 
-        $user->save();
+        $item->save();
 
         $flash_type = 'success';
-        $flash_messager = 'Đã thêm mới thành viên [<b>'.$user->name.'</b>]';
+        $flash_messager = 'Đã thêm mới thành viên [<b>'.$item->name.'</b>]';
 
         return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
@@ -272,7 +272,7 @@ class UserController extends AdminController
     }
     public function update(Request $request){
         $id = $request->id;
-        $user = User::findOrFail($id);
+        $item = User::findOrFail($id);
         $this->validate($request, [
                 'photo' => 'nullable|max:3000',
                 'name' => 'required',
@@ -300,7 +300,7 @@ class UserController extends AdminController
 	        $ext = $file->getClientOriginalExtension();
 	        $pathImageUser = 'users/';
 	        $image = Image::make($file);
-	        $newFilename = str_slug($user->username).date('-YdmHis', time()).'.'.$ext;
+	        $newFilename = str_slug($item->username).date('-YdmHis', time()).'.'.$ext;
 
 	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
 	        if(!$uploadSuccess){
@@ -309,22 +309,22 @@ class UserController extends AdminController
 
 	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else{
-	        	Image::delete('uploads/'.$user->photo);
-	        	$user->photo = $pathImageUser.$newFilename;
+	        	Image::delete('uploads/'.$item->photo);
+	        	$item->photo = $pathImageUser.$newFilename;
 	        }
 	    }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telephone = $request->telephone;
-        $user->birthday = $request->birthday;
-        $user->sex = $request->sex;
-        $user->content = $request->content;
-        $user->no = $request->no;
-        $user->active = $request->active;
-        $user->updated_by = Auth::user()->id;
+        $item->name = $request->name;
+        $item->email = $request->email;
+        $item->telephone = $request->telephone;
+        $item->birthday = $request->birthday;
+        $item->sex = $request->sex;
+        $item->content = $request->content;
+        $item->no = $request->no;
+        $item->active = $request->active;
+        $item->updated_by = Auth::user()->id;
         if($request->password && $request->password_confirmation){
-            $user->password = Hash::make(strval($request->password_confirmation));
+            $item->password = Hash::make(strval($request->password_confirmation));
         }
 
         /*
@@ -333,12 +333,43 @@ class UserController extends AdminController
         - Ghi log những thay đổi.
         */
 
-        $user->save();
+        $item->save();
 
         $flash_type = 'success';
-        $flash_messager = 'Thành viên [<b>'.$user->name.'</b>]<br/>đã được cập nhật dữ liệu.';
+        $flash_messager = 'Thành viên [<b>'.$item->name.'</b>]<br/>đã được cập nhật dữ liệu.';
 
         return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+    }
+    public function destroy(Request $request){
+    	$router = $request->route()->getName();
+    	if($router == 'backend.user.delete'){ // Xóa 1 phần tử
+    		$item = User::findOrFail($request->id);
+    		Image::delete('uploads/'.$item->photo);
+    		User::destroy($request->id);
+    		$flash_type = 'success';
+    		$flash_messager = 'Thành viên [<b>'.$item->name.'</b>]<br/>đã bị xóa.';
+    	} elseif($router == 'backend.user.deletes'){ // Xóa nhiều phần tử
+    		$listid = $request->listid;
+    		if($listid){
+    			$listids = explode("-", $listid);
+				$names = '';
+				foreach ($listids as $key => $id) {
+					$item = User::findOrFail($id);
+					$names .= '[<strong>'.$item->name.'</strong>], ';
+					Image::delete('uploads/'.$item->photo);
+					User::destroy($id);
+				}
+	    		$flash_type = 'success';
+	    		$flash_messager = 'Thành viên '.rtrim($names, ', ').' đã bị xóa.';
+    		} else {
+	    		$flash_type = 'info';
+	    		$flash_messager = 'Không nhận được dữ liệu.';
+    		}
 
+    	} else { // Không tìm thấy phần tử
+    		$flash_type = 'error';
+    		$flash_messager = 'Đường dẫn không tồn tại.';
+    	}
+    	return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
 }

@@ -123,7 +123,7 @@ div.jGrowl.bottom-right{bottom: 45px;}
 div.jGrowl.bottom-left{bottom: 45px;}
 div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer{position: relative;}
 div.jGrowl div.jGrowl-notification div.jGrowl-close{position: absolute; right: 3px; top: 0px;}
-div.jGrowl div.jGrowl-notification.success, div.jGrowl div.jGrowl-closer{
+div.jGrowl div.jGrowl-notification.success, div.jGrowl div.jGrowl-notification.alert-success, div.jGrowl div.jGrowl-closer.alert-success{
 	border-color: #b4da95; color: #468847;
 	background: rgb(223,240,216);
 	background: -moz-linear-gradient(top, rgba(223,240,216,1) 0%, rgba(208,242,195,1) 100%);
@@ -134,7 +134,7 @@ div.jGrowl div.jGrowl-notification.success, div.jGrowl div.jGrowl-closer{
 	background: linear-gradient(to bottom, rgba(223,240,216,1) 0%,rgba(208,242,195,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dff0d8', endColorstr='#d0f2c3',GradientType=0 );
 }
-div.jGrowl div.jGrowl-notification.error, div.jGrowl div.jGrowl-closer{
+div.jGrowl div.jGrowl-notification.error, div.jGrowl div.jGrowl-notification.alert-error, div.jGrowl div.jGrowl-closer.alert-error{
 	border-color: #e18d9a; color: #da5251;
 	background: rgb(246,216,216);
 	background: -moz-linear-gradient(top, rgba(246,216,216,1) 0%, rgba(245,197,197,1) 100%);
@@ -145,7 +145,7 @@ div.jGrowl div.jGrowl-notification.error, div.jGrowl div.jGrowl-closer{
 	background: linear-gradient(to bottom, rgba(246,216,216,1) 0%,rgba(245,197,197,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6d8d8', endColorstr='#f5c5c5',GradientType=0 );
 }
-div.jGrowl div.jGrowl-notification.info, div.jGrowl div.jGrowl-closer{
+div.jGrowl div.jGrowl-notification.info, div.jGrowl div.jGrowl-notification.alert-info, div.jGrowl div.jGrowl-closer.alert-info{
 	border-color: #88c4e2; color: #3a87ad;
 	background: rgb(217,237,247);
 	background: -moz-linear-gradient(top, rgba(217,237,247,1) 0%, rgba(186,230,252,1) 100%);
@@ -172,7 +172,7 @@ div.jGrowl div.jGrowl-notification.info, div.jGrowl div.jGrowl-closer{
 #table-header select{width: auto;}
 #table-header input{width: 150px;}
 .table .inputNo{width: 40px; text-align: center; min-height: auto; padding: 0px;}
-.table .action a{display: inline-block; margin-left: 3px;}
+.table .action a{display: inline-block; margin-left: 7px;}
 .table .action a:first-child{margin: 0px;}
 .table .action a:hover{text-decoration: none;}
 .table .action [class^='iconfa-']{display: block; padding: 0px; width: 15px; text-align: center; font-size: 16px; line-height: 1; margin: auto;}

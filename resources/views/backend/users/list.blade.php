@@ -22,7 +22,7 @@
 			<div class="actionfull">
 				<a href="{{ route('backend.user.create') }}" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
 				<button class="btn btn-info btn-update"><i class="iconfa-refresh"></i> Cập nhật STT</button>
-				<button class="btn btn-danger delall"><i class="iconfa-trash"></i> Xóa nhiều</button>
+				<button class="btn btn-danger btn-deletes" onCLick="return deleteItems('thành viên', '{!! route('backend.user.deletes', 'users') !!}')"><i class="iconfa-trash"></i> Xóa nhiều</button>
 			</div>
 		</div>
 	</div>
@@ -79,7 +79,7 @@
 								<td style="width:10%;" class="action">
 									<a href="{!! route('backend.user.view', $value->id) !!}" title="Xem chi tiết" data-toggle="tooltip" class="btn-read"><span class="iconfa-eye-open muted"></span></a>
 									<a href="{{ route('backend.user.edit', $value->id) }}" title="Chỉnh sửa" data-toggle="tooltip" class="btn-update"><span class="iconfa-edit muted"></span></a>
-									<a href="javascript: void(0)" title="Xóa" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Bạn muốn xóa tài khoản [<strong>{{ strip_tags($value->name) }}</strong>] có Email [<strong>{{ strip_tags($value->name) }}</strong>]?', '')"><span class="iconfa-trash muted"></span></a>
+									<a href="javascript: void(0)" title="Xóa" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Khi bạn đồng ý xóa thì tất cả dữ liệu của thành viên sẽ <span class=&quot;text-error&quot;>bị xóa vĩnh viễn</span>. <br/>Nếu bạn không muốn thành viên hoạt động nữa bạn có thể, <br/>cập nhật trạng thái thành viên thành <span class=&quot;label&quot;>Tạm khóa</span><br/><br/><p class=&quot;text-error text-center&quot;>Bạn có chắc vẫn muốn xóa thành viên [<strong>{!! $value->name !!}</strong>]?</p>', '{!! route('backend.user.delete', $value->id) !!}')"><span class="iconfa-trash muted"></span></a>
 								</td>
 							</tr>
 							@endforeach
@@ -100,7 +100,7 @@
 			<div class="actionfull">
 				<a href="{{ route('backend.user.create') }}" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
 				<button class="btn btn-info btn-update"><i class="iconfa-refresh"></i> Cập nhật STT</button>
-				<button class="btn btn-danger delall"><i class="iconfa-trash"></i> Xóa nhiều</button>
+				<button class="btn btn-danger btn-deletes" onCLick="return deleteItems('thành viên', '{!! route('backend.user.deletes', 'users') !!}')"><i class="iconfa-trash"></i> Xóa nhiều</button>
 			</div>
 		</div>
 	</div>

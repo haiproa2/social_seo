@@ -10,6 +10,34 @@ function randomPassword(leng){
 	return text;
 }
 
+function deleteItem(message, url){
+	jConfirm(message, 'THÔNG BÁO', function(r) {		
+		if(r) window.location.href = url;
+		return false;
+	});
+}
+
+function deleteItems(message, url){
+	var linkItem="";
+	jQuery("input[name='chose']").each(function(){
+		if (this.checked) linkItem = this.value+"-"+linkItem;
+	});
+	var length_prefix = url.split("/").pop();
+	router = url.substring(0, url.length - length_prefix.length);
+	linkItem = linkItem.substring(0, linkItem.lastIndexOf("-"))
+	if (linkItem=="") {
+		jQuery.jGrowl('Chọn ít nhất <strong>MỘT</strong> '+message+'!', {
+			group: 'alert alert-error animate0 tada',
+			life: 4000
+		});
+		return false;
+	};
+	jConfirm('Khi bạn đồng ý xóa thì tất cả dữ liệu '+message+' được chọn sẽ <span class="text-error">bị xóa vĩnh viễn</span>. <br/>Nếu không muốn '+message+' hiển thị ra ngoài nữa, bạn có thể <br/>cập nhật trạng thái '+message+' thành <span class="label">Tạm khóa</span>.<br/><br/><p class="text-error text-center">Bạn có chắc vẫn muốn xóa <b>các '+message+'</b> đã chọn?</p>', 'THÔNG BÁO', function(r) {
+		if(r) window.location.href = router+linkItem;
+		return false;
+	});
+}
+
 jQuery(document).ready(function(){
 	
 	prettyPrint();			//syntax highlighter

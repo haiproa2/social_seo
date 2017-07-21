@@ -43,6 +43,8 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 		Route::post('{id}/edit', ['as' => 'backend.user.update', 'uses' => 'Admin\UserController@update']);
 		Route::get('{id}/active', ['as' => 'backend.user.active', 'uses' => 'Admin\UserController@activeStatus']);
 		Route::get('{id}', ['as' => 'backend.user.view', 'uses' => 'Admin\UserController@view']);
+		Route::get('{id}/delete', ['as'=>'backend.user.delete', 'uses'=>'Admin\UserController@destroy']);
+		Route::get('deletes/{listid}', ['as'=>'backend.user.deletes', 'uses'=>'Admin\UserController@destroy']);
 	});
 });
 
