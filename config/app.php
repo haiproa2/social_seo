@@ -170,6 +170,8 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Folklore\Image\ImageServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -179,8 +181,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -233,7 +233,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Folklore\Image\Facades\Image::class,
-
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

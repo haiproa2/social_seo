@@ -26,6 +26,10 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'Z' => 
+        array (
+            'Zizaco\\Entrust\\' => 15,
+        ),
         'X' => 
         array (
             'XdgBaseDir\\' => 11,
@@ -114,6 +118,10 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
+        'Zizaco\\Entrust\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -345,11 +353,15 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Option' => __DIR__ . '/../..' . '/app/Option.php',
+        'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
+        'App\\PermissionRole' => __DIR__ . '/../..' . '/app/PermissionRole.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
+        'App\\RoleUser' => __DIR__ . '/../..' . '/app/RoleUser.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
@@ -409,6 +421,8 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Dotenv\\Exception\\ValidationException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ValidationException.php',
         'Dotenv\\Loader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader.php',
         'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'EntrustPackageSeeder' => __DIR__ . '/../..' . '/database/seeds/EntrustPackageSeeder.php',
+        'EntrustSetupTables' => __DIR__ . '/../..' . '/database/migrations/2017_07_21_233236_entrust_setup_tables.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Luhn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Luhn.php',
         'Faker\\DefaultGenerator' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/DefaultGenerator.php',
@@ -3567,6 +3581,21 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserTableSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
+        'Zizaco\\Entrust\\Contracts\\EntrustPermissionInterface' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Contracts/EntrustPermissionInterface.php',
+        'Zizaco\\Entrust\\Contracts\\EntrustRoleInterface' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Contracts/EntrustRoleInterface.php',
+        'Zizaco\\Entrust\\Contracts\\EntrustUserInterface' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Contracts/EntrustUserInterface.php',
+        'Zizaco\\Entrust\\Entrust' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Entrust.php',
+        'Zizaco\\Entrust\\EntrustFacade' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustFacade.php',
+        'Zizaco\\Entrust\\EntrustPermission' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustPermission.php',
+        'Zizaco\\Entrust\\EntrustRole' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustRole.php',
+        'Zizaco\\Entrust\\EntrustServiceProvider' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustServiceProvider.php',
+        'Zizaco\\Entrust\\Middleware\\EntrustAbility' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Middleware/EntrustAbility.php',
+        'Zizaco\\Entrust\\Middleware\\EntrustPermission' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Middleware/EntrustPermission.php',
+        'Zizaco\\Entrust\\Middleware\\EntrustRole' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Middleware/EntrustRole.php',
+        'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',
+        'Zizaco\\Entrust\\Traits\\EntrustPermissionTrait' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Traits/EntrustPermissionTrait.php',
+        'Zizaco\\Entrust\\Traits\\EntrustRoleTrait' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Traits/EntrustRoleTrait.php',
+        'Zizaco\\Entrust\\Traits\\EntrustUserTrait' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Traits/EntrustUserTrait.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
