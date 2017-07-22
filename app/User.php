@@ -32,4 +32,8 @@ class User extends Authenticatable
     public function option_active(){
         return $this->hasOne('App\Option', 'id_type', 'active')->where('type', 'active');
     }
+
+    public function roles(){
+        return $this->belongsToMany('App\Role');
+    }
 }

@@ -124,7 +124,7 @@
 													<label for="role">Nhóm</label>
 												</span>
 												<span class="span8{{ $errors->has('role') ? ' error' : '' }}">
-													{{ Form::text('role', '--', ['id'=>'role', 'class'=>'span12', 'required'=>true]) }}
+													{{ Form::select('roles[]', $roles, $userRoles, ['id' => 'role', 'class' => 'span12 SumoSelect']) }}
 													@if ($errors->has('role'))
 													<span class="help-inline">{!! $errors->first('role') !!}</span>
 													@endif

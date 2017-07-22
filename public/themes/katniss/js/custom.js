@@ -251,6 +251,10 @@ jQuery(document).ready(function(){
 	if(jQuery().uniform)
 		jQuery('input:checkbox, input:radio, select.uniformselect, .uniform-file').uniform();
 	
+	// transform checkbox and radio box using uniform plugin
+	if(jQuery().SumoSelect)
+		jQuery('.SumoSelect').SumoSelect();
+	
 	
 	// show/hide widget content or widget content's child	
 	if(jQuery('.showhide').length > 0 ) {

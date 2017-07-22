@@ -20,9 +20,15 @@
 	<div class="row-fluid">
 		<div class="span12 text-right text-top">
 			<div class="actionfull">
+				@ability('root,admin', 'c_user')
 				<a href="{{ route('backend.user.create') }}" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
+				@endability
+				@ability('root,admin', 'u_user')
 				<button class="btn btn-info btn-update"><i class="iconfa-refresh"></i> Cập nhật STT</button>
+				@endability
+				@ability('root,admin', 'd_user')
 				<button class="btn btn-danger btn-deletes" onCLick="return deleteItems('thành viên', '{!! route('backend.user.deletes', 'users') !!}')"><i class="iconfa-trash"></i> Xóa nhiều</button>
+				@endability
 			</div>
 		</div>
 	</div>
@@ -67,19 +73,31 @@
 			            		<td style="width:5%;" data-order="<?=$key?>"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/></td>
 			            		<td class="text-left">{!! str_limit($value->name, 70) !!}</td>
 								<td style="width:17%;" class="text-left">{!! str_limit($value->email, 70) !!}</td>
-								<td style="width:17%;" class="text-left">--</td>
+								<td style="width:17%;" class="text-left">
+									@if($value->roles)
+										@foreach($value->roles as $key => $val)
+										{!! $val->display_name !!}
+										@endforeach
+									@else
+									--
+									@endif
+								</td>
 								<td style="width:10%;" class="action">{!! $value->updated_at !!}</td>
 								<td style="width:10%;" class="action">
-									<?php if(Auth::check()){ ?>
+									@if(Auth::user()->ability('root,admin', 'u_user'))
 									<a href="{!! route('backend.user.active', $value->id) !!}" title="Click để {!! ($value->active)?'khóa lại':'mở khóa' !!}" data-toggle="tooltip" data-html="true">{!! $value->option_active->value_type !!}</a>
-									<?php } else { ?>
+									@else
 									{!! $value->option_active->value_type !!}
-									<?php } ?>
+									@endif
 								</td>
 								<td style="width:10%;" class="action">
 									<a href="{!! route('backend.user.view', $value->id) !!}" title="Xem chi tiết" data-toggle="tooltip" class="btn-read"><span class="iconfa-eye-open muted"></span></a>
+									@ability('root,admin', 'u_user')
 									<a href="{{ route('backend.user.edit', $value->id) }}" title="Chỉnh sửa" data-toggle="tooltip" class="btn-update"><span class="iconfa-edit muted"></span></a>
+									@endability
+									@ability('root,admin', 'd_user')
 									<a href="javascript: void(0)" title="Xóa" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Khi bạn đồng ý xóa thì tất cả dữ liệu của thành viên sẽ <span class=&quot;text-error&quot;>bị xóa vĩnh viễn</span>. <br/>Nếu bạn không muốn thành viên hoạt động nữa bạn có thể, <br/>cập nhật trạng thái thành viên thành <span class=&quot;label&quot;>Tạm khóa</span><br/><br/><p class=&quot;text-error text-center&quot;>Bạn có chắc vẫn muốn xóa thành viên [<strong>{!! $value->name !!}</strong>]?</p>', '{!! route('backend.user.delete', $value->id) !!}')"><span class="iconfa-trash muted"></span></a>
+									@endability
 								</td>
 							</tr>
 							@endforeach
@@ -98,9 +116,15 @@
 	<div class="row-fluid">
 		<div class="span12 text-right text-bottom">
 			<div class="actionfull">
+				@ability('root,admin', 'c_user')
 				<a href="{{ route('backend.user.create') }}" class="btn btn-primary"><i class="iconfa-plus"></i> Thêm mới</a>
+				@endability
+				@ability('root,admin', 'u_user')
 				<button class="btn btn-info btn-update"><i class="iconfa-refresh"></i> Cập nhật STT</button>
+				@endability
+				@ability('root,admin', 'd_user')
 				<button class="btn btn-danger btn-deletes" onCLick="return deleteItems('thành viên', '{!! route('backend.user.deletes', 'users') !!}')"><i class="iconfa-trash"></i> Xóa nhiều</button>
+				@endability
 			</div>
 		</div>
 	</div>

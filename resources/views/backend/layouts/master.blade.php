@@ -29,6 +29,7 @@ session_start();
     <link href="{{ asset('themes/katniss/prettify/prettify.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/css/bootstrap-fileupload.min.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/sumoselect/sumoselect.min.css') }}" rel="stylesheet">
     <link href="{{ asset('themes/katniss/css/style.custom.css?v='.time()) }}" rel="stylesheet">
 
     <script type="text/javascript" src="{{ asset('themes/katniss/prettify/prettify.js') }}"></script>
@@ -57,6 +58,7 @@ session_start();
 
     <script type="text/javascript" src="{{ asset('plugins/ckeditor_4.6.0/ckeditor.js') }}"></script>
     <script type="text/javascript" src="{{ asset('plugins/ckfinder_2.6.2.1/ckfinder.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/sumoselect/jquery.sumoselect.min.js') }}"></script>
 
 </head>
 <body>

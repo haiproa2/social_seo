@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
-use Auth, Hash, Image, App\Option, App\User, App\Role, App\Permission;
+use Auth, Hash, Image, App\Option, App\User, App\Role, App\RoleUser, App\Permission;
 
 class UserController extends AdminController
 {
@@ -162,19 +162,25 @@ class UserController extends AdminController
     }
     public function view(Request $request){
     	$id = $request->id;
+    	$roles = Role::where('name', '!=', 'root')->orderby('id', 'DESC')->pluck('display_name', 'id')->toArray();
     	$sexs = Option::select('value_type', 'id_type')->where([['type', 'sex'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	$actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	$item = User::findOrFail($id);
+    	$userRoles = $item->roles->pluck('id','id')->toArray();
     	return view('backend.users.edit')->with([
             'title' => 'Xem chi tiết thành viên',
             'description' => 'Xem tất cả thông tin của thành viên.',
     		'disabled'=>true,
     		'sexs'=>$sexs,
     		'actives'=>$actives,
-    		'user'=>$item
+    		'roles'=>$roles,
+    		'userRoles'=>$userRoles,
+    		'user'=>$item,
     		]);
     }
     public function create(){
+    	$roles = Role::where('name', '!=', 'root')->orderby('id', 'DESC')->pluck('display_name', 'id')->toArray();
+    	$userRoles = Role::where('id', 4)->orderby('id', 'DESC')->pluck('id')->first();
     	$sexs = Option::select('value_type', 'id_type')->where([['type', 'sex'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	$actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.users.create')->with([
@@ -182,6 +188,8 @@ class UserController extends AdminController
             'description' => 'Thêm mới dữ liệu cho một thành viên.',
     		'sexs'=>$sexs,
     		'actives'=>$actives,
+    		'roles'=>$roles,
+    		'userRoles'=>$userRoles,
     		'user'=>''
     		]);
     }
@@ -246,12 +254,17 @@ class UserController extends AdminController
 		$item->password = Hash::make(strval($request->password_confirmation));
 
         /*
-		- Còn thiếu photo.
 		- Các trường # trong bảng detail.
 		- Ghi log những thay đổi.
         */
 
         $item->save();
+
+        if($request->roles){
+            foreach ($request->roles as $key => $value) {
+                $item->attachRole($value);
+            }
+        } else $item->attachRole(4); 
 
         $flash_type = 'success';
         $flash_messager = 'Đã thêm mới thành viên [<b>'.$item->name.'</b>]';
@@ -260,6 +273,8 @@ class UserController extends AdminController
     }
     public function edit($id){
     	$item = User::findOrFail($id);
+    	$roles = Role::where('name', '!=', 'root')->orderby('id', 'DESC')->pluck('display_name', 'id')->toArray();
+    	$userRoles = $item->roles->pluck('id','id')->toArray();
     	$sexs = Option::select('value_type', 'id_type')->where([['type', 'sex'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	$actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.users.edit')->with([
@@ -267,6 +282,8 @@ class UserController extends AdminController
             'description' => 'Chỉnh sửa tất cả thông tin của thành viên.',
     		'sexs'=>$sexs,
     		'actives'=>$actives,
+    		'roles'=>$roles,
+    		'userRoles'=>$userRoles,
     		'user'=>$item
     		]);
     }
@@ -335,6 +352,14 @@ class UserController extends AdminController
 
         $item->save();
 
+        if($id!=89) RoleUser::where('user_id', $id)->delete();
+
+        if($request->roles && $id!=89){
+            foreach ($request->roles as $key => $value) {
+                $item->attachRole($value);
+            }
+        } else $item->attachRole(4); 
+
         $flash_type = 'success';
         $flash_messager = 'Thành viên [<b>'.$item->name.'</b>]<br/>đã được cập nhật dữ liệu.';
 
@@ -346,6 +371,7 @@ class UserController extends AdminController
     		$item = User::findOrFail($request->id);
     		Image::delete('uploads/'.$item->photo);
     		User::destroy($request->id);
+    		RoleUser::where('user_id', $id)->delete();
     		$flash_type = 'success';
     		$flash_messager = 'Thành viên [<b>'.$item->name.'</b>]<br/>đã bị xóa.';
     	} elseif($router == 'backend.user.deletes'){ // Xóa nhiều phần tử
@@ -358,6 +384,7 @@ class UserController extends AdminController
 					$names .= '[<strong>'.$item->name.'</strong>], ';
 					Image::delete('uploads/'.$item->photo);
 					User::destroy($id);
+					RoleUser::where('user_id', $id)->delete();
 				}
 	    		$flash_type = 'success';
 	    		$flash_messager = 'Thành viên '.rtrim($names, ', ').' đã bị xóa.';

@@ -29,8 +29,8 @@
 								{!! Form::image(Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:''), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 230, 230, array('crop'))."';"]) !!}
 								@if(isset($user->photo) && $user->photo)
 								<div class="info-photo">
-									<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$user->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 
-									{!! Form::button('<span class="iconfa-trash"></span> Xóa ảnh', ['title'=>'Xóa ảnh', 'class'=>'btn btn-small btn-danger btn-delete-photo', 'data-table'=>$prefix, 'data-id'=>$user->id, 'disabled'=>$disabled]) !!}
+									<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$user->photo) !!}" target="_blank" title="Xem ảnh gốc" data-toggle="tooltip"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 
+									{!! Form::button('<span class="iconfa-trash"></span> Xóa ảnh', ['title'=>'Xóa ảnh', 'class'=>'btn btn-small btn-danger btn-delete-photo', 'data-toggle'=>'tooltip', 'data-table'=>$prefix, 'data-id'=>$user->id, 'disabled'=>$disabled]) !!}
 								</div>
 								@endif
 							</div>
@@ -66,7 +66,10 @@
 									<p class="row-fluid">
 										<span class="span4"><label for="name">Họ và tên <span class="text-error">*</span></label></span>
 										<span class="span8{{ $errors->has('name') ? ' error' : '' }}">
-											{{ Form::text('name', $user->name, ['id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true]) }}
+											{{ Form::text('name', $user->name, [
+												'id'=>'name', 'class'=>'span12', 'autofocus'=>true, 'required'=>true,
+												'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Trường Họ và tên<br/>- Cần nhập đầy đủ, tiện việc liên hệ<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-html'=>'true'
+											]) }}
 											@if ($errors->has('name'))
 											<span class="help-inline">{!! $errors->first('name') !!}</span>
 											@endif
@@ -75,7 +78,10 @@
 									<p class="row-fluid">
 										<span class="span4"><label for="email">Địa chỉ Email <span class="text-error">*</span></label></span>
 										<span class="span8{{ $errors->has('email') ? ' error' : '' }}">
-											{{ Form::email('email', $user->email, ['id'=>'email', 'class'=>'span12', 'required'=>true]) }}
+											{{ Form::email('email', $user->email, [
+												'id'=>'email', 'class'=>'span12', 'required'=>true,
+												'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Trường Địa chỉ Email<br/>- Nhập Email bạn đang sử dụng.<br/>- Email này có thể dùng để gửi yêu cầu tạo mật khẩu mới khi bạn quên mật khẩu cũ.<br/>- Bạn cũng có thể dùng Email này để đăng nhập website thay cho tài khoản.<br/>- <span class="text-error"> Yêu cầu bắt buộc.</span>', 'data-placement'=>'right', 'data-html'=>'true'
+											]) }}
 											@if ($errors->has('email'))
 											<span class="help-inline">{!! $errors->first('email') !!}</span>
 											@endif
@@ -115,7 +121,15 @@
 												<span class="span4">
 													<label for="role" style="padding:0px">Nhóm</label>
 												</span>
-												<span class="span8">--</span>
+												<span class="span8">
+												@if($user->roles)
+													@foreach($user->roles as $key => $val)
+													{!! $val->display_name !!}
+													@endforeach
+												@else
+												--
+												@endif
+												</span>
 											</p>
 											<p class="row-fluid">
 												<span class="span4">
@@ -128,7 +142,10 @@
 												<span class="span4"><label for="password">Mật khẩu</label></span>
 												<span class="span8{{ $errors->has('password') ? ' error' : '' }}">
 													<span class="input-append">
-														{{ Form::password('password', ['id'=>'password', 'class'=>'one-item with-btn-icon password_result']) }}
+														{{ Form::password('password', [
+															'id'=>'password', 'class'=>'one-item with-btn-icon password_result',
+															'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Mật khẩu đăng nhập website<br/>- Cần tối thiểu 6 ký tự.<br/>- Bao gồm các ký tự thường, Hoa, số và các ký tự đặc biệt như: ~!@#$%^&*<br/>- Click <span class="iconfa-random"></span> kế bên để tạo mật khẩu đúng yêu cầu và đảm bảo độ bảo mật cao.', 'data-placement'=>'left', 'data-html'=>'true'
+														]) }}
 														<button type="button" class="btn btn-icon btn-generate-password" rel-class="password_result" title="Tạo ngẫu nhiên" data-toggle="tooltip" data-placement="left"><span class="iconfa-random"></span></button>
 													</span>
 													@if ($errors->has('password'))
@@ -140,7 +157,10 @@
 												<span class="span4"><label for="password_confirmation">Nhắc lại mật khẩu</label></span>
 												<span class="span8">
 													<span class="input-append">
-														{{ Form::password('password_confirmation', ['id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result']) }}
+														{{ Form::password('password_confirmation', [
+															'id'=>'password_confirmation', 'class'=>'one-item with-btn-icon password_result',
+															'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'Nhắc lại mật khẩu<br/>- Cần trùng khớp với mật khẩu bên trên<br/>- Click <span class="iconfa-eye-close"></span> kế bên để Xem/Ẩn mật khẩu.', 'data-placement'=>'left', 'data-html'=>'true'
+														]) }}
 														<button type="button" class="btn btn-icon btn-show-password" rel-class="password_result" title="Click xem mật khẩu" data-toggle="tooltip" data-placement="left"><span class="iconfa-eye-close"></span></button>
 													</span>
 												</span>

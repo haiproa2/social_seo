@@ -183,6 +183,13 @@ div.jGrowl div.jGrowl-notification.info, div.jGrowl div.jGrowl-notification.aler
 .pagination{margin: 0px 0px 0px 270px; line-height: 0;}
 .pagination ul > li > a, .pagination ul > li > span{padding: 2px 10px;}
 
+.SumoSelect{display: block; width: 100%;}
+select.SumoSelect.SumoUnder{display: none;}
+.editprofileform .SumoSelect label{float: none; padding: 0px;}
+.SumoSelect>.optWrapper>.options li > span{display: none;}
+.SumoSelect>.optWrapper>.options li span{display: inline-block;}
+.SumoSelect .select-all>span, .SumoSelect>.optWrapper.multiple>.options li.opt span.label{display: inline-block; position: static; width: auto; margin: 0px;}
+
 
 @-webkit-keyframes icon-spin {
   0% {
