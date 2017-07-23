@@ -37,6 +37,23 @@ function deleteItems(message, url){
 		return false;
 	});
 }
+function fillter(route){
+	var cate = jQuery('#category').find(":selected").val();
+	var keyword = jQuery('#keyword').val();
+	var limit = jQuery('#limit').find(":selected").val();
+	var link = link_limit = "";
+	if(limit != 20)
+		link_limit = "&limit="+limit;
+	if(cate && keyword)
+		var link = "?cate="+cate+"&keyword="+keyword+link_limit;
+	else if(cate)
+		var link = "?cate="+cate+link_limit;
+	else if(keyword)
+		var link = "?keyword="+keyword+link_limit;
+	else if(limit != 10)
+		var link = "?limit="+limit;
+	window.location.href = route+link;
+}
 
 jQuery(document).ready(function(){
 	
@@ -112,10 +129,53 @@ jQuery(document).ready(function(){
 	jQuery(".btn-update").click(function(){
 		jQuery('#update_position').submit();
 	});
+	jQuery(".search-area .iconfa-remove").click(function(){
+		jQuery(this).addClass('animate0 fadeOut');
+		jQuery('#keyword').val('');
+		var route = jQuery('#keyword').attr('data-route');
+		fillter(route);
+	});
+	jQuery('#category').change(function(){
+		var route = jQuery(this).attr('data-route');
+		fillter(route);
+	});
+	jQuery('#limit').change(function(){
+		var route = jQuery(this).attr('data-route');
+		fillter(route);
+	});
+	jQuery('#keyword').on('keyup keypress', function(e) {
+		var route = jQuery(this).attr('data-route');
+		var keyword = jQuery('#keyword').val();
+		var keyCode = e.keyCode || e.which;
+		if (keyCode === 13) {
+			fillter(route);
+		}
+	});
 
 	/* Show messager */
 	if(msg)
 		jQuery.jGrowl(msg, { life: 5000, theme: type});
+
+	/* Role check all */
+	jQuery('.permission-all').click(function(){
+	   var itemValue = jQuery(this).val();
+	   var parentTable = jQuery(this).parents('table');                                 
+	   var ch = jQuery('.'+itemValue);
+	   if(jQuery(this).is(':checked')) {
+	      ch.each(function(){ 
+	         jQuery(this).attr('checked',true);
+	         jQuery(this).parent().addClass('checked');
+	         jQuery(this).parents('tr').addClass('selected');
+	      });         
+	   } else {
+	      ch.each(function(){ 
+	         jQuery(this).attr('checked',false); 
+	         jQuery(this).parent().removeClass('checked');
+	         jQuery(this).parents('tr').removeClass('selected');
+	      });   
+	   }
+	});
+
 	
 	
 	// animation

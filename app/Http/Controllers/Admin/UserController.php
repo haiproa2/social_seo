@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
-use Auth, Hash, Image, App\Option, App\User, App\Role, App\RoleUser, App\Permission;
+use Auth, Hash, Image, App\Option, App\User, App\Role, App\RoleUser;
 
 class UserController extends AdminController
 {
@@ -53,10 +53,10 @@ class UserController extends AdminController
 
 	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
 	        if(!$uploadSuccess){
-	            $flash_type = 'error';
+	            $flash_type = 'error animate3 swing';
 	            $flash_messager = 'Không thể upload hình ảnh.';
 
-	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+	            return redirect()->route('backend.user')->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else{
 	        	Image::delete('uploads/'.$item->photo);
 	        	$item->photo = $pathImageUser.$newFilename;
@@ -86,7 +86,7 @@ class UserController extends AdminController
     public function listUsers(Request $request){
     	$limits = Option::where([['type', 'limit'], ['active', '1']])->orderby('id_type', 'ASC')->pluck('value_type', 'id_type')->toArray();
 
-        $limit = $request->limit ? $request->limit : 10;
+        $limit = $request->limit ? $request->limit : 20;
         $keyword = $request->keyword ? $request->keyword : '';
 
         $flash_type = $flash_messager = '';
@@ -104,8 +104,8 @@ class UserController extends AdminController
         if($request->limit)
             $items->appends(['limit' => $limit]);
 
-        if($keyword){
-            $flash_type = 'info';
+        if($keyword || ($limit && $limit != 20)){
+            $flash_type = 'info animate3 fadeInUp';
             $flash_messager = 'Danh sách thành viên đã được lọc.';
         }
         return view('backend.users.list')->with([
@@ -131,14 +131,14 @@ class UserController extends AdminController
     		}
     		if($mess){
 	    		$flash_messager = 'Thành viên ['.substr($mess, 0, -2).'].<br/>Đã được cập nhật lại STT.';
-		        $flash_type = 'success';
+		        $flash_type = 'success animate3 fadeInUp';
 		    } else {
 		    	$flash_messager = 'Không có thành viên được cập nhật.';
-		    	$flash_type = 'info';
+		    	$flash_type = 'info animate3 fadeInUp';
 		    }
     	} else {
     		$flash_messager = 'Không tìm thấy thành viên nào.';
-	        $flash_type = 'warning';    		
+	        $flash_type = 'warning animate3 swing';    		
     	}
         return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
@@ -151,24 +151,24 @@ class UserController extends AdminController
                 $item->active = 0;
         	$status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
 	        $flash_messager = 'Thành viên [<b>'.$item->name.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
-	        $flash_type = 'success';
+	        $flash_type = 'success animate3 fadeInUp';
             $item->updated_by = Auth::user()->id;
             $item->save();
         } else {
 	        $flash_messager = 'Không tìm thấy thông tin thành viên';
-	        $flash_type = 'info';
+	        $flash_type = 'info animate3 fadeInUp';
         }
         return redirect()->route('backend.user.list')->with(['flash_messager'=>$flash_messager, 'flash_type'=>$flash_type]);
     }
     public function view(Request $request){
     	$id = $request->id;
+    	$item = User::where([['id', '<>', 89], ['id', $id]])->firstOrFail();
     	$roles = Role::where('name', '!=', 'root')->orderby('id', 'DESC')->pluck('display_name', 'id')->toArray();
     	$sexs = Option::select('value_type', 'id_type')->where([['type', 'sex'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	$actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
-    	$item = User::findOrFail($id);
     	$userRoles = $item->roles->pluck('id','id')->toArray();
     	return view('backend.users.edit')->with([
-            'title' => 'Xem chi tiết thành viên',
+            'title' => 'Chi tiết thành viên',
             'description' => 'Xem tất cả thông tin của thành viên.',
     		'disabled'=>true,
     		'sexs'=>$sexs,
@@ -189,8 +189,7 @@ class UserController extends AdminController
     		'sexs'=>$sexs,
     		'actives'=>$actives,
     		'roles'=>$roles,
-    		'userRoles'=>$userRoles,
-    		'user'=>''
+    		'userRoles'=>$userRoles
     		]);
     }
     public function store(Request $request){
@@ -231,10 +230,10 @@ class UserController extends AdminController
 
 	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
 	        if(!$uploadSuccess){
-	            $flash_type = 'error';
+	            $flash_type = 'error animate3 swing';
 	            $flash_messager = 'Không thể upload hình ảnh.';
 
-	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+	            return redirect()->route('backend.user.create')->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else
 	        	$item->photo = $pathImageUser.$newFilename;
 	    }
@@ -266,13 +265,13 @@ class UserController extends AdminController
             }
         } else $item->attachRole(4); 
 
-        $flash_type = 'success';
+        $flash_type = 'success animate3 fadeInUp';
         $flash_messager = 'Đã thêm mới thành viên [<b>'.$item->name.'</b>]';
 
         return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
     public function edit($id){
-    	$item = User::findOrFail($id);
+    	$item = User::where([['id', '<>', 89], ['id', $id]])->firstOrFail();
     	$roles = Role::where('name', '!=', 'root')->orderby('id', 'DESC')->pluck('display_name', 'id')->toArray();
     	$userRoles = $item->roles->pluck('id','id')->toArray();
     	$sexs = Option::select('value_type', 'id_type')->where([['type', 'sex'], ['active', 1]])->orderby('id_type', 'DESC')->get();
@@ -289,7 +288,7 @@ class UserController extends AdminController
     }
     public function update(Request $request){
         $id = $request->id;
-        $item = User::findOrFail($id);
+        $item = User::where([['id', '<>', 89], ['id', $id]])->firstOrFail();
         $this->validate($request, [
                 'photo' => 'nullable|max:3000',
                 'name' => 'required',
@@ -321,7 +320,7 @@ class UserController extends AdminController
 
 	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
 	        if(!$uploadSuccess){
-	            $flash_type = 'error';
+	            $flash_type = 'error animate3 swing';
 	            $flash_messager = 'Không thể upload hình ảnh.';
 
 	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
@@ -345,7 +344,6 @@ class UserController extends AdminController
         }
 
         /*
-        - Còn thiếu photo.
         - Các trường # trong bảng detail.
         - Ghi log những thay đổi.
         */
@@ -360,7 +358,7 @@ class UserController extends AdminController
             }
         } else $item->attachRole(4); 
 
-        $flash_type = 'success';
+        $flash_type = 'success animate3 fadeInUp';
         $flash_messager = 'Thành viên [<b>'.$item->name.'</b>]<br/>đã được cập nhật dữ liệu.';
 
         return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
@@ -368,11 +366,11 @@ class UserController extends AdminController
     public function destroy(Request $request){
     	$router = $request->route()->getName();
     	if($router == 'backend.user.delete'){ // Xóa 1 phần tử
-    		$item = User::findOrFail($request->id);
+    		$item = User::where([['id', '<>', 89], ['id', $request->id]])->firstOrFail();
     		Image::delete('uploads/'.$item->photo);
     		User::destroy($request->id);
     		RoleUser::where('user_id', $id)->delete();
-    		$flash_type = 'success';
+    		$flash_type = 'success animate3 fadeInUp';
     		$flash_messager = 'Thành viên [<b>'.$item->name.'</b>]<br/>đã bị xóa.';
     	} elseif($router == 'backend.user.deletes'){ // Xóa nhiều phần tử
     		$listid = $request->listid;
@@ -380,21 +378,21 @@ class UserController extends AdminController
     			$listids = explode("-", $listid);
 				$names = '';
 				foreach ($listids as $key => $id) {
-					$item = User::findOrFail($id);
+					$item = User::where([['id', '<>', 89], ['id', $id]])->firstOrFail();
 					$names .= '[<strong>'.$item->name.'</strong>], ';
 					Image::delete('uploads/'.$item->photo);
 					User::destroy($id);
 					RoleUser::where('user_id', $id)->delete();
 				}
-	    		$flash_type = 'success';
+	    		$flash_type = 'success animate3 fadeInUp';
 	    		$flash_messager = 'Thành viên '.rtrim($names, ', ').' đã bị xóa.';
     		} else {
-	    		$flash_type = 'info';
+	    		$flash_type = 'info animate3 fadeInUp';
 	    		$flash_messager = 'Không nhận được dữ liệu.';
     		}
 
     	} else { // Không tìm thấy phần tử
-    		$flash_type = 'error';
+    		$flash_type = 'error animate3 swing';
     		$flash_messager = 'Đường dẫn không tồn tại.';
     	}
     	return redirect()->route('backend.user.list')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);

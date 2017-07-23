@@ -38,12 +38,15 @@
 				<div class="span6">
 					<span>Hiển thị:</span>
 					@if(count($limits))
-					{!! Form::select('limit', $limits, Request::get('limit'), ['id'=>'limit']) !!}
+					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):20, ['id'=>'limit', 'data-route'=>$prefix]) !!}
 					@endif
 				</div>
-				<div class="span6 text-right">
+				<div class="span6 text-right search-area">
 					<span>Tìm kiếm:</span>
-					{{ Form::text('k', Request::get('keyword'), ['id'=>'keyword', 'autofocus'=>true]) }}
+					{{ Form::text('k', Request::get('keyword'), ['id'=>'keyword', 'data-route'=>'list', 'autofocus'=>true]) }}
+					@if(Request::get('keyword'))
+					<span class="iconfa-remove" title="Hủy" data-toggle="tooltip"></span>
+					@endif
 				</div>
 			</div>
 			{!! Form::open(['route'=>'backend.user.updatePosition', 'id'=>'update_position']) !!}
@@ -85,9 +88,9 @@
 								<td style="width:10%;" class="action">{!! $value->updated_at !!}</td>
 								<td style="width:10%;" class="action">
 									@if(Auth::user()->ability('root,admin', 'u_user'))
-									<a href="{!! route('backend.user.active', $value->id) !!}" title="Click để {!! ($value->active)?'khóa lại':'mở khóa' !!}" data-toggle="tooltip" data-html="true">{!! $value->option_active->value_type !!}</a>
+									<a href="{!! route('backend.user.active', $value->id) !!}" title="Click để {!! ($value->active)?'khóa lại':'mở khóa' !!}" data-toggle="tooltip" data-html="true">{!! $value->option_actives->value_type !!}</a>
 									@else
-									{!! $value->option_active->value_type !!}
+									{!! $value->option_actives->value_type !!}
 									@endif
 								</td>
 								<td style="width:10%;" class="action">
@@ -129,40 +132,4 @@
 		</div>
 	</div>
 </div><!--contentinner-->
-<script type="text/javascript">
-	function fillter(){		
-		var cate = jQuery('#category').find(":selected").val();
-		var keyword = jQuery('#keyword').val();
-		var limit = jQuery('#limit').find(":selected").val();
-		var link = link_limit = "";
-		if(limit != 10)
-			link_limit = "&limit="+limit;
-		if(cate && keyword)
-			var link = "?cate="+cate+"&keyword="+keyword+link_limit;
-		else if(cate)
-			var link = "?cate="+cate+link_limit;
-		else if(keyword)
-			var link = "?keyword="+keyword+link_limit;
-		else if(limit != 10)
-			var link = "?limit="+limit;
-		window.location.href = "{!! route('backend.user.list') !!}"+link;
-	}
-
-	jQuery(document).ready(function(){
-		/*jQuery('#category').SumoSelect();
-		jQuery('#category').change(function(){
-			fillter();
-		});*/
-		jQuery('#limit').change(function(){
-			fillter();
-		});
-		jQuery('#keyword').on('keyup keypress', function(e) {
-			var keyword = jQuery('#keyword').val();
-			var keyCode = e.keyCode || e.which;
-			if (keyCode === 13) {
-				fillter();
-			}
-		});
-	});
-</script>
 @endsection

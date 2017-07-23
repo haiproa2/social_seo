@@ -2,6 +2,8 @@
 
 return [
     'required' => 'Trường bắt buộc nhập.',
+    'title_unique' => 'Tiêu đề này đã được dùng.',
+    'name_unique' => 'Tên này đã được dùng.',
     'username_unique' => 'Tài khoản này đã được dùng.',
     'email' => 'Địa chỉ Email không chính xác.',
     'email_unique' => 'Địa chỉ Email đã được sử dụng.',

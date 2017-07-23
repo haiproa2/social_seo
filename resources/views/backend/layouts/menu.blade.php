@@ -26,10 +26,18 @@
         <ul class="nav nav-tabs nav-stacked">
         	<li class="nav-header">Menu Administrator</li>
             <li{!! ($prefix=='index')?' class="active"':'' !!}><a href="{{ route('backend.index') }}"><span class="icon-home"></span> Trang chủ</a></li>
+            <li class="{!! (Auth::user()->ability('root,admin', 'v_permission'))?'dropdown':''!!}{!! ($prefix=='role'||$prefix=='permission')?' active':'' !!}"><a href="{{ route('backend.role') }}"><span class="icon-check"></span> Phân quyền</a>
+                @ability('root,admin', 'v_permission')
+                <ul{!! ($prefix=='role'||$prefix=='permission')?' style="display:block"':'' !!}>
+                    <li{!! ($prefix=='permission')?' class="active"':'' !!}><a href="{{ route('backend.permission') }}">Danh sách quyền</a></li>
+                    <li{!! ($prefix=='role')?' class="active"':'' !!}><a href="{{ route('backend.role') }}">Danh sách nhóm</a></li>
+                </ul>
+                @endability
+            </li>
             <li class="{!! (Auth::user()->ability('root,admin', 'v_user'))?'dropdown':''!!}{!! ($prefix=='user')?' active':'' !!}"><a href="{{ route('backend.user') }}"><span class="icon-user"></span> Thành viên</a>
                 @ability('root,admin', 'v_user')
             	<ul{!! ($prefix=='user')?' style="display:block"':'' !!}>
-                    <li{!! ($prefix=='user'&&$prefix.$action!='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user.list') }}">Danh sách</a></li>
+                    <li{!! ($prefix=='user'&&$prefix.$action!='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user.list') }}">Danh sách thành viên</a></li>
                 	<li{!! ($prefix.$action=='userdetail')?' class="active"':'' !!}><a href="{{ route('backend.user') }}">Thông tin cá nhân</a></li>
                 </ul>
                 @endability

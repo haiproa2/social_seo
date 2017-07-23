@@ -29,7 +29,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function option_active(){
+    public function option_actives(){
         return $this->hasOne('App\Option', 'id_type', 'active')->where('type', 'active');
     }
 
