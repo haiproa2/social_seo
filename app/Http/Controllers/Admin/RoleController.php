@@ -60,7 +60,7 @@ class RoleController extends AdminController
     		]);
     }
     public function create(){
-    	$permissions = Permission::where('name', 'NOT LIKE', '%-role%')->orderby('id','desc')->get()->toArray();
+    	$permissions = Permission::orderby('id','desc')->get()->toArray();
     	$permission_role = [];
     	return view('backend.roles.create')->with([
             'title' => 'Thêm mới nhóm',
@@ -96,7 +96,7 @@ class RoleController extends AdminController
     }
     public function edit($id){
     	$item = Role::where([['id', '<>', 1], ['id', $id]])->firstOrFail();
-    	$permissions = Permission::where('name', 'NOT LIKE', '%-role%')->orderby('id','desc')->get()->toArray();
+    	$permissions = Permission::orderby('id','desc')->get()->toArray();
     	$permission_role = PermissionRole::select('permission_id')->where('role_id', $id)->get()->toArray();
     	$permission_role = array_column($permission_role, 'permission_id');
     	return view('backend.roles.edit')->with([

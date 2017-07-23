@@ -46,7 +46,7 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="description">Mô tả chi tiết <span class="text-error">*</span></label>
+							<label for="description">Mô tả chi tiết</label>
 							<span class="field{{ $errors->has('description') ? ' error' : '' }}">
 								{{ Form::textarea('description', $item->description, ['id'=>'description', 'class'=>'span12', 'rows'=>5, 'disabled'=>$disabled]) }}
 								@if ($errors->has('description'))

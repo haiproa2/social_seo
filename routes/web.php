@@ -67,4 +67,15 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 		Route::get('{id}/delete', ['as'=>'backend.user.delete', 'uses'=>'Admin\UserController@destroy', 'middleware'=>'ability:root|admin,d_user']);
 		Route::get('deletes/{listid}', ['as'=>'backend.user.deletes', 'uses'=>'Admin\UserController@destroy', 'middleware'=>'ability:root|admin,d_user']);
 	});
+	Route::group(['prefix' => 'option', 'middleware'=>'role:root'], function(){
+		Route::get('/', ['as' => 'backend.option', 'uses' => 'Admin\OptionController@index']);
+		Route::get('/create', ['as' => 'backend.option.create', 'uses' => 'Admin\OptionController@create']);
+		Route::post('/create', ['as' => 'backend.option.store', 'uses' => 'Admin\OptionController@store']);
+		Route::get('{id}', ['as' => 'backend.option.view', 'uses' => 'Admin\OptionController@view']);
+		Route::get('{id}/edit', ['as' => 'backend.option.edit', 'uses' => 'Admin\OptionController@edit']);
+		Route::post('{id}/edit', ['as' => 'backend.option.update', 'uses' => 'Admin\OptionController@update']);
+		Route::get('{id}/active', ['as' => 'backend.option.active', 'uses' => 'Admin\OptionController@activeStatus']);
+		Route::get('{id}/delete', ['as'=>'backend.option.delete', 'uses'=>'Admin\OptionController@destroy']);
+		Route::get('deletes/{listid}', ['as'=>'backend.option.deletes', 'uses'=>'Admin\OptionController@destroy']);
+	});
 });

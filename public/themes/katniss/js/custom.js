@@ -50,7 +50,7 @@ function fillter(route){
 		var link = "?cate="+cate+link_limit;
 	else if(keyword)
 		var link = "?keyword="+keyword+link_limit;
-	else if(limit != 10)
+	else if(limit != 20)
 		var link = "?limit="+limit;
 	window.location.href = route+link;
 }

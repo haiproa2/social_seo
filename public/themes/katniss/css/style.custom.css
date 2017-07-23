@@ -94,13 +94,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 .editprofileform input[type="text"]:focus, .editprofileform input[type="email"]:focus, .editprofileform input[type="password"]:focus, .editprofileform input[type="number"]:focus{background: #fff;}
 
-*[class*='span'].error input{
+*[class*='span'].error input, .stdform2 span.field.error input{
 	border-color: #b94a48; background: rgba(253, 189, 188, 0.1);
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
-*[class*='span'].error .help-inline{color: #b94b49;}
+*[class*='span'].error .help-inline, .stdform2 span.field.error .help-inline{color: #b94b49;}
 
 input[disabled],select[disabled],textarea[disabled],button[disabled]{cursor: auto!important}
 
