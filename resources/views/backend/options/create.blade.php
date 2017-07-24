@@ -35,7 +35,7 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="id_type">Key <span class="text-error">*</span></label>
+							<label for="id_type">ID <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('id_type') ? ' error' : '' }}">
 								{!! Form::text('id_type', '', [
 									'id'=>'id_type', 'class'=>'span12', 'required'=>true
@@ -46,7 +46,7 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="value_type">Value <span class="text-error">*</span></label>
+							<label for="value_type">Giá trị <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('value_type') ? ' error' : '' }}">
 								{{ Form::text('value_type', '', ['id'=>'value_type', 'class'=>'span12', 'required'=>true]) }}
 								@if ($errors->has('value_type'))

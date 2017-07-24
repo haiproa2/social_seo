@@ -33,6 +33,10 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 
 	Route::post('/delete-image', ['as' => 'backend.ajax.deleteImage', 'uses' => 'AdminController@ajaxDeleteImage']);
 
+	Route::group(['prefix' => 'config'], function(){
+		Route::get('/', ['as' => 'backend.config', 'uses' => 'Admin\ConfigController@index', 'middleware'=>'ability:root|admin,v_config|u_config']);
+		Route::post('/', ['as' => 'backend.config.update', 'uses' => 'Admin\ConfigController@update', 'middleware'=>'ability:root|admin,u_config']);
+	});
 	Route::group(['prefix' => 'permission', 'middleware' => 'ability:root,v_permission'], function(){
 		Route::get('/', ['as' => 'backend.permission', 'uses' => 'Admin\PermissionController@index']);
 		Route::get('/create', ['as' => 'backend.permission.create', 'uses' => 'Admin\PermissionController@create', 'middleware'=>'ability:root,c_permission']);

@@ -5,6 +5,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .stdform2 [class*="span"]{min-height: 30px;}
 .stdform2 span.field, .stdform2 div.field{padding: 5px 15px;}
 .stdform2 label{padding: 10px 0 0 15px;}
+.stdform2 .tab-company p, .stdform2 .tab-company div.par{border: 1px solid #ddd; border-top: 0px;}
+.stdform2 .tab-company p:first-child, .stdform2 .tab-company div.par:first-child{border-top: 1px solid #ddd;}
+.stdform2 .tab-company span.field, .stdform2 .tab-company div.field{padding: 10px 15px;}
+.stdform2 .tab-company label{padding-top: 15px;}
+.stdform2 .tab-company .field label{padding: 0px; font-weight: normal;}
+
+.ui-tabs-nav li a{padding-top: 6px}
 
 .popover{font-family: 'Roboto', sans-serif;}
 .popover-title{font-weight: bold;}

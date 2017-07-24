@@ -27,11 +27,11 @@
             <ul class="dropdown-menu">
                 <li><a href="{{ route('backend.user') }}">{!! Form::image(Image::url(((isset(Auth::user()->photo) && Auth::user()->photo)?'uploads/'.Auth::user()->photo:''), 50, 50, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 50, 50, array('crop'))."';"]) !!}<br/>Cập nhật thông tin cá nhân</a></li>
                 <li class="divider"></li>
-                @if(Auth::user()->email=='minhhai.dw@gmail.com')
-                <li><a href=""><span class="icon-wrench"></span> Account Settings</a></li>
+                @role('root')
+                <li><a href="{{ route('backend.option') }}"><span class="icon-wrench"></span> Options</a></li>
                 <li><a href=""><span class="icon-eye-open"></span> Privacy Settings</a></li>
                 <li class="divider"></li>
-                @endif
+                @endrole
                 <li><a href="{{ route('auth.logout') }}"><span class="icon-off"></span> Đăng xuất</a></li>
             </ul>
         </div><!--dropdown-->	

@@ -30,7 +30,7 @@
 							<span class="field"><span>{{ $item->type }}</span></span>
 						</p>
 						<p class="control-group">
-							<label for="id_type">Key <span class="text-error">*</span></label>
+							<label for="id_type">ID <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('id_type') ? ' error' : '' }}">
 								{!! Form::text('id_type', $item->id_type, [
 									'id'=>'id_type', 'class'=>'span12', 'autofocus'=>true, 'required'=>true, 'disabled'=>$disabled,
@@ -42,7 +42,7 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="value_type">Value <span class="text-error">*</span></label>
+							<label for="value_type">Giá trị <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('value_type') ? ' error' : '' }}">
 								{{ Form::text('value_type', $item->value_type, ['id'=>'value_type', 'class'=>'span12', 'disabled'=>$disabled]) }}
 								@if ($errors->has('value_type'))
