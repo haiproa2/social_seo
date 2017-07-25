@@ -31,6 +31,7 @@ class AdminController extends Controller
             'updateForm' => $this->updateForm,
         ]);
     }
+
     public function ajaxDeleteImage(Request $request){
         $_token = $request->_token;
         $table = $request->table_item;
@@ -54,5 +55,9 @@ class AdminController extends Controller
             'messager' => 'Xóa ảnh thành công.',
             'item' => $item
             ]);
+    }
+
+    public function checkSlug($title, $table, $id = 0, $i = 0){
+        return $id;
     }
 }

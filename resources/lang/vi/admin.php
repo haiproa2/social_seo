@@ -10,6 +10,7 @@ return [
     'telephone_unique' => 'Số điện thoại đã được sử dụng.',
     'telephone_min' => 'Số điện thoại chưa đúng.',
     'telephone_max' => 'Số điện thoại chưa đúng.',
+    'slug_unique' => 'Liên kết URL này đã được sử dụng.',
     'numeric' => 'Trường này yêu cầu nhập số.',
     'max'                  => [
         'numeric' => 'Chỉ nhập một số nhỏ hơn :max.',

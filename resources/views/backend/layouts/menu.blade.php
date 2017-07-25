@@ -26,7 +26,10 @@
         <ul class="nav nav-tabs nav-stacked">
         	<li class="nav-header">Menu Administrator</li>
             <li{!! ($prefix=='index')?' class="active"':'' !!}><a href="{{ route('backend.index') }}"><span class="icon-home"></span> Trang chủ</a></li>
-            @ability('root,admin', 'v_config,u_config')
+            @ability('root,admin', 'v_page')
+            <li{!! ($prefix=='page')?' class="active"':'' !!}><a href="{{ route('backend.page') }}"><span class="icon-file"></span> Trang tĩnh</a></li>
+            @endability
+            @ability('root,admin', 'v_config')
             <li{!! ($prefix=='config')?' class="active"':'' !!}><a href="{{ route('backend.config') }}"><span class="icon-wrench"></span> Thông tin công ty</a></li>
             @endability
             @ability('root,admin', 'v_permission')

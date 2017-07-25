@@ -33,35 +33,47 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 
 	Route::post('/delete-image', ['as' => 'backend.ajax.deleteImage', 'uses' => 'AdminController@ajaxDeleteImage']);
 
+	Route::group(['prefix' => 'page'], function(){
+		Route::get('/', ['as' => 'backend.page', 'uses' => 'Admin\PageController@index', 'middleware'=>'ability:root|admin,v_page']);
+		Route::post('/', ['as' => 'backend.page.updatePosition', 'uses' => 'Admin\PageController@updatePosition', 'middleware'=>'ability:root|admin,u_page']);
+		Route::get('/create', ['as' => 'backend.page.create', 'uses' => 'Admin\PageController@create', 'middleware'=>'ability:root|admin,c_page']);
+		Route::post('/create', ['as' => 'backend.page.store', 'uses' => 'Admin\PageController@store', 'middleware'=>'ability:root|admin,c_page']);
+		Route::get('{id}', ['as' => 'backend.page.view', 'uses' => 'Admin\PageController@view', 'middleware'=>'ability:root|admin,v_page']);
+		Route::get('{id}/edit', ['as' => 'backend.page.edit', 'uses' => 'Admin\PageController@edit', 'middleware'=>'ability:root|admin,u_page']);
+		Route::post('{id}/edit', ['as' => 'backend.page.update', 'uses' => 'Admin\PageController@update', 'middleware'=>'ability:root|admin,u_page']);
+		Route::get('{id}/active', ['as' => 'backend.page.active', 'uses' => 'Admin\PageController@activeStatus', 'middleware'=>'ability:root|admin,u_page']);
+		Route::get('{id}/delete', ['as'=>'backend.page.delete', 'uses'=>'Admin\PageController@destroy', 'middleware'=>'ability:root|admin,d_page']);
+		Route::get('deletes/{listid}', ['as'=>'backend.page.deletes', 'uses'=>'Admin\PageController@destroy', 'middleware'=>'ability:root|admin,d_page']);
+	});
 	Route::group(['prefix' => 'config'], function(){
-		Route::get('/', ['as' => 'backend.config', 'uses' => 'Admin\ConfigController@index', 'middleware'=>'ability:root|admin,v_config|u_config']);
+		Route::get('/', ['as' => 'backend.config', 'uses' => 'Admin\ConfigController@index', 'middleware'=>'ability:root|admin,v_config']);
 		Route::post('/', ['as' => 'backend.config.update', 'uses' => 'Admin\ConfigController@update', 'middleware'=>'ability:root|admin,u_config']);
 	});
-	Route::group(['prefix' => 'permission', 'middleware' => 'ability:root,v_permission'], function(){
-		Route::get('/', ['as' => 'backend.permission', 'uses' => 'Admin\PermissionController@index']);
+	Route::group(['prefix' => 'permission'], function(){
+		Route::get('/', ['as' => 'backend.permission', 'uses' => 'Admin\PermissionController@index', 'middleware' => 'ability:root,v_permission']);
 		Route::get('/create', ['as' => 'backend.permission.create', 'uses' => 'Admin\PermissionController@create', 'middleware'=>'ability:root,c_permission']);
 		Route::post('/create', ['as' => 'backend.permission.store', 'uses' => 'Admin\PermissionController@store', 'middleware'=>'ability:root,c_permission']);
-		Route::get('{id}', ['as' => 'backend.permission.view', 'uses' => 'Admin\PermissionController@view']);
+		Route::get('{id}', ['as' => 'backend.permission.view', 'uses' => 'Admin\PermissionController@view', 'middleware' => 'ability:root,v_permission']);
 		Route::get('{id}/edit', ['as' => 'backend.permission.edit', 'uses' => 'Admin\PermissionController@edit', 'middleware'=>'ability:root,u_permission']);
 		Route::post('{id}/edit', ['as' => 'backend.permission.update', 'uses' => 'Admin\PermissionController@update', 'middleware'=>'ability:root,u_permission']);
 		Route::get('{id}/delete', ['as'=>'backend.permission.delete', 'uses'=>'Admin\PermissionController@destroy', 'middleware'=>'ability:root,d_permission']);
 		Route::get('deletes/{listid}', ['as'=>'backend.permission.deletes', 'uses'=>'Admin\PermissionController@destroy', 'middleware'=>'ability:root,d_permission']);
 	});
-	Route::group(['prefix' => 'role', 'middleware' => 'ability:root|admin,v_role'], function(){
-		Route::get('/', ['as' => 'backend.role', 'uses' => 'Admin\RoleController@index']);
+	Route::group(['prefix' => 'role'], function(){
+		Route::get('/', ['as' => 'backend.role', 'uses' => 'Admin\RoleController@index', 'middleware' => 'ability:root|admin,v_role']);
 		Route::get('/create', ['as' => 'backend.role.create', 'uses' => 'Admin\RoleController@create', 'middleware'=>'ability:root|admin,c_role']);
 		Route::post('/create', ['as' => 'backend.role.store', 'uses' => 'Admin\RoleController@store', 'middleware'=>'ability:root|admin,c_role']);
-		Route::get('{id}', ['as' => 'backend.role.view', 'uses' => 'Admin\RoleController@view']);
+		Route::get('{id}', ['as' => 'backend.role.view', 'uses' => 'Admin\RoleController@view', 'middleware' => 'ability:root|admin,v_role']);
 		Route::get('{id}/edit', ['as' => 'backend.role.edit', 'uses' => 'Admin\RoleController@edit', 'middleware'=>'ability:root|admin,u_role']);
 		Route::post('{id}/edit', ['as' => 'backend.role.update', 'uses' => 'Admin\RoleController@update', 'middleware'=>'ability:root|admin,u_role']);
 		Route::get('{id}/delete', ['as'=>'backend.role.delete', 'uses'=>'Admin\RoleController@destroy', 'middleware'=>'ability:root|admin,d_role']);
 		Route::get('deletes/{listid}', ['as'=>'backend.role.deletes', 'uses'=>'Admin\RoleController@destroy', 'middleware'=>'ability:root|admin,d_role']);
 	});
-	Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
+	Route::group(['prefix' => 'user'], function(){
 		Route::get('/', ['as' => 'backend.user', 'uses' => 'Admin\UserController@index']);
 		Route::post('/', ['as' => 'backend.user.saveDetail', 'uses' => 'Admin\UserController@saveDetail']);
 		Route::get('/list', ['as' => 'backend.user.list', 'uses' => 'Admin\UserController@listUsers', 'middleware'=>'ability:root|admin,v_user']);
-		Route::post('/list', ['as' => 'backend.user.updatePosition', 'uses' => 'Admin\UserController@updatePosition', 'middleware'=>'ability:root,u_user']);
+		Route::post('/list', ['as' => 'backend.user.updatePosition', 'uses' => 'Admin\UserController@updatePosition', 'middleware'=>'ability:root|admin,u_user']);
 		Route::get('/create', ['as' => 'backend.user.create', 'uses' => 'Admin\UserController@create', 'middleware'=>'ability:root|admin,c_user']);
 		Route::post('/create', ['as' => 'backend.user.store', 'uses' => 'Admin\UserController@store', 'middleware'=>'ability:root|admin,c_user']);
 		Route::get('{id}', ['as' => 'backend.user.view', 'uses' => 'Admin\UserController@view', 'middleware'=>'ability:root|admin,v_user']);

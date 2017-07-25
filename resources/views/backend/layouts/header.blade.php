@@ -29,7 +29,7 @@
                 <li class="divider"></li>
                 @role('root')
                 <li><a href="{{ route('backend.option') }}"><span class="icon-wrench"></span> Options</a></li>
-                <li><a href=""><span class="icon-eye-open"></span> Privacy Settings</a></li>
+                <li><a href=""><span class="icon-eye-open"></span> Langues</a></li>
                 <li class="divider"></li>
                 @endrole
                 <li><a href="{{ route('auth.logout') }}"><span class="icon-off"></span> Đăng xuất</a></li>

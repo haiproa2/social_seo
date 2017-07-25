@@ -47,19 +47,19 @@ class UserController extends AdminController
 	        $file = $request->photo;
 	        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
 	        $ext = $file->getClientOriginalExtension();
-	        $pathImageUser = 'users/';
+	        $pathImage = 'users/';
 	        $image = Image::make($file);
 	        $newFilename = str_slug($item->username).date('-YdmHis', time()).'.'.$ext;
 
-	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
+	        $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
 	        if(!$uploadSuccess){
 	            $flash_type = 'error animate3 swing';
 	            $flash_messager = 'Không thể upload hình ảnh.';
 
-	            return redirect()->route('backend.user')->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+	            return back()->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else{
 	        	Image::delete('uploads/'.$item->photo);
-	        	$item->photo = $pathImageUser.$newFilename;
+	        	$item->photo = $pathImage.$newFilename;
 	        }
 	    }
 
@@ -224,18 +224,18 @@ class UserController extends AdminController
 	        $file = $request->photo;
 	        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
 	        $ext = $file->getClientOriginalExtension();
-	        $pathImageUser = 'users/';
+	        $pathImage = 'users/';
 	        $image = Image::make($file);
 	        $newFilename = str_slug($request->username).date('-YdmHis', time()).'.'.$ext;
 
-	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
+	        $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
 	        if(!$uploadSuccess){
 	            $flash_type = 'error animate3 swing';
 	            $flash_messager = 'Không thể upload hình ảnh.';
 
 	            return redirect()->route('backend.user.create')->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else
-	        	$item->photo = $pathImageUser.$newFilename;
+	        	$item->photo = $pathImage.$newFilename;
 	    }
 
         $item->username = preg_replace('/\s+/', '', strip_tags(strtolower($request->username)));
@@ -314,11 +314,11 @@ class UserController extends AdminController
 	        $file = $request->photo;
 	        $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
 	        $ext = $file->getClientOriginalExtension();
-	        $pathImageUser = 'users/';
+	        $pathImage = 'users/';
 	        $image = Image::make($file);
 	        $newFilename = str_slug($item->username).date('-YdmHis', time()).'.'.$ext;
 
-	        $uploadSuccess = $file->move('uploads/'.$pathImageUser, $newFilename);
+	        $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
 	        if(!$uploadSuccess){
 	            $flash_type = 'error animate3 swing';
 	            $flash_messager = 'Không thể upload hình ảnh.';
@@ -326,7 +326,7 @@ class UserController extends AdminController
 	            return redirect()->route('backend.user.edit', $id)->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
 	        } else{
 	        	Image::delete('uploads/'.$item->photo);
-	        	$item->photo = $pathImageUser.$newFilename;
+	        	$item->photo = $pathImage.$newFilename;
 	        }
 	    }
 

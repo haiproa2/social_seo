@@ -29,13 +29,14 @@
 			</div>
 		</div>
 	</div>
+	<?php $array = array('0'=>'- Tất cả -'); $limits = array_replace($limits, $array); ?>
 	<div class="row-fluid">
 		<div class="span12">
 			<div id="table-header" class="row-fluid">
 				<div class="span6">
 					<span>Hiển thị:</span>
 					@if(count($limits))
-					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):20, ['id'=>'limit', 'data-route'=>$prefix]) !!}
+					{!! Form::select('limit', $limits, (Request::get('cate') || Request::get('cate') == 0)?Request::get('cate'):20, ['id'=>'limit', 'data-route'=>$prefix]) !!}
 					@endif
 				</div>
 				<div class="span6 text-right search-area">

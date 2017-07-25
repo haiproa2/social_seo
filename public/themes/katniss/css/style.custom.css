@@ -3,8 +3,8 @@
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{min-height: 30px;}
 .row-fluid [class*="span"]{min-height: auto;}
 .stdform2 [class*="span"]{min-height: 30px;}
-.stdform2 span.field, .stdform2 div.field{padding: 5px 15px;}
-.stdform2 label{padding: 10px 0 0 15px;}
+.stdform2 span.field, .stdform2 div.field{padding: 10px 15px;}
+.stdform2 label{padding: 15px 0 0 15px;}
 .stdform2 .tab-company p, .stdform2 .tab-company div.par{border: 1px solid #ddd; border-top: 0px;}
 .stdform2 .tab-company p:first-child, .stdform2 .tab-company div.par:first-child{border-top: 1px solid #ddd;}
 .stdform2 .tab-company span.field, .stdform2 .tab-company div.field{padding: 10px 15px;}
@@ -23,7 +23,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .confirm #popup_panel input:last-child{float: right;}
 
 .img-polaroid{max-width: 100%;}
-.info-photo{text-align: center; margin: 5px auto;}
+.info-photo{text-align: center; margin: 5px auto 15px;}
 
 .hasDatepicker{cursor: pointer!important;}
 
@@ -235,8 +235,12 @@ select.SumoSelect.SumoUnder{display: none;}
 .editprofileform .SumoSelect label{float: none; padding: 0px;}
 .SumoSelect>.optWrapper>.options li > span{display: none;}
 .SumoSelect>.optWrapper>.options li span{display: inline-block;}
+.SumoSelect>.optWrapper>.options li.opt.selected {background-color: #f1f1f1;}
+.SumoSelect>.optWrapper>.options li.opt:hover {background-color: #E4E4E4; cursor: pointer;}
 .SumoSelect .select-all>span, .SumoSelect>.optWrapper.multiple>.options li.opt span.label{display: inline-block; position: static; width: auto; margin: 0px;}
 
+.widgetphoto{text-align: center;}
+.widgetphoto .thumb{margin: 0px auto 7px; max-width: 100%;}
 
 @-webkit-keyframes icon-spin {
   0% {

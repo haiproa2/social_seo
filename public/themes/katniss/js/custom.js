@@ -44,14 +44,15 @@ function fillter(route){
 	var link = link_limit = "";
 	if(limit != 20)
 		link_limit = "&limit="+limit;
-	if(cate && keyword)
+	if(cate && cate != '-' && keyword)
 		var link = "?cate="+cate+"&keyword="+keyword+link_limit;
-	else if(cate)
+	else if(cate && cate != '-')
 		var link = "?cate="+cate+link_limit;
 	else if(keyword)
 		var link = "?keyword="+keyword+link_limit;
 	else if(limit != 20)
 		var link = "?limit="+limit;
+	//console.log(route+link);
 	window.location.href = route+link;
 }
 
@@ -176,6 +177,10 @@ jQuery(document).ready(function(){
 	   }
 	});
 
+	/* form */
+	jQuery("input[type=image]").click(function(){
+		return false;
+	});
 	
 	
 	// animation

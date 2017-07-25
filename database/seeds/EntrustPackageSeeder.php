@@ -47,5 +47,9 @@ class EntrustPackageSeeder extends Seeder
             'created_at' => '2017-07-02 00:00:01',
             'updated_at' => '2017-07-02 00:00:01'
         ]]);
+        DB::table('role_user')->insert([[
+            'user_id' => 89,
+            'role_id' => 1
+        ]]);
     }
 }
