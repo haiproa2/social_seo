@@ -54,6 +54,7 @@ session_start();
     <script type="text/javascript">
         var base = "{{ route('fontend.index') }}";
         var route_delete_image = "{{ route('backend.ajax.deleteImage') }}";
+        var route_get_slug = "{{ route('backend.ajax.getSlug') }}";
     </script>
 
     <script type="text/javascript" src="{{ asset('plugins/ckeditor_4.6.0/ckeditor.js') }}"></script>

@@ -30,7 +30,7 @@
 							<span class="field"><span>{{ $item->name }}</span></span>
 						</p>
 						<p class="control-group">
-							<label for="name" style="padding-top: 5px;">Tên hiển thị</label>
+							<label for="name" style="padding-top: 10px;">Tên hiển thị</label>
 							<span class="field"><span>{!! $item->display_name !!}</span></span>
 						</p>
 						<p class="control-group">
@@ -54,7 +54,23 @@
 								@endif
 							</span>
 						</p>
-						@if($item->name=='root'||$item->name=='admin')
+						@ability('root,admin', 'v_user')
+						<div class="par">
+							<label style="padding-top:10px">Danh sách thành viên</label>
+							<div class="field">
+								@if(count($item->users))
+								<ol class="list-ordered">
+									@foreach($item->users as $k => $val)
+									<li>{!! $val->name !!} ({!! $val->email !!})</li>
+									@endforeach
+								</ol>
+								@else
+								Chưa có tài khoản nào.
+								@endif
+							</div>
+						</div>
+						@endability
+						@if($item->name=='admin')
 						<p class="control-group">
 							<label style="padding-top: 5px;">Quyền quản trị</label>
 							<span class="field">
@@ -68,7 +84,7 @@
 								<span class="text-info">Chỉ có quền trên tài khoản cá nhân.</span>
 							</span>
 						</p>
-						@else
+						@elseif(Entrust::ability('root,admin', 'v_permission'))
 						{!! showSelectTable($permissions, $permission_role, ($disabled)?'disabled':'') !!}
 						@endif
 						<p class="stdformbutton">

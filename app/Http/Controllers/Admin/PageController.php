@@ -148,7 +148,7 @@ class PageController extends AdminController
         $item->slug = str_slug($request->slug);
         $item->content = $request->content;
         $item->seo_title = $request->seo_title;
-        $item->seo_keyword = $request->seo_keyword;
+        $item->seo_keywords = $request->seo_keywords;
         $item->seo_description = $request->seo_description;
         $item->no = $request->no;
         $item->created_by = Auth::user()->id;
@@ -165,7 +165,7 @@ class PageController extends AdminController
     	$item = Page::where([['id', $id]])->firstOrFail();
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.pages.edit')->with([
-            'title' => 'Cập nhật trang tĩnh',
+            'title' => 'Cập nhật trang',
             'description' => 'Chỉnh sửa tất cả thông tin của trang tĩnh.',
     		'actives'=>$actives,
     		'item'=>$item
@@ -209,7 +209,7 @@ class PageController extends AdminController
         $item->slug = ($request->slug)?$request->slug:$this->checkSlug($request->title, 'pages', $id);
         $item->content = $request->content;
         $item->seo_title = $request->seo_title;
-        $item->seo_keyword = $request->seo_keyword;
+        $item->seo_keywords = $request->seo_keywords;
         $item->seo_description = $request->seo_description;
         $item->no = $request->no;
         $item->updated_by = Auth::user()->id;

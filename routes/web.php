@@ -32,6 +32,7 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::get('/', ['as' => 'backend.index', 'uses' => 'Admin\DashboardController@index']);
 
 	Route::post('/delete-image', ['as' => 'backend.ajax.deleteImage', 'uses' => 'AdminController@ajaxDeleteImage']);
+	Route::post('/get-slug', ['as' => 'backend.ajax.getSlug', 'uses' => 'AdminController@ajaxGetSlug']);
 
 	Route::group(['prefix' => 'page'], function(){
 		Route::get('/', ['as' => 'backend.page', 'uses' => 'Admin\PageController@index', 'middleware'=>'ability:root|admin,v_page']);

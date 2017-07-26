@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Support\Facades\Config;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,6 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany(Config::get('entrust.role'));
     }
 }

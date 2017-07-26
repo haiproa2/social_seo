@@ -26,7 +26,7 @@
 						<div class="span3">
 							<h4>Ảnh đại diện</h4>
 							<div class="profilethumb">
-								{!! Form::image(Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:''), 230, 230, array('crop')), 'img-polaroid', ['id'=>'img-polaroid', 'class'=>'img-polaroid', 'onclick'=>'return false', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 230, 230, array('crop'))."';"]) !!}
+								<img src="{!! Image::url(((isset($user->photo) && $user->photo)?'uploads/'.$user->photo:''), 230, 230, array('crop')) !!}" alt="Ảnh đại diện" id="img-polaroid" class="img-polaroid" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}';">
 								@if(isset($user->photo) && $user->photo)
 								<div class="info-photo">
 									<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$user->photo) !!}" target="_blank" title="Xem ảnh gốc" data-toggle="tooltip"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 

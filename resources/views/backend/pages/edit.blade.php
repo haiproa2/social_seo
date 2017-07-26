@@ -66,10 +66,10 @@
 									<a href="https://laptrinh-website.com/cach-su-dung-the-meta-keywords/" target="_blank"> Xem hướng dẫn cách khai báo keywords trong seo</a> tối đa 200 ký tự.
 								</small>
 							</label>
-							<span class="field{{ $errors->has('seo_keyword') ? ' error' : '' }}">
-								{{ Form::textarea('seo_keyword', $item->seo_keywords, ['id'=>'seo_keyword', 'class'=>'span12', 'rows'=>4, 'disabled'=>$disabled]) }}
-								@if ($errors->has('seo_keyword'))
-								<span class="help-inline">{!! $errors->first('seo_keyword') !!}</span>
+							<span class="field{{ $errors->has('seo_keywords') ? ' error' : '' }}">
+								{{ Form::textarea('seo_keywords', $item->seo_keywords, ['id'=>'seo_keywords', 'class'=>'span12', 'rows'=>4, 'disabled'=>$disabled]) }}
+								@if ($errors->has('seo_keywords'))
+								<span class="help-inline">{!! $errors->first('seo_keywords') !!}</span>
 								@endif
 							</span>
 						</p>
@@ -121,15 +121,14 @@
 				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 230, 230, array('crop')) !!}" alt="" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}';">
-					{!! Form::image(, 'thumb', ['id'=>'thumb', 'class'=>'thumb', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 230, 230, array('crop'))."';"]) !!}
+					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 230, 230, array('crop')) !!}" alt="Avatar" class="thumb" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}';">
 					@if(isset($item->photo) && $item->photo)
 					<div class="info-photo">
 						<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$item->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 
 						{!! Form::button('<span class="iconfa-trash"></span> Xóa ảnh', ['title'=>'Xóa ảnh', 'class'=>'btn btn-small btn-danger'.(($disabled)?' disabled':' btn-delete-photo'), 'data-table'=>$prefix, 'data-id'=>$item->id, 'disabled'=>$disabled]) !!}
 					</div>
 					@endif
-                    <div class="fileupload fileupload-new {{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
+                    <div class="fileupload fileupload-new{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                     	<div class="input-append">
                     		<div class="uneditable-input span12">
                     			<i class="icon-file fileupload-exists"></i>
@@ -154,14 +153,18 @@
 			<h4 class="widgettitle nomargin shadowed">Nội dung chi tiết</h4>
 			<div class="widgetcontent bordered shadowed nopadding">
 				<div class="stdform stdform2">
-					{{ Form::textarea('content', '', ['id'=>'content_page', 'class'=>'span12 ckeditor']) }}
+					{{ Form::textarea('content', $item->content, ['id'=>'content_page', 'class'=>'span12 ckeditor', 'disabled'=>$disabled]) }}
 					<p class="stdformbutton">
+						@if($updateForm)
 						{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
+						@endif
 						<a href="{!! route('backend.page') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
 					</p>
 				</div>
 			</div>
 		</div>
+	@if($updateForm)
 	{{ Form::close() }}
+	@endif
 </div><!--contentinner-->
 @endsection

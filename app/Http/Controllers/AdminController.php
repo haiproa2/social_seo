@@ -57,7 +57,30 @@ class AdminController extends Controller
             ]);
     }
 
-    public function checkSlug($title, $table, $id = 0, $i = 0){
-        return $id;
+    public function ajaxGetSlug(Request $request){
+        $_token = $request->_token;
+        $title = $request->title_item;
+        $slug = str_slug($request->title_item);
+        $table = $request->table_item.'s';
+        $id = $request->id_item;
+        return  json_encode([
+            'token' => Session::token(),
+            'status' => 'success',
+            'messager' => 'Tạo liên kết URL thành công.',
+            'item' => $this->checkSlug($slug, $table, $id)
+            ]);
     }
+
+    public function checkSlug($slug, $table, $id = 0, $i = 0){
+        if($i)
+            $slug = $slug.'-'.$i;
+
+        if($id)
+            $item = DB::connection('mysql_data')->table($table)->select('id', 'slug')->where([['slug', $slug], ['id', '<>', $id]])->first();
+        else
+            $item = DB::connection('mysql_data')->table($table)->select('id', 'slug')->where('slug', $slug)->first();
+        
+
+        return $slug;
+    }   
 }

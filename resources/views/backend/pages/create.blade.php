@@ -41,7 +41,7 @@
 									{!! Form::text('slug', '', [
 										'id'=>'slug', 'class'=>'one-item with-btn-icon slug_result', 'required'=>true
 									]) !!}
-									<button type="button" class="btn btn-icon btn-generate-slug" rel-class="slug_result" title="Tạo liên kết URL tự động theo Tiêu đề" data-toggle="tooltip" data-placement="left"><span class="iconfa-refresh"></span></button>
+									<button type="button" class="btn btn-icon btn-generate-slug" data-table="{{$prefix}}" data-id="" data-result="slug_result" data-source="slug_source" title="Tạo liên kết URL tự động theo Tiêu đề" data-toggle="tooltip" data-placement="left"><span class="iconfa-refresh"></span></button>
 								</span>
 								@if ($errors->has('slug'))
 								<span class="help-inline">{!! $errors->first('slug') !!}</span>
@@ -88,7 +88,7 @@
 						<p class="control-group">
 							<label for="no">Số thứ tự</label>
 							<span class="field{{ $errors->has('no') ? ' error' : '' }}">
-								{{ Form::number('no', 1, ['id'=>'no', 'class'=>'span6', 'min'=>0, 'max'=>999]) }}
+								{{ Form::number('no', 10, ['id'=>'no', 'class'=>'span6', 'min'=>0, 'max'=>999]) }}
 								@if ($errors->has('no'))
 								<span class="help-inline">{!! $errors->first('no') !!}</span>
 								@endif
@@ -119,7 +119,7 @@
 				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					{!! Form::image(Image::url('', 230, 230, array('crop')), 'thumb', ['id'=>'thumb', 'class'=>'thumb', 'onclick'=>'return false', 'onError'=>"this.onerror=null;this.src='".Image::url(('images/no-image-available.jpg'), 230, 230, array('crop'))."';"]) !!}
+					<img src="{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}" alt="Ảnh đại diện" id="thumb" class="thumb">
                     <div class="fileupload fileupload-new {{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                     	<div class="input-append">
                     		<div class="uneditable-input span12">

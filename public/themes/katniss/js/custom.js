@@ -62,7 +62,7 @@ jQuery(document).ready(function(){
 	mainwrapperHeight();
 	responsive();
 
-	/*  */
+	/* Ajax */
 	jQuery(".btn-delete-photo").click(function(){
 		var table_item = jQuery(this).attr('data-table');
 		var id_item = jQuery(this).attr('data-id');
@@ -70,11 +70,14 @@ jQuery(document).ready(function(){
 		jConfirm('Bạn có chắc là muốn <b class="text-error">Xóa Bức Ảnh</b> này?', 'Thông báo', function(r) {
 			if(r){
 				jQuery.ajax({
+					headers: {
+						'X-CSRF-TOKEN': CSRF_TOKEN
+					},
 					url: route_delete_image,
 					method: "POST",
-					data: {_token: CSRF_TOKEN, table_item: table_item, id_item: id_item},
+					data: {"_token": CSRF_TOKEN, "table_item": table_item, "id_item": id_item},
 					success: function (data) {
-						console.log(data);						
+						console.log(data);
 						var data = jQuery.parseJSON(data);
 						if(data.status == 'success'){
 							jQuery("#img-polaroid").attr('src', ''); // Set src for img
@@ -88,6 +91,46 @@ jQuery(document).ready(function(){
 						console.log(data);
 					}
 				});
+			}
+		});
+
+	});
+	jQuery(".btn-generate-slug").click(function(){
+		jQuery(this).find('span').toggleClass('icon-spin');
+		var data_source = jQuery(this).attr('data-source');
+		var title_item = jQuery('.'+data_source).val();
+		var table_item = jQuery(this).attr('data-table');
+		var id_item = jQuery(this).attr('data-id');
+		var CSRF_TOKEN = jQuery('input[name="_token"]').attr('value');
+		if(title_item == ''){
+			jAlert('<p class="text-error text-center">Tiêu đề chưa được nhập</p>', 'Thông báo', function(){
+				jQuery('.'+data_source).focus();
+				jQuery(".btn-generate-slug").find('span').toggleClass('icon-spin');
+			});
+			return false;
+		}
+		jQuery.ajax({
+			headers: {
+				'X-CSRF-TOKEN': CSRF_TOKEN
+			},
+			url: route_get_slug,
+			method: "POST",
+			data: {"_token": CSRF_TOKEN, "title_item": title_item, "table_item": table_item, "id_item": id_item},
+			success: function (data) {
+				jQuery(this).find('span').toggleClass('icon-spin');
+				console.log(data);
+				var data = jQuery.parseJSON(data);
+				if(data.status == 'success'){
+					jQuery("#img-polaroid").attr('src', ''); // Set src for img
+					jQuery(".info-photo").addClass('animate0 fadeOut hidden'); // Set val for thumb
+					jQuery('input[name="_token"]').attr('value', data.token);
+				}
+				jQuery.jGrowl(data.messager, { life: 5000, theme: data.status});
+			},
+			error: function (data) {
+				jQuery(this).find('span').toggleClass('icon-spin iconfa-refresh iconfa-remove');
+				console.log("Cannot get slug.");
+				console.log(data);
 			}
 		});
 

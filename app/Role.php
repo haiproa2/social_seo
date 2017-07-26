@@ -12,6 +12,6 @@ class Role extends EntrustRole
 	        Config::get('auth.providers.users.model'),
 	        Config::get('entrust.role_user_table'),
 	        Config::get('entrust.role_foreign_key'),
-	        Config::get('entrust.user_foreign_key'));
+	        Config::get('entrust.user_foreign_key'))->orderBy('no', 'ASC')->orderBy('id', 'DESC');
 	}
 }
