@@ -67,7 +67,7 @@ class AdminController extends Controller
             'token' => Session::token(),
             'status' => 'success',
             'messager' => 'Tạo liên kết URL thành công.',
-            'item' => $this->checkSlug($slug, $table, $id)
+            'slug' => $this->checkSlug($slug, $table, $id)
             ]);
     }
 
@@ -76,11 +76,13 @@ class AdminController extends Controller
             $slug = $slug.'-'.$i;
 
         if($id)
-            $item = DB::connection('mysql_data')->table($table)->select('id', 'slug')->where([['slug', $slug], ['id', '<>', $id]])->first();
+            $item = DB::connection('mysql_data')->table($table)->select('id')->where([['slug', $slug], ['id', '<>', $id]])->get()->first();
         else
-            $item = DB::connection('mysql_data')->table($table)->select('id', 'slug')->where('slug', $slug)->first();
+            $item = DB::connection('mysql_data')->table($table)->select('id')->where('slug', $slug)->get()->first();
         
-
-        return $slug;
+        if($item)
+            return $this->checkSlug($slug, $table, $id, ++$i);
+        else
+            return $slug;
     }   
 }

@@ -29,10 +29,18 @@
             @ability('root,admin', 'v_page')
             <li{!! ($prefix=='page')?' class="active"':'' !!}><a href="{{ route('backend.page') }}"><span class="icon-file"></span> Trang tĩnh</a></li>
             @endability
+            @ability('root,admin', 'v_news')
+            <li class="{!! (Auth::user()->ability('root,admin', 'v_catenews'))?'dropdown':''!!}{!! ($prefix=='news')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-list-alt"></span> Bài viết</a>
+                <ul{!! ($prefix=='news')?' style="display:block"':'' !!}>
+                    <li{!! ($prefix=='news')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh mục</a></li>
+                    <li{!! ($prefix=='news')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
+                </ul>
+            </li>
+            @endability
             @ability('root,admin', 'v_config')
             <li{!! ($prefix=='config')?' class="active"':'' !!}><a href="{{ route('backend.config') }}"><span class="icon-wrench"></span> Thông tin công ty</a></li>
             @endability
-            @ability('root,admin', 'v_permission')
+            @ability('root,admin', 'v_role')
             <li class="{!! (Auth::user()->ability('root,admin', 'v_permission'))?'dropdown':''!!}{!! ($prefix=='role'||$prefix=='permission')?' active':'' !!}"><a href="{{ route('backend.role') }}"><span class="icon-check"></span> Phân quyền</a>
                 <ul{!! ($prefix=='role'||$prefix=='permission')?' style="display:block"':'' !!}>
                     <li{!! ($prefix=='permission')?' class="active"':'' !!}><a href="{{ route('backend.permission') }}">Danh sách quyền</a></li>

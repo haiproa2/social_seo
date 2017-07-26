@@ -12,14 +12,12 @@
     </ul><!--skins-->
     <ul class="breadcrumb">
         <li><a href="{{ route('backend.index') }}">Admin Area</a> <span class="divider">/</span></li>
-        <li class="active">Trang tĩnh</li>
+        <li class="active">Bài viết</li>
     </ul>
 </div><!--breadcrumbs-->
 <div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
 <div class="contentinner content-editprofile animate5 fadeInUp">
-	@if($updateForm)
-	{{ Form::open(['route' => ['backend.page.update', $item->id], 'enctype'=>'multipart/form-data']) }}
-	@endif
+	{{ Form::open(['route' => ['backend.news.store'], 'enctype'=>'multipart/form-data']) }}
 		<div class="row-fluid">
 			<div class="span8">
 				<h4 class="widgettitle nomargin shadowed">Thông tin chính</h4>
@@ -28,8 +26,8 @@
 						<p class="control-group">
 							<label for="title">Tiêu đề <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('title') ? ' error' : '' }}">
-								{!! Form::text('title', $item->title, [
-									'id'=>'title', 'class'=>'span12 slug_source', 'autofocus'=>true, 'required'=>true, 'disabled'=>$disabled
+								{!! Form::text('title', '', [
+									'id'=>'title', 'class'=>'span12 slug_source', 'autofocus'=>true, 'required'=>true
 								]) !!}
 								@if ($errors->has('title'))
 								<span class="help-inline">{!! $errors->first('title') !!}</span>
@@ -40,10 +38,10 @@
 							<label for="slug">Liên kết URL <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('slug') ? ' error' : '' }}">
 								<span class="input-append">
-									{!! Form::text('slug', $item->slug, [
-										'id'=>'slug', 'class'=>'one-item with-btn-icon slug_result', 'required'=>true, 'disabled'=>$disabled
+									{!! Form::text('slug', '', [
+										'id'=>'slug', 'class'=>'one-item with-btn-icon slug_result', 'required'=>true
 									]) !!}
-									<button type="button" class="btn btn-icon {!! ($disabled)?' disabled':'btn-generate-slug' !!}" data-table="{{$prefix}}" data-id="{{$item->id}}" data-result="slug_result" data-source="slug_source" title="Tạo liên kết URL tự động theo Tiêu đề" data-toggle="tooltip" data-placement="left"><span class="iconfa-refresh"></span></button>
+									<button type="button" class="btn btn-icon btn-generate-slug" data-table="post" data-id="" data-result="slug_result" data-source="slug_source" title="Tạo liên kết URL tự động theo Tiêu đề" data-toggle="tooltip" data-placement="left"><span class="iconfa-refresh"></span></button>
 								</span>
 								@if ($errors->has('slug'))
 								<span class="help-inline">{!! $errors->first('slug') !!}</span>
@@ -53,21 +51,21 @@
 						<p class="control-group">
 							<label for="seo_title">SEO Title</label>
 							<span class="field{{ $errors->has('seo_title') ? ' error' : '' }}">
-								{{ Form::text('seo_title', $item->seo_title, ['id'=>'seo_title', 'class'=>'span12', 'disabled'=>$disabled]) }}
+								{{ Form::text('seo_title', '', ['id'=>'seo_title', 'class'=>'span12']) }}
 								@if ($errors->has('seo_title'))
 								<span class="help-inline">{!! $errors->first('seo_title') !!}</span>
 								@endif
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="seo_keyword">
+							<label for="seo_keywords">
 								SEO Keywords<br/>
 								<small> 
 									<a href="https://laptrinh-website.com/cach-su-dung-the-meta-keywords/" target="_blank"> Xem hướng dẫn cách khai báo keywords trong seo</a> tối đa 200 ký tự.
 								</small>
 							</label>
 							<span class="field{{ $errors->has('seo_keywords') ? ' error' : '' }}">
-								{{ Form::textarea('seo_keywords', $item->seo_keywords, ['id'=>'seo_keywords', 'class'=>'span12', 'rows'=>4, 'disabled'=>$disabled]) }}
+								{{ Form::textarea('seo_keywords', '', ['id'=>'seo_keywords', 'class'=>'span12', 'rows'=>4]) }}
 								@if ($errors->has('seo_keywords'))
 								<span class="help-inline">{!! $errors->first('seo_keywords') !!}</span>
 								@endif
@@ -81,7 +79,7 @@
 								</small>
 							</label>
 							<span class="field{{ $errors->has('seo_description') ? ' error' : '' }}">
-								{{ Form::textarea('seo_description', $item->seo_description, ['id'=>'seo_description', 'class'=>'span12', 'rows'=>4, 'disabled'=>$disabled]) }}
+								{{ Form::textarea('seo_description', '', ['id'=>'seo_description', 'class'=>'span12', 'rows'=>4]) }}
 								@if ($errors->has('seo_description'))
 								<span class="help-inline">{!! $errors->first('seo_description') !!}</span>
 								@endif
@@ -90,7 +88,7 @@
 						<p class="control-group">
 							<label for="no">Số thứ tự</label>
 							<span class="field{{ $errors->has('no') ? ' error' : '' }}">
-								{{ Form::number('no', $item->no, ['id'=>'no', 'class'=>'span6', 'min'=>0, 'max'=>999, 'disabled'=>$disabled]) }}
+								{{ Form::number('no', 10, ['id'=>'no', 'class'=>'span6', 'min'=>0, 'max'=>999]) }}
 								@if ($errors->has('no'))
 								<span class="help-inline">{!! $errors->first('no') !!}</span>
 								@endif
@@ -101,7 +99,7 @@
 							<span class="field">
 								@if(count($actives))
 								@foreach($actives as $k => $val)
-								<label class="uniform-label">{!! Form::radio('active', $val->id_type, (($item->active == $val->id_type)?1:0), ['id'=>'active-'.$val->id_type, 'class'=>'span12', 'disabled'=>$disabled]) !!} {!! $val->value_type !!}</label>
+								<label class="uniform-label">{!! Form::radio('active', $val->id_type, (($val->id_type == 1)?1:0), ['id'=>'active-'.$val->id_type, 'class'=>'span12']) !!} {!! $val->value_type !!}</label>
 								@endforeach
 								@endif
 							</span>
@@ -110,25 +108,10 @@
 				</div>
 			</div>
 			<div class="span4">
-				<h4 class="widgettitle nomargin shadowed">Loại trang</h4>
-				<div class="widgetcontent widgetsmall bordered shadowed">
-					<div class="{{ $errors->has('template') ? ' error' : '' }}">
-						{{ Form::select('template', $templates, $item->template, ['id' => 'template', 'class' => 'span12 SumoSelect', 'disabled'=>$disabled]) }}
-						@if ($errors->has('template'))
-						<span class="help-inline">{!! $errors->first('template') !!}</span>
-						@endif
-					</div>
-				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 230, 230, array('crop')) !!}" alt="Avatar" class="thumb" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}';">
-					@if(isset($item->photo) && $item->photo)
-					<div class="info-photo">
-						<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$item->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 
-						{!! Form::button('<span class="iconfa-trash"></span> Xóa ảnh', ['title'=>'Xóa ảnh', 'class'=>'btn btn-small btn-danger'.(($disabled)?' disabled':' btn-delete-photo'), 'data-table'=>$prefix, 'data-id'=>$item->id, 'disabled'=>$disabled]) !!}
-					</div>
-					@endif
-                    <div class="fileupload fileupload-new{{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
+					<img src="{!! Image::url(('images/no-image-available.jpg'), 300, 230, array('crop')) !!}" alt="Ảnh đại diện" id="thumb" class="thumb">
+                    <div class="fileupload fileupload-new {{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                     	<div class="input-append">
                     		<div class="uneditable-input span12">
                     			<i class="icon-file fileupload-exists"></i>
@@ -153,18 +136,14 @@
 			<h4 class="widgettitle nomargin shadowed">Nội dung chi tiết</h4>
 			<div class="widgetcontent bordered shadowed nopadding">
 				<div class="stdform stdform2">
-					{{ Form::textarea('content', $item->content, ['id'=>'content_page', 'class'=>'span12 ckeditor', 'disabled'=>$disabled]) }}
+					{{ Form::textarea('content', '', ['id'=>'content_post', 'class'=>'span12 ckeditor']) }}
 					<p class="stdformbutton">
-						@if($updateForm)
 						{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
-						@endif
-						<a href="{!! route('backend.page') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
+						<a href="{!! route('backend.news') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
 					</p>
 				</div>
 			</div>
 		</div>
-	@if($updateForm)
 	{{ Form::close() }}
-	@endif
 </div><!--contentinner-->
 @endsection

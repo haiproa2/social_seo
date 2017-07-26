@@ -97,7 +97,10 @@ jQuery(document).ready(function(){
 	});
 	jQuery(".btn-generate-slug").click(function(){
 		jQuery(this).find('span').toggleClass('icon-spin');
+		jQuery(this).closest('.field').removeClass('error');
+		jQuery(this).closest('.field').find('.help-inline').addClass('animate0 bounceOut');
 		var data_source = jQuery(this).attr('data-source');
+		var data_result = jQuery(this).attr('data-result');
 		var title_item = jQuery('.'+data_source).val();
 		var table_item = jQuery(this).attr('data-table');
 		var id_item = jQuery(this).attr('data-id');
@@ -117,18 +120,17 @@ jQuery(document).ready(function(){
 			method: "POST",
 			data: {"_token": CSRF_TOKEN, "title_item": title_item, "table_item": table_item, "id_item": id_item},
 			success: function (data) {
-				jQuery(this).find('span').toggleClass('icon-spin');
-				console.log(data);
+				jQuery(".btn-generate-slug").find('span').toggleClass('icon-spin');
 				var data = jQuery.parseJSON(data);
 				if(data.status == 'success'){
-					jQuery("#img-polaroid").attr('src', ''); // Set src for img
-					jQuery(".info-photo").addClass('animate0 fadeOut hidden'); // Set val for thumb
+					jQuery("."+data_result).val(data.slug); // Set value for input
 					jQuery('input[name="_token"]').attr('value', data.token);
 				}
 				jQuery.jGrowl(data.messager, { life: 5000, theme: data.status});
 			},
 			error: function (data) {
-				jQuery(this).find('span').toggleClass('icon-spin iconfa-refresh iconfa-remove');
+				jQuery.jGrowl('Khổng thể tạo tự động, vui lòng thử lại sau.', { life: 5000, theme: 'error'});
+				jQuery(".btn-generate-slug").find('span').toggleClass('icon-spin');
 				console.log("Cannot get slug.");
 				console.log(data);
 			}

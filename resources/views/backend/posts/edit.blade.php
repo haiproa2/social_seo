@@ -12,13 +12,13 @@
     </ul><!--skins-->
     <ul class="breadcrumb">
         <li><a href="{{ route('backend.index') }}">Admin Area</a> <span class="divider">/</span></li>
-        <li class="active">Trang tĩnh</li>
+        <li class="active">Bài viết</li>
     </ul>
 </div><!--breadcrumbs-->
 <div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
 <div class="contentinner content-editprofile animate5 fadeInUp">
 	@if($updateForm)
-	{{ Form::open(['route' => ['backend.page.update', $item->id], 'enctype'=>'multipart/form-data']) }}
+	{{ Form::open(['route' => ['backend.news.update', $item->id], 'enctype'=>'multipart/form-data']) }}
 	@endif
 		<div class="row-fluid">
 			<div class="span8">
@@ -43,7 +43,7 @@
 									{!! Form::text('slug', $item->slug, [
 										'id'=>'slug', 'class'=>'one-item with-btn-icon slug_result', 'required'=>true, 'disabled'=>$disabled
 									]) !!}
-									<button type="button" class="btn btn-icon {!! ($disabled)?' disabled':'btn-generate-slug' !!}" data-table="{{$prefix}}" data-id="{{$item->id}}" data-result="slug_result" data-source="slug_source" title="Tạo liên kết URL tự động theo Tiêu đề" data-toggle="tooltip" data-placement="left"><span class="iconfa-refresh"></span></button>
+									<button type="button" class="btn btn-icon {!! ($disabled)?' disabled':'btn-generate-slug' !!}" data-table="post" data-id="{{$item->id}}" data-result="slug_result" data-source="slug_source" title="Tạo liên kết URL tự động theo Tiêu đề" data-toggle="tooltip" data-placement="left"><span class="iconfa-refresh"></span></button>
 								</span>
 								@if ($errors->has('slug'))
 								<span class="help-inline">{!! $errors->first('slug') !!}</span>
@@ -97,6 +97,15 @@
 							</span>
 						</p>
 						<p class="control-group">
+							<label for="view">Lượt xem</label>
+							<span class="field{{ $errors->has('view') ? ' error' : '' }}">
+								{{ Form::text('view', $item->view, ['id'=>'view', 'class'=>'span6', 'disabled'=>true]) }}
+								@if ($errors->has('view'))
+								<span class="help-inline">{!! $errors->first('view') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
 							<label for="status" style="padding-top:5px">Trạng thái</label>
 							<span class="field">
 								@if(count($actives))
@@ -110,18 +119,9 @@
 				</div>
 			</div>
 			<div class="span4">
-				<h4 class="widgettitle nomargin shadowed">Loại trang</h4>
-				<div class="widgetcontent widgetsmall bordered shadowed">
-					<div class="{{ $errors->has('template') ? ' error' : '' }}">
-						{{ Form::select('template', $templates, $item->template, ['id' => 'template', 'class' => 'span12 SumoSelect', 'disabled'=>$disabled]) }}
-						@if ($errors->has('template'))
-						<span class="help-inline">{!! $errors->first('template') !!}</span>
-						@endif
-					</div>
-				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 230, 230, array('crop')) !!}" alt="Avatar" class="thumb" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}';">
+					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 300, 230, array('crop')) !!}" alt="Avatar" class="thumb" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 300, 230, array('crop')) !!}';">
 					@if(isset($item->photo) && $item->photo)
 					<div class="info-photo">
 						<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$item->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a> - Or - 
@@ -153,12 +153,12 @@
 			<h4 class="widgettitle nomargin shadowed">Nội dung chi tiết</h4>
 			<div class="widgetcontent bordered shadowed nopadding">
 				<div class="stdform stdform2">
-					{{ Form::textarea('content', $item->content, ['id'=>'content_page', 'class'=>'span12 ckeditor', 'disabled'=>$disabled]) }}
+					{{ Form::textarea('content', $item->content, ['id'=>'content_post', 'class'=>'span12 ckeditor', 'disabled'=>$disabled]) }}
 					<p class="stdformbutton">
 						@if($updateForm)
 						{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
 						@endif
-						<a href="{!! route('backend.page') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
+						<a href="{!! route('backend.news') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
 					</p>
 				</div>
 			</div>

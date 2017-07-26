@@ -1,7 +1,8 @@
 /* custom template admin */
 *{-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{min-height: 30px;}
-input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly]{background-color: #fbfbfb}
+input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly]{background-color: #f3f3f3}
+.btn.disabled, .btn[disabled]{opacity: 0.5}
 .row-fluid [class*="span"]{min-height: auto;}
 .stdform2 [class*="span"]{min-height: 30px;}
 .stdform2 span.field, .stdform2 div.field{padding: 10px 15px;}
@@ -240,7 +241,7 @@ select.SumoSelect.SumoUnder{display: none;}
 .SumoSelect>.optWrapper>.options li.opt.selected {background-color: #f1f1f1;}
 .SumoSelect>.optWrapper>.options li.opt:hover {background-color: #E4E4E4; cursor: pointer;}
 .SumoSelect .select-all>span, .SumoSelect>.optWrapper.multiple>.options li.opt span.label{display: inline-block; position: static; width: auto; margin: 0px;}
-.SumoSelect.disabled>.CaptionCont{background-color: #fbfbfb;}
+.SumoSelect.disabled>.CaptionCont{background-color: #f3f3f3;}
 
 .widgetphoto{text-align: center;}
 .widgetphoto .thumb{margin: 0px auto 7px; max-width: 100%;}

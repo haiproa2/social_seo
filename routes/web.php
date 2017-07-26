@@ -34,6 +34,18 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::post('/delete-image', ['as' => 'backend.ajax.deleteImage', 'uses' => 'AdminController@ajaxDeleteImage']);
 	Route::post('/get-slug', ['as' => 'backend.ajax.getSlug', 'uses' => 'AdminController@ajaxGetSlug']);
 
+	Route::group(['prefix' => 'news'], function(){
+		Route::get('/', ['as' => 'backend.news', 'uses' => 'Admin\PostController@index', 'middleware'=>'ability:root|admin,v_post']);
+		Route::post('/', ['as' => 'backend.news.updatePosition', 'uses' => 'Admin\PostController@updatePosition', 'middleware'=>'ability:root|admin,u_post']);
+		Route::get('/create', ['as' => 'backend.news.create', 'uses' => 'Admin\PostController@create', 'middleware'=>'ability:root|admin,c_post']);
+		Route::post('/create', ['as' => 'backend.news.store', 'uses' => 'Admin\PostController@store', 'middleware'=>'ability:root|admin,c_post']);
+		Route::get('{id}', ['as' => 'backend.news.view', 'uses' => 'Admin\PostController@view', 'middleware'=>'ability:root|admin,v_post']);
+		Route::get('{id}/edit', ['as' => 'backend.news.edit', 'uses' => 'Admin\PostController@edit', 'middleware'=>'ability:root|admin,u_post']);
+		Route::post('{id}/edit', ['as' => 'backend.news.update', 'uses' => 'Admin\PostController@update', 'middleware'=>'ability:root|admin,u_post']);
+		Route::get('{id}/active', ['as' => 'backend.news.active', 'uses' => 'Admin\PostController@activeStatus', 'middleware'=>'ability:root|admin,u_post']);
+		Route::get('{id}/delete', ['as'=>'backend.news.delete', 'uses'=>'Admin\PostController@destroy', 'middleware'=>'ability:root|admin,d_post']);
+		Route::get('deletes/{listid}', ['as'=>'backend.news.deletes', 'uses'=>'Admin\PostController@destroy', 'middleware'=>'ability:root|admin,d_post']);
+	});
 	Route::group(['prefix' => 'page'], function(){
 		Route::get('/', ['as' => 'backend.page', 'uses' => 'Admin\PageController@index', 'middleware'=>'ability:root|admin,v_page']);
 		Route::post('/', ['as' => 'backend.page.updatePosition', 'uses' => 'Admin\PageController@updatePosition', 'middleware'=>'ability:root|admin,u_page']);
