@@ -80,7 +80,7 @@ jQuery(document).ready(function(){
 						console.log(data);
 						var data = jQuery.parseJSON(data);
 						if(data.status == 'success'){
-							jQuery("#img-polaroid").attr('src', ''); // Set src for img
+							jQuery(".thumb").attr('src', ''); // Set src for img
 							jQuery(".info-photo").addClass('animate0 fadeOut hidden'); // Set val for thumb
 							jQuery('input[name="_token"]').attr('value', data.token);
 						}

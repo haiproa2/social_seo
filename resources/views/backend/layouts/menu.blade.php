@@ -32,8 +32,8 @@
             @ability('root,admin', 'v_news')
             <li class="{!! (Auth::user()->ability('root,admin', 'v_catenews'))?'dropdown':''!!}{!! ($prefix=='news')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-list-alt"></span> Bài viết</a>
                 <ul{!! ($prefix=='news')?' style="display:block"':'' !!}>
-                    <li{!! ($prefix=='news')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh mục</a></li>
-                    <li{!! ($prefix=='news')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
+                    <li{!! ($prefix.$action=='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news.category') }}">Danh mục</a></li>
+                    <li{!! ($prefix=='news'&&$prefix.$action!='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
                 </ul>
             </li>
             @endability

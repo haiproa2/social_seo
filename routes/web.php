@@ -35,16 +35,29 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::post('/get-slug', ['as' => 'backend.ajax.getSlug', 'uses' => 'AdminController@ajaxGetSlug']);
 
 	Route::group(['prefix' => 'news'], function(){
-		Route::get('/', ['as' => 'backend.news', 'uses' => 'Admin\PostController@index', 'middleware'=>'ability:root|admin,v_post']);
-		Route::post('/', ['as' => 'backend.news.updatePosition', 'uses' => 'Admin\PostController@updatePosition', 'middleware'=>'ability:root|admin,u_post']);
-		Route::get('/create', ['as' => 'backend.news.create', 'uses' => 'Admin\PostController@create', 'middleware'=>'ability:root|admin,c_post']);
-		Route::post('/create', ['as' => 'backend.news.store', 'uses' => 'Admin\PostController@store', 'middleware'=>'ability:root|admin,c_post']);
-		Route::get('{id}', ['as' => 'backend.news.view', 'uses' => 'Admin\PostController@view', 'middleware'=>'ability:root|admin,v_post']);
-		Route::get('{id}/edit', ['as' => 'backend.news.edit', 'uses' => 'Admin\PostController@edit', 'middleware'=>'ability:root|admin,u_post']);
-		Route::post('{id}/edit', ['as' => 'backend.news.update', 'uses' => 'Admin\PostController@update', 'middleware'=>'ability:root|admin,u_post']);
-		Route::get('{id}/active', ['as' => 'backend.news.active', 'uses' => 'Admin\PostController@activeStatus', 'middleware'=>'ability:root|admin,u_post']);
-		Route::get('{id}/delete', ['as'=>'backend.news.delete', 'uses'=>'Admin\PostController@destroy', 'middleware'=>'ability:root|admin,d_post']);
-		Route::get('deletes/{listid}', ['as'=>'backend.news.deletes', 'uses'=>'Admin\PostController@destroy', 'middleware'=>'ability:root|admin,d_post']);
+		Route::group(['prefix' => 'category'], function(){
+			Route::get('/', ['as' => 'backend.news.category', 'uses' => 'Admin\CategoryController@index', 'middleware'=>'ability:root|admin,v_news_cate']);
+			Route::post('/', ['as' => 'backend.news.category.updatePosition', 'uses' => 'Admin\CategoryController@updatePosition', 'middleware'=>'ability:root|admin,u_news_cate']);
+			Route::get('/create', ['as' => 'backend.news.category.create', 'uses' => 'Admin\CategoryController@create', 'middleware'=>'ability:root|admin,c_news_cate']);
+			Route::post('/create', ['as' => 'backend.news.category.store', 'uses' => 'Admin\CategoryController@store', 'middleware'=>'ability:root|admin,c_news_cate']);
+			Route::get('{id}', ['as' => 'backend.news.category.view', 'uses' => 'Admin\CategoryController@view', 'middleware'=>'ability:root|admin,v_news_cate']);
+			Route::get('{id}/edit', ['as' => 'backend.news.category.edit', 'uses' => 'Admin\CategoryController@edit', 'middleware'=>'ability:root|admin,u_news_cate']);
+			Route::post('{id}/edit', ['as' => 'backend.news.category.update', 'uses' => 'Admin\CategoryController@update', 'middleware'=>'ability:root|admin,u_news_cate']);
+			Route::get('{id}/active', ['as' => 'backend.news.category.active', 'uses' => 'Admin\CategoryController@activeStatus', 'middleware'=>'ability:root|admin,u_news_cate']);
+			Route::get('{id}/delete', ['as'=>'backend.news.category.delete', 'uses'=>'Admin\CategoryController@destroy', 'middleware'=>'ability:root|admin,d_news_cate']);
+			Route::get('deletes/{listid}', ['as'=>'backend.news.category.deletes', 'uses'=>'Admin\CategoryController@destroy', 'middleware'=>'ability:root|admin,d_news_cate']);
+		});
+
+		Route::get('/', ['as' => 'backend.news', 'uses' => 'Admin\PostController@index', 'middleware'=>'ability:root|admin,v_news']);
+		Route::post('/', ['as' => 'backend.news.updatePosition', 'uses' => 'Admin\PostController@updatePosition', 'middleware'=>'ability:root|admin,u_news']);
+		Route::get('/create', ['as' => 'backend.news.create', 'uses' => 'Admin\PostController@create', 'middleware'=>'ability:root|admin,c_news']);
+		Route::post('/create', ['as' => 'backend.news.store', 'uses' => 'Admin\PostController@store', 'middleware'=>'ability:root|admin,c_news']);
+		Route::get('{id}', ['as' => 'backend.news.view', 'uses' => 'Admin\PostController@view', 'middleware'=>'ability:root|admin,v_news']);
+		Route::get('{id}/edit', ['as' => 'backend.news.edit', 'uses' => 'Admin\PostController@edit', 'middleware'=>'ability:root|admin,u_news']);
+		Route::post('{id}/edit', ['as' => 'backend.news.update', 'uses' => 'Admin\PostController@update', 'middleware'=>'ability:root|admin,u_news']);
+		Route::get('{id}/active', ['as' => 'backend.news.active', 'uses' => 'Admin\PostController@activeStatus', 'middleware'=>'ability:root|admin,u_news']);
+		Route::get('{id}/delete', ['as'=>'backend.news.delete', 'uses'=>'Admin\PostController@destroy', 'middleware'=>'ability:root|admin,d_news']);
+		Route::get('deletes/{listid}', ['as'=>'backend.news.deletes', 'uses'=>'Admin\PostController@destroy', 'middleware'=>'ability:root|admin,d_news']);
 	});
 	Route::group(['prefix' => 'page'], function(){
 		Route::get('/', ['as' => 'backend.page', 'uses' => 'Admin\PageController@index', 'middleware'=>'ability:root|admin,v_page']);

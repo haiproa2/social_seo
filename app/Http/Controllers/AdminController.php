@@ -23,7 +23,7 @@ class AdminController extends Controller
             $this->updateForm = true;
 
         view::share([
-            'prefix' => $this->prefix, 
+            'prefix' => $this->prefix,
             'action' => $this->action,
             'title' => $this->title,
         	'description' => $this->description,

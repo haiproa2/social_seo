@@ -225,6 +225,7 @@ class PageController extends AdminController
     	$router = $request->route()->getName();
     	if($router == 'backend.page.delete'){ // Xóa 1 phần tử
     		$item = Page::where([['id', $request->id]])->firstOrFail();
+            Image::delete('uploads/'.$item->photo);
     		$item->delete();
     		$flash_type = 'success animate3 fadeInUp';
     		$flash_messager = 'Trang [<b>'.$item->title.'</b>]<br/>đã bị xóa.';
@@ -237,6 +238,7 @@ class PageController extends AdminController
 					$item = Page::where([['id', $id]])->first();
 					if($item){
 						$names .= '[<strong>'.$item->title.'</strong>], ';
+                        Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}
 				}
