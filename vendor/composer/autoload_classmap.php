@@ -57,6 +57,7 @@ return array(
     'Collective\\Html\\HtmlServiceProvider' => $vendorDir . '/laravelcollective/html/src/HtmlServiceProvider.php',
     'CreateDetailTable' => $baseDir . '/database/migrations/2017_07_24_214449_createDetailTable.php',
     'CreateOptionsTable' => $baseDir . '/database/migrations/2017_07_17_164219_createOptionsTable.php',
+    'CreatePagePostTable' => $baseDir . '/database/migrations/2017_07_27_232232_CreatePagePostTable.php',
     'CreatePageTable' => $baseDir . '/database/migrations/2017_07_25_111830_createPageTable.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePostsTable' => $baseDir . '/database/migrations/2017_07_26_221242_createPostsTable.php',

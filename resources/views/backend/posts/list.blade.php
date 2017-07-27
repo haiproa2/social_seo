@@ -19,13 +19,19 @@
 <div class="contentinner animate5 fadeInUp">
 	<div class="row-fluid">
 		<?php
-			$array = array('-'=>'- Tất cả danh mục -'); $categorys = array_merge($array, $categorys);
 			$array = array('0'=>'- Tất cả -'); $limits = array_replace($limits, $array);
 		?>
 		<div class="span6 text-top">
 			<span>Danh mục:</span>
 			<span style="width: auto; display: inline-flex;"> 
-			{{ Form::select('category', $categorys, (Request::get('cate') || Request::get('cate') == 0)?Request::get('cate'):'-', ['id' => 'category', 'class'=>'span12 SumoSelect', 'data-route'=>$prefix]) }}
+				<select name="category" id="category" class="span12 SumoSelect" data-route="{!! $prefix !!}">
+					<option value="-">== Tất cả danh mục ==</option>
+					@if(count($categorys))
+						@foreach($categorys as $key => $value)
+						<option value="{{ $value['id'] }}" data-padding="10px;" <?=(Request::get('cate') == $value['id'])?'selected':''?>><?php for($i=0; $i<$value['level']; $i++) echo '---'; ?>{{ $value['title'] }}</option>
+						@endforeach
+					@endif
+				</select>
 			</span>
 		</div>
 		<div class="span6 text-right text-top">

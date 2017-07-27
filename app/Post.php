@@ -13,4 +13,8 @@ class Post extends Model
     public function option_actives(){
         return $this->hasOne('App\Option', 'id_type', 'active')->where('type', 'active');
     }
+
+    public function categorys(){
+        return $this->belongsToMany('App\Page');
+    }
 }

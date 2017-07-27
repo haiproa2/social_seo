@@ -7,11 +7,11 @@
     <div class="datewidget animate2 fadeInUp">Today is {{ date('l, M d, Y H:j:s A', time()) }}</div>
 
 	<div class="searchwidget animate4 fadeInUp">
-    	<form action="" method="post">
-        	<div class="input-append">
-                <input type="text" class="span2 search-query" placeholder="Tìm kiếm menu ...">
+            <div class="input-append">
+                <input type="text" class="one-item with-btn-icon search-query" placeholder="Tìm kiếm menu ...">
                 <button type="submit" class="btn"><span class="icon-search"></span></button>
             </div>
+    	<form action="" method="post">
         </form>
     </div><!--searchwidget-->
     

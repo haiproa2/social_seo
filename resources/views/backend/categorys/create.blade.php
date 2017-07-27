@@ -110,13 +110,14 @@
 			</div>
 			<div class="span4">
 				<h4 class="widgettitle nomargin shadowed">Danh mục cha</h4>
-				<div class="widgetcontent widgetsmall bordered shadowed">
+				<div class="widgetcontent widgetsmall widgetcategory bordered shadowed">
 					<div class="{{ $errors->has('template') ? ' error' : '' }}">
+						{!! showTrees($categorys, 0, 'id_parent', 'radio') !!}
 					</div>
 				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					<img src="{!! Image::url(('images/no-image-available.jpg'), 230, 230, array('crop')) !!}" alt="Ảnh đại diện" id="thumb" class="thumb">
+					<img src="{!! Image::url(('images/no-image-available.jpg'), 230, 150, array('crop')) !!}" alt="Ảnh đại diện" id="thumb" class="thumb">
                     <div class="fileupload fileupload-new {{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                     	<div class="input-append">
                     		<div class="uneditable-input span12">
@@ -144,7 +145,13 @@
 				<div class="stdform stdform2">
 					{{ Form::textarea('content', '', ['id'=>'content_category', 'class'=>'span12 ckeditor']) }}
 					<p class="stdformbutton">
-						{{ Form::hidden('template', 1) }}
+						<!--
+						0: trang thuong
+						1: lien he
+						2: danh sach tin tuc
+						-> more: control/option
+						-->
+						{{ Form::hidden('template', 2) }}
 						{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
 						<a href="{!! route('backend.'.$prefix.'.category') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
 					</p>

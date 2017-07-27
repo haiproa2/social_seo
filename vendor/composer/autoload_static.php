@@ -387,6 +387,7 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'CreateDetailTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_24_214449_createDetailTable.php',
         'CreateOptionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_17_164219_createOptionsTable.php',
+        'CreatePagePostTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_27_232232_CreatePagePostTable.php',
         'CreatePageTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_25_111830_createPageTable.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_26_221242_createPostsTable.php',

@@ -223,8 +223,24 @@ jQuery(document).ready(function(){
 	});
 
 	/* form */
-	jQuery("input[type=image]").click(function(){
-		return false;
+	jQuery('form').bind('submit', function (e) {
+	    var button = jQuery('button[type=submit]');
+
+	    // Disable the submit button while evaluating if the form should be submitted
+	    button.prop('disabled', true).html('<span class="iconfa-refresh icon-spin"></span> Đang lưu ...');
+
+	    var valid = true;    
+
+	    // Do stuff (validations, etc) here and set
+	    // "valid" to false if the validation fails
+
+	    if (!valid) { 
+	        // Prevent form from submitting if validation failed
+	        e.preventDefault();
+
+	        // Reactivate the button if the form was not submitted
+	        button.prop('disabled', false).html('<span class="iconfa-save"></span> Lưu');
+	    }
 	});
 	
 	

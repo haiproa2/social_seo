@@ -57,16 +57,16 @@ class PageController extends AdminController
     public function updatePosition(Request $request){
         $positions = $request->no;
         if(count($positions['id'])){
-            $mess = '';
+            $titles = '';
             for ($i=0; $i < count($positions['id']); $i++) {
                 $item = Page::findOrFail($positions['id'][$i]);
                 if($item->id && $item->no != $positions['no'][$i]){
-                    $mess .= '<b>'.$item->name.'</b>, ';
+                    $titles .= '<b>'.$item->title.'</b>, ';
                     Page::where("id", $item->id)->update(['no' => $positions['no'][$i], 'updated_by' => Auth::user()->id]);
                 }
             }
-            if($mess){
-                $flash_messager = 'trang ['.substr($mess, 0, -2).'].<br/>Đã được cập nhật lại STT.';
+            if($titles){
+                $flash_messager = 'Trang ['.rtrim($titles, ', ').'].<br/>Đã được cập nhật lại STT.';
                 $flash_type = 'success animate3 fadeInUp';
             } else {
                 $flash_messager = 'Không có trang nào được cập nhật.';
@@ -129,7 +129,7 @@ class PageController extends AdminController
             $file = $request->photo;
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
             $ext = $file->getClientOriginalExtension();
-            $pathImage = $this->prefix.'s/';
+            $pathImage = 'pages/';
             $image = Image::make($file);
             $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
 
@@ -188,7 +188,7 @@ class PageController extends AdminController
             $file = $request->photo;
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
             $ext = $file->getClientOriginalExtension();
-            $pathImage = $this->prefix.'s/';
+            $pathImage = 'pages/';
             $image = Image::make($file);
             $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
 
@@ -233,18 +233,18 @@ class PageController extends AdminController
     		$listid = $request->listid;
     		if($listid){
     			$listids = explode("-", $listid);
-				$names = '';
+				$titles = '';
 				foreach ($listids as $key => $id) {
 					$item = Page::where([['id', $id]])->first();
 					if($item){
-						$names .= '[<strong>'.$item->title.'</strong>], ';
+						$titles .= '[<b>'.$item->title.'</b>], ';
                         Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}
 				}
-				if($names){
+				if($titles){
 		    		$flash_type = 'success animate3 fadeInUp';
-		    		$flash_messager = 'Trang '.rtrim($names, ', ').'<br/>đã bị xóa.';
+		    		$flash_messager = 'Trang '.rtrim($titles, ', ').'<br/>đã bị xóa.';
 		    	} else {
 		    		$flash_type = 'info animate3 fadeInUp';
 		    		$flash_messager = 'Không xóa được trang.';

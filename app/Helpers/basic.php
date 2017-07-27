@@ -60,3 +60,48 @@ function showSelectTable($listOriginal, $listCurrent=array(), $disabled = '', $n
 	$str .= '</table>';
 	return $str;
 }
+function showTrees($items, $checkeds, $name = 'cate_id[]', $type = 'checkbox'){
+	$str = '
+	<div class="item" style="padding-left:0px">
+		<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" '.(($name=='cate_id')?' data-slug="'.$value['slug'].'/"':'').' value="0" checked>Danh mục chính</label>
+	</div>
+	';
+	if(is_array($items) && count($items)) {
+		foreach ($items as $key => $value) {
+			$checked = "";
+			if((is_array($checkeds) || is_object($checkeds)) && count($checkeds)){
+				foreach ($checkeds as $k => $v) {
+					if($value['id']==$v['cate_id']){
+						$checked = " checked";
+						break;
+					}
+				}
+			} else if(is_numeric($checkeds)){
+				if($value['id'] == $checkeds){
+					$checked = " checked";
+				}
+			} else $checked = "";
+
+			$str .= '
+				<div class="item" style="padding-left:'.($value['level']*22).'px">
+					<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" '.(($name=='cate_id')?' data-slug="'.$value['slug'].'/"':'').' value="'.$value['id'].'"'.$checked.'>'.$value['title'].'</label>
+				</div>
+			';
+		}
+	}
+	return $str;
+}
+
+function recursive($arrData, &$result, $parent = 0, $level = 0) {
+    if (count($arrData) > 0) {
+        foreach ($arrData as $key => $val) {
+            if ($parent == $val['id_parent']) {
+                $val['level'] = $level;
+                $result[] = $val;
+                $_parent = $val['id'];
+                unset($arrData[$key]);
+                recursive($arrData, $result, $_parent, $level + 1);
+            }
+        }
+    }
+}

@@ -108,9 +108,15 @@
 				</div>
 			</div>
 			<div class="span4">
+				<h4 class="widgettitle nomargin shadowed">Danh mục</h4>
+				<div class="widgetcontent widgetsmall widgetcategory bordered shadowed">
+					<div class="{{ $errors->has('template') ? ' error' : '' }}">
+						{!! showTrees($categorys, 0, 'id_parent', 'radio') !!}
+					</div>
+				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					<img src="{!! Image::url(('images/no-image-available.jpg'), 300, 230, array('crop')) !!}" alt="Ảnh đại diện" id="thumb" class="thumb">
+					<img src="{!! Image::url(('images/no-image-available.jpg'), 300, 170, array('crop')) !!}" alt="Ảnh đại diện" id="thumb" class="thumb">
                     <div class="fileupload fileupload-new {{ $errors->has('photo') ? ' error' : '' }}" data-provides="fileupload">
                     	<div class="input-append">
                     		<div class="uneditable-input span12">

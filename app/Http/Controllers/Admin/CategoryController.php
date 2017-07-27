@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
-use Auth, View, Image, App\Page, App\Option;
+use Auth, View, Image, App\Page, App\PagePost, App\Option;
 
 class CategoryController extends AdminController
 {
@@ -20,8 +20,8 @@ class CategoryController extends AdminController
     }
 
     public function index(Request $request){
-    	$items = Page::where([['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->get();
-
+    	$cates = Page::where([['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->get();
+        recursive($cates, $items);
         return view('backend.categorys.list')->with([
             'title' => 'Danh sách danh mục',
             'description' => 'Xem, thêm, sửa hoặc xóa danh mục.',
@@ -31,16 +31,16 @@ class CategoryController extends AdminController
     public function updatePosition(Request $request){
         $positions = $request->no;
         if(count($positions['id'])){
-            $mess = '';
+            $titles = '';
             for ($i=0; $i < count($positions['id']); $i++) {
                 $item = Page::findOrFail($positions['id'][$i]);
                 if($item->id && $item->no != $positions['no'][$i]){
-                    $mess .= '<b>'.$item->name.'</b>, ';
+                    $titles .= '<b>'.$item->title.'</b>, ';
                     Page::where("id", $item->id)->update(['no' => $positions['no'][$i], 'updated_by' => Auth::user()->id]);
                 }
             }
-            if($mess){
-                $flash_messager = 'Danh mục ['.substr($mess, 0, -2).'].<br/>Đã được cập nhật lại STT.';
+            if($titles){
+                $flash_messager = 'Danh mục ['.rtrim($titles, ', ').'].<br/>Đã được cập nhật lại STT.';
                 $flash_type = 'success animate3 fadeInUp';
             } else {
                 $flash_messager = 'Không có danh mục nào được cập nhật.';
@@ -70,6 +70,8 @@ class CategoryController extends AdminController
         return redirect()->route('backend.'.$this->prefix.'.category')->with(['flash_messager'=>$flash_messager, 'flash_type'=>$flash_type]);
     }
     public function view($id){
+        $parents = Page::select('title', 'id_parent', 'id')->where([['id', '<>', $id], ['type', $this->prefix], ['active', 1]])->orderby('no', 'ASC')->orderby('id', 'DESC')->get();
+        recursive($parents, $categorys);
     	$item = Page::where([['id', $id]])->firstOrFail();
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.categorys.edit')->with([
@@ -77,14 +79,18 @@ class CategoryController extends AdminController
             'description' => 'Xem tất cả thông tin của danh mục.',
     		'disabled'=>true,
             'actives'=>$actives,
+            'categorys'=>$categorys,
             'item'=>$item,
     		]);
     }
     public function create(){
+        $parents = Page::select('title', 'id_parent', 'id')->where([['type', $this->prefix], ['active', 1]])->orderby('no', 'ASC')->orderby('id', 'DESC')->get();
+        recursive($parents, $categorys);
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.categorys.create')->with([
             'title' => 'Thêm mới danh mục',
             'description' => 'Thêm mới dữ liệu cho một danh mục.',
+            'categorys' => $categorys,
             'actives' => $actives,
     		]);
     }
@@ -103,7 +109,7 @@ class CategoryController extends AdminController
             $file = $request->photo;
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
             $ext = $file->getClientOriginalExtension();
-            $pathImage = $this->prefix.'/categorys/';
+            $pathImage = 'posts/categorys/';
             $image = Image::make($file);
             $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
 
@@ -117,6 +123,7 @@ class CategoryController extends AdminController
                 $item->photo = $pathImage.$newFilename;
         }
         $item->type = $this->prefix;
+        $item->id_parent = $request->id_parent;
         $item->template = $request->template;
         $item->title = $request->title;
         $item->slug = $request->slug;
@@ -137,11 +144,15 @@ class CategoryController extends AdminController
     }
     public function edit($id){
     	$item = Page::where([['id', $id]])->firstOrFail();
+        $parents = Page::select('title', 'id_parent', 'id')->where([['id', '<>', $id], ['type', $this->prefix], ['active', 1]])->orderby('no', 'ASC')->orderby('id', 'DESC')->get();
+        recursive($parents, $categorys);
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
-    	return view('backend.pages.edit')->with([
+    	return view('backend.categorys.edit')->with([
             'title' => 'Cập nhật danh mục',
             'description' => 'Chỉnh sửa tất cả thông tin của danh mục.',
     		'actives'=>$actives,
+            'categorys'=>$categorys,
+            'updateForm'=>true,
     		'item'=>$item
     		]);
     }
@@ -162,7 +173,7 @@ class CategoryController extends AdminController
             $file = $request->photo;
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
             $ext = $file->getClientOriginalExtension();
-            $pathImage = $this->prefix.'/categorys/';
+            $pathImage = 'posts/categorys/';
             $image = Image::make($file);
             $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
 
@@ -178,6 +189,7 @@ class CategoryController extends AdminController
             }
         }
 
+        $item->id_parent = $request->id_parent;
         $item->title = $request->title;
         $item->slug = $request->slug;
         $item->content = $request->content;
@@ -190,34 +202,34 @@ class CategoryController extends AdminController
         $item->save();
 
         $flash_type = 'success animate3 fadeInUp';
-        $flash_messager = 'Danh mục [<b>'.$item->title.'</b>]<br/>đã được cập nhật dữ liệu.';
+        $flash_messager = 'Danh mục <br/><b>'.$item->title.'</b><br/>đã được cập nhật dữ liệu.';
 
         return redirect()->route('backend.'.$this->prefix.'.category')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
     public function destroy(Request $request){
     	$router = $request->route()->getName();
-    	if($router == 'backend.'.$this->prefix.'.delete'){ // Xóa 1 phần tử
+    	if($router == 'backend.'.$this->prefix.'.category.delete'){ // Xóa 1 phần tử
     		$item = Page::where([['id', $request->id]])->firstOrFail();
     		Image::delete('uploads/'.$item->photo);
     		$item->delete();
     		$flash_type = 'success animate3 fadeInUp';
-    		$flash_messager = 'Danh mục [<b>'.$item->title.'</b>]<br/>đã bị xóa.';
-    	} elseif($router == 'backend.'.$this->prefix.'.deletes'){ // Xóa nhiều phần tử
+    		$flash_messager = 'Danh mục <br/>[<b>'.$item->title.'</b>]<br/>đã bị xóa.';
+    	} elseif($router == 'backend.'.$this->prefix.'.category.deletes'){ // Xóa nhiều phần tử
     		$listid = $request->listid;
     		if($listid){
     			$listids = explode("-", $listid);
-				$names = '';
+				$titles = '';
 				foreach ($listids as $key => $id) {
 					$item = Page::where([['id', $id]])->first();
 					if($item){
-						$names .= '[<strong>'.$item->title.'</strong>], ';
+						$titles .= '<b>- '.$item->title.'</b><br/>';
 						Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}
 				}
-				if($names){
+				if($titles){
 		    		$flash_type = 'success animate3 fadeInUp';
-		    		$flash_messager = 'Danh mục '.rtrim($names, ', ').'<br/>đã bị xóa.';
+		    		$flash_messager = 'Đã xóa danh mục<br/>'.rtrim($names, ', ');
 		    	} else {
 		    		$flash_type = 'info animate3 fadeInUp';
 		    		$flash_messager = 'Không xóa được danh mục.';

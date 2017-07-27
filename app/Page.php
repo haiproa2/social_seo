@@ -17,4 +17,8 @@ class Page extends Model
     public function option_templates(){
         return $this->hasOne('App\Option', 'id_type', 'template')->where('type', 'template');
     }
+
+    public function posts(){
+        return $this->belongsToMany('App\Post');
+    }
 }

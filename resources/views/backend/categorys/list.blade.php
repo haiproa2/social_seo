@@ -41,8 +41,7 @@
 					<thead>
 						<tr>
 							<th data-sortable="false" style="width:3%" class="noBackground"><input type="checkbox" name="selectall" id="selectall" class="checkall" /></th>
-							<th style="width:5%;" class="sort" id="sortNO" title="Sắp xếp theo STT">STT</th>
-							<th class="text-left sort" id="sortTITLE" title="Sắp xếp theo Tiêu đề">Tiêu đề</th>
+							<th class="text-left sort" id="sortTITLE" title="Sắp xếp theo Tiêu đề">STT - Tiêu đề</th>
 							<th style="width:15%;">Ngày cập nhật</th>
 							<th data-sortable="false" style="width:10%;" class="noBackground">Trạng thái</th>
 							<th data-sortable="false" style="width:10%;" class="noBackground">Thao tác</th>
@@ -58,8 +57,7 @@
 							<tr>
 			            		<input type="hidden" name="no[id][]" value="{!! $value['id'] !!}">
 			            		<td style="width:3%;"><input type="checkbox" name="chose" id="chose" value="{!! $value->id !!}" class="chose" /></td>
-			            		<td style="width:5%;" data-order="<?=$key?>"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/></td>
-			            		<td class="text-left">{!! str_limit($value->title, 70) !!}</td>
+			            		<td class="text-left" style="padding-left: {{10+($value['level']*40)}}px;"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/>&nbsp;&nbsp;&nbsp;{!! str_limit($value->title, 70) !!}</td>
 								<td style="width:15%;" class="action">{!! $value->updated_at !!}</td>
 								<td style="width:10%;" class="action">
 									@if(Auth::user()->ability('root,admin', 'u_page'))
