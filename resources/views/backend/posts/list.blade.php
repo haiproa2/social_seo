@@ -66,7 +66,7 @@
 				</div>
 			</div>
 			{!! Form::open(['route'=>'backend.news.updatePosition', 'id'=>'update_position']) !!}
-				<table class="table table-bordered">
+				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
 							<th data-sortable="false" style="width:3%" class="noBackground"><input type="checkbox" name="selectall" id="selectall" class="checkall" /></th>
@@ -90,7 +90,13 @@
 			            		<input type="hidden" name="no[id][]" value="{!! $value['id'] !!}">
 			            		<td style="width:3%;"><input type="checkbox" name="chose" id="chose" value="{!! $value->id !!}" class="chose" /></td>
 			            		<td style="width:5%;" data-order="<?=$key?>"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/></td>
-								<td style="width:15%;">--</td>
+								<td style="width:15%;" class="text-left">
+			            			@if(!empty($value->categorys))
+				            			@foreach($value->categorys as $k => $v)
+				            				{{ ($k)?', ':'' }} {!! $v->title !!}
+				            			@endforeach
+			            			@endif
+			            		</td>
 			            		<td class="text-left">{!! str_limit($value->title, 100) !!}</td>
 								<td style="width:10%;">{!! $value->view !!}</td>
 								<td style="width:15%;">{!! $value->updated_at !!}</td>

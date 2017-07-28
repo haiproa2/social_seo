@@ -37,6 +37,14 @@
                 </ul>
             </li>
             @endability
+            @ability('root,admin', 'v_photo')
+            <li class="{!! (Auth::user()->ability('root,admin', 'v_photo'))?'dropdown':''!!}{!! ($prefix=='photo')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-picture"></span> Hình ảnh</a>
+                <ul{!! ($prefix=='photo')?' style="display:block"':''!!}>
+                    <li{!! ($prefix.$action=='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news.category') }}">Danh mục</a></li>
+                    <li{!! ($prefix=='news'&&$prefix.$action!='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
+                </ul>
+            </li>
+            @endability
             @ability('root,admin', 'v_config')
             <li{!! ($prefix=='config')?' class="active"':'' !!}><a href="{{ route('backend.config') }}"><span class="icon-wrench"></span> Thông tin công ty</a></li>
             @endability

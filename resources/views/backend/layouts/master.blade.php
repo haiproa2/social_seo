@@ -1,11 +1,11 @@
 <?php
 session_start();
-    $_SESSION['ckfinder']['isLogged'] = Auth::user()->active;
+$_SESSION['ckfinder']['isLogged'] = Auth::user()->active;
 
-    $_SESSION['ckfinder']['canView'] = Auth::user()->active;
-    $_SESSION['ckfinder']['canCreate'] = Auth::user()->active;
-    $_SESSION['ckfinder']['canEdit'] = Auth::user()->active;
-    $_SESSION['ckfinder']['canDelete'] = Auth::user()->active;
+$_SESSION['ckfinder']['canView'] = true;
+$_SESSION['ckfinder']['canCreate'] = true;
+$_SESSION['ckfinder']['canEdit'] = Auth::user()->ability('root,admin', 'u_photo');
+$_SESSION['ckfinder']['canDelete'] = Auth::user()->ability('root,admin', 'd_photo');
 ?>
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">

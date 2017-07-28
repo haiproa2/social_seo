@@ -60,10 +60,10 @@ function showSelectTable($listOriginal, $listCurrent=array(), $disabled = '', $n
 	$str .= '</table>';
 	return $str;
 }
-function showTrees($items, $checkeds, $name = 'cate_id[]', $type = 'checkbox'){
+function showTrees($items, $checkeds, $name = 'cate_id[]', $type = 'checkbox', $titledefault = 'Danh mục chính'){
 	$str = '
 	<div class="item" style="padding-left:0px">
-		<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" '.(($name=='cate_id')?' data-slug="'.$value['slug'].'/"':'').' value="0" checked>Danh mục chính</label>
+		<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" value="0" checked>'.$titledefault.'</label>
 	</div>
 	';
 	if(is_array($items) && count($items)) {

@@ -111,7 +111,7 @@
 				<h4 class="widgettitle nomargin shadowed">Danh mục</h4>
 				<div class="widgetcontent widgetsmall widgetcategory bordered shadowed">
 					<div class="{{ $errors->has('template') ? ' error' : '' }}">
-						{!! showTrees($categorys, 0, 'id_parent', 'radio') !!}
+						{!! showTrees($categorys, 0, 'cate_id[]', 'radio', 'Không chọn danh mục') !!}
 					</div>
 				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>

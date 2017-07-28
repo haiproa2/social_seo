@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Auth, View, Session, DB, Image;
+use Auth, View, Session, DB, Image, App\Page;
 
 class AdminController extends Controller
 {
@@ -30,6 +30,16 @@ class AdminController extends Controller
             'disabled' => $this->disabled,
             'updateForm' => $this->updateForm,
         ]);
+    }
+
+    protected function getIdChilds($id, &$childs) {
+        $items = Page::where([['id_parent', $id]])->get();
+        if(count($items)) {
+            foreach ($items as $key => $value) {
+                $childs[] = $value->id;
+                $this->getIdChilds($value->id, $childs);
+            }
+        }
     }
 
     public function ajaxDeleteImage(Request $request){

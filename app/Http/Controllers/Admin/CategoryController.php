@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
-use Auth, View, Image, App\Page, App\PagePost, App\Option;
+use Auth, View, Image, App\Page, App\CatePost, App\Option;
 
 class CategoryController extends AdminController
 {
@@ -210,6 +210,8 @@ class CategoryController extends AdminController
     	$router = $request->route()->getName();
     	if($router == 'backend.'.$this->prefix.'.category.delete'){ // Xóa 1 phần tử
     		$item = Page::where([['id', $request->id]])->firstOrFail();
+            Page::where("id_parent", $item->id)->update(["id_parent" => $item->id_parent]);
+            CatePost::where('cate_id', $item->id)->delete();
     		Image::delete('uploads/'.$item->photo);
     		$item->delete();
     		$flash_type = 'success animate3 fadeInUp';
@@ -223,6 +225,8 @@ class CategoryController extends AdminController
 					$item = Page::where([['id', $id]])->first();
 					if($item){
 						$titles .= '<b>- '.$item->title.'</b><br/>';
+                        Page::where("id_parent", $item->id)->update(["id_parent" => $item->id_parent]);
+                        CatePost::where('cate_id', $item->id)->delete();
 						Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}

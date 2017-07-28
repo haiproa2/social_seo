@@ -37,7 +37,7 @@
 		<div class="span12">
 			<div id="table-header" class="row-fluid"></div>
 			{!! Form::open(['route'=>'backend.'.$prefix.'.category.updatePosition', 'id'=>'update_position']) !!}
-				<table class="table table-bordered">
+				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
 							<th data-sortable="false" style="width:3%" class="noBackground"><input type="checkbox" name="selectall" id="selectall" class="checkall" /></th>
@@ -57,7 +57,13 @@
 							<tr>
 			            		<input type="hidden" name="no[id][]" value="{!! $value['id'] !!}">
 			            		<td style="width:3%;"><input type="checkbox" name="chose" id="chose" value="{!! $value->id !!}" class="chose" /></td>
-			            		<td class="text-left" style="padding-left: {{10+($value['level']*40)}}px;"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/>&nbsp;&nbsp;&nbsp;{!! str_limit($value->title, 70) !!}</td>
+			            		<td class="text-left" style="padding-left: {{10+($value['level']*40)}}px;">
+			            			<input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/>
+			            			&nbsp;&nbsp;&nbsp;{!! str_limit($value->title, 70) !!}
+			            			@if(count($value->posts))
+			            			&nbsp;&nbsp;&nbsp;(Có {!! count($value->posts) !!} bài viết)
+			            			@endif
+			            		</td>
 								<td style="width:15%;" class="action">{!! $value->updated_at !!}</td>
 								<td style="width:10%;" class="action">
 									@if(Auth::user()->ability('root,admin', 'u_page'))

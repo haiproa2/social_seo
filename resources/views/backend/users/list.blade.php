@@ -50,7 +50,7 @@
 				</div>
 			</div>
 			{!! Form::open(['route'=>'backend.user.updatePosition', 'id'=>'update_position']) !!}
-				<table class="table table-bordered">
+				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
 							<th data-sortable="false" style="width:3%" class="noBackground"><input type="checkbox" name="selectall" id="selectall" class="checkall" /></th>

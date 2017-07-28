@@ -19,6 +19,6 @@ class Page extends Model
     }
 
     public function posts(){
-        return $this->belongsToMany('App\Post');
+        return $this->belongsToMany('App\Post', 'cate_post', 'cate_id', 'post_id');
     }
 }

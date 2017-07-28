@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
-use Auth, View, Image, App\Page, App\Post, App\PagePost, App\Option;
+use Auth, View, Image, App\Page, App\Post, App\CatePost, App\Option;
 
 class PostController extends AdminController
 {
@@ -21,28 +21,36 @@ class PostController extends AdminController
     public function index(Request $request){
     	$limits = Option::where([['type', 'limit'], ['active', '1']])->orderby('id_type', 'ASC')->pluck('value_type', 'id_type')->toArray();
 
-        $template = $request->cate ? $request->cate : '';
+        $cate = $request->cate ? $request->cate : '';
         $limit = $request->limit ? $request->limit : 20;
         $keyword = $request->keyword ? $request->keyword : '';
 
         $flash_type = $flash_messager = '';
 
-        /*if($template && $keyword)
-            $items = Post::where([['title', 'LIKE', '%'.$keyword.'%'], ['template', $template], ['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
-        else if($template && $keyword == '')
-            $items = Post::where([['template', $template], ['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
-        else*/ 
-        	if($template == '' && $keyword)
-        	$items = Post::where([['title', 'LIKE', '%'.$keyword.'%'], ['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
-        else
-        	$items = Post::where([['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
+        if($cate){
+            $idCates[] = $cate;
+            $this->getIdChilds($cate, $idCates);
+        }
 
+        // Chưa lấy theo id member login
+        if($cate && $keyword){ // Theo danh mục, danh mục con và có từ khóa tìm kiếm
+            $items = Post::select('posts.*')->join('cate_post', 'posts.id', '=', 'cate_post.post_id')->where([['title', 'LIKE', '%'.$keyword.'%'], ['type', $this->prefix]])->whereIN('cate_id', $idCates)->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
+        } else if($cate && $keyword == ''){ // Theo danh mục nhưng không có từ khóa
+            $items = Post::select('posts.*')->join('cate_post', 'posts.id', '=', 'cate_post.post_id')->where([['type', $this->prefix]])->whereIN('cate_id', $idCates)->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
+        } else if($cate == '' && $keyword){ // Không có danh mục nhưng có từ khóa
+        	$items = Post::where([['title', 'LIKE', '%'.$keyword.'%'], ['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
+        } else{ // Lấy tất cả bài viết
+        	$items = Post::where([['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->paginate($limit);
+        }
+
+        if($cate)
+            $items->appends(['cate' => $cate]);
         if($keyword)
             $items->appends(['keyword' => $keyword]);
         if($request->limit)
             $items->appends(['limit' => $limit]);
 
-        if($keyword || ($limit && $limit != 20)){
+        if($cate || $keyword || ($limit && $limit != 20)){
             $flash_type = 'info animate3 fadeInUp';
             $flash_messager = 'Danh sách bài viết đã được lọc.';
         }
@@ -100,12 +108,14 @@ class PostController extends AdminController
     	$item = Post::where([['id', $id]])->firstOrFail();
     	$cates = Page::where([['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->get();
         recursive($cates, $categorys);
+        $checked = CatePost::where('post_id', $id)->get();
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.posts.edit')->with([
             'title' => 'Chi tiết bài viết',
             'description' => 'Xem tất cả thông tin của bài viết.',
     		'disabled'=>true,
             'categorys'=>$categorys,
+            'checked'=>$checked,
             'actives'=>$actives,
             'item'=>$item,
     		]);
@@ -153,7 +163,7 @@ class PostController extends AdminController
         $item->seo_title = $request->seo_title;
         $item->seo_keywords = $request->seo_keywords;
         $item->seo_description = $request->seo_description;
-        $item->view = rand(99, 9999);
+        $item->view = rand(2010, 2020);
         $item->no = $request->no;
         $item->created_by = Auth::user()->id;
         $item->updated_by = Auth::user()->id;
@@ -162,16 +172,16 @@ class PostController extends AdminController
 
         if(isset($_POST['cate_id']) && count($_POST['cate_id'])){
 			foreach ($_POST['cate_id'] as $key => $value) {
-				$PagePost = new PagePost;
-				$PagePost->page_id = $value;
-				$PagePost->post_id = $post->id;
-				$PagePost->save();
+				$CatePost = new CatePost;
+				$CatePost->cate_id = $value;
+				$CatePost->post_id = $item->id;
+				$CatePost->save();
 			}
 		} else {
-			$PagePost = new PagePost;
-			$PagePost->page_id = 0;
-			$PagePost->post_id = $post->id;
-			$PagePost->save();
+			$CatePost = new CatePost;
+			$CatePost->cate_id = 0;
+			$CatePost->post_id = $item->id;
+			$CatePost->save();
 		}
 
         $flash_type = 'success animate3 fadeInUp';
@@ -183,11 +193,13 @@ class PostController extends AdminController
     	$item = Post::where([['id', $id]])->firstOrFail();
     	$cates = Page::where([['type', $this->prefix]])->orderBy('no', 'ASC')->orderBy('id','DESC')->get();
         recursive($cates, $categorys);
+        $checked = CatePost::where('post_id', $id)->get();
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.posts.edit')->with([
             'title' => 'Cập nhật bài viết',
             'description' => 'Chỉnh sửa tất cả thông tin của bài viết.',
-    		'categorys'=>$categorys,
+            'categorys'=>$categorys,
+    		'checked'=>$checked,
     		'actives'=>$actives,
     		'item'=>$item
     		]);
@@ -236,20 +248,20 @@ class PostController extends AdminController
         $item->active = $request->active;
         $item->save();
 
-        PagePost::where('post_id', $id)->delete();
+        CatePost::where('post_id', $id)->delete();
 
         if(isset($_POST['cate_id']) && count($_POST['cate_id'])){
 			foreach ($_POST['cate_id'] as $key => $value) {
-				$PagePost = new PagePost;
-				$PagePost->page_id = $value;
-				$PagePost->post_id = $post->id;
-				$PagePost->save();
+				$CatePost = new CatePost;
+				$CatePost->cate_id = $value;
+				$CatePost->post_id = $item->id;
+				$CatePost->save();
 			}
 		} else {
-			$PagePost = new PagePost;
-			$PagePost->page_id = 0;
-			$PagePost->post_id = $post->id;
-			$PagePost->save();
+			$CatePost = new CatePost;
+			$CatePost->cate_id = 0;
+			$CatePost->post_id = $item->id;
+			$CatePost->save();
 		}
 
         $flash_type = 'success animate3 fadeInUp';
@@ -261,6 +273,7 @@ class PostController extends AdminController
     	$router = $request->route()->getName();
     	if($router == 'backend.'.$this->prefix.'.delete'){ // Xóa 1 phần tử
     		$item = Post::where([['id', $request->id]])->firstOrFail();
+            CatePost::where('post_id', $item->id)->delete();
     		Image::delete('uploads/'.$item->photo);
     		$item->delete();
     		$flash_type = 'success animate3 fadeInUp';
@@ -274,6 +287,7 @@ class PostController extends AdminController
 					$item = Post::where([['id', $id]])->first();
 					if($item){
 						$titles .= '<b>- '.$item->title.'</b><br/>';
+                        CatePost::where('post_id', $item->id)->delete();
 						Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}
