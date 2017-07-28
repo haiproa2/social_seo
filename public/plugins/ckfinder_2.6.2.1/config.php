@@ -151,39 +151,7 @@ $config['AccessControl'][] = Array(
 	'fileUpload' => $_SESSION['ckfinder']['canCreate'],
 	'fileRename' => $_SESSION['ckfinder']['canEdit'],
 	'fileDelete' => $_SESSION['ckfinder']['canDelete']
-	);
-
-$config['AccessControl'][] = Array(
-	'role' => '*',
-	'resourceType' => 'Images',
-	'folder' => 'members',
-
-	'folderView' => true,
-	'folderCreate' => true,
-	'folderRename' => false,
-	'folderDelete' => false,
-
-	'fileView' => true,
-	'fileUpload' => true,
-	'fileRename' => true,
-	'fileDelete' => true
-	);
-
-$config['AccessControl'][] = Array(
-	'role' => '*',
-	'resourceType' => 'Thumbs',
-	'folder' => '/',
-
-	'folderView' => true,
-	'folderCreate' => false,
-	'folderRename' => false,
-	'folderDelete' => true,
-
-	'fileView' => true,
-	'fileUpload' => false,
-	'fileRename' => false,
-	'fileDelete' => true
-	);
+);
 
 /*
 For example, if you want to restrict the upload, rename or delete of files in
