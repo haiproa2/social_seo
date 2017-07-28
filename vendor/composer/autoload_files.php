@@ -19,4 +19,5 @@ return array(
     'f0906e6318348a765ffb6eb24e0d0938' => $vendorDir . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
     '5d3d5f1aeb2ce30d6a822fa7cecc5af9' => $baseDir . '/app/helpers/basic.php',
+    'f60028fd348919a2e8e0f12d0f2b42b3' => $baseDir . '/public/plugins/ckfinder_2.6.2.1/ckfinder.php',
 );

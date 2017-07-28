@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddColumnUser' => $baseDir . '/database/migrations/2017_07_17_164112_addColumnUser.php',
+    'App\\CatePost' => $baseDir . '/app/CatePost.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Detail' => $baseDir . '/app/Detail.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -17,6 +18,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\OptionController' => $baseDir . '/app/Http/Controllers/Admin/OptionController.php',
     'App\\Http\\Controllers\\Admin\\PageController' => $baseDir . '/app/Http/Controllers/Admin/PageController.php',
     'App\\Http\\Controllers\\Admin\\PermissionController' => $baseDir . '/app/Http/Controllers/Admin/PermissionController.php',
+    'App\\Http\\Controllers\\Admin\\PhotoController' => $baseDir . '/app/Http/Controllers/Admin/PhotoController.php',
     'App\\Http\\Controllers\\Admin\\PostController' => $baseDir . '/app/Http/Controllers/Admin/PostController.php',
     'App\\Http\\Controllers\\Admin\\RoleController' => $baseDir . '/app/Http/Controllers/Admin/RoleController.php',
     'App\\Http\\Controllers\\Admin\\UserController' => $baseDir . '/app/Http/Controllers/Admin/UserController.php',
@@ -55,9 +57,9 @@ return array(
     'Collective\\Html\\HtmlBuilder' => $vendorDir . '/laravelcollective/html/src/HtmlBuilder.php',
     'Collective\\Html\\HtmlFacade' => $vendorDir . '/laravelcollective/html/src/HtmlFacade.php',
     'Collective\\Html\\HtmlServiceProvider' => $vendorDir . '/laravelcollective/html/src/HtmlServiceProvider.php',
+    'CreateCatePostTable' => $baseDir . '/database/migrations/2017_07_27_232232_CreateCatePostTable.php',
     'CreateDetailTable' => $baseDir . '/database/migrations/2017_07_24_214449_createDetailTable.php',
     'CreateOptionsTable' => $baseDir . '/database/migrations/2017_07_17_164219_createOptionsTable.php',
-    'CreatePagePostTable' => $baseDir . '/database/migrations/2017_07_27_232232_CreatePagePostTable.php',
     'CreatePageTable' => $baseDir . '/database/migrations/2017_07_25_111830_createPageTable.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePostsTable' => $baseDir . '/database/migrations/2017_07_26_221242_createPostsTable.php',

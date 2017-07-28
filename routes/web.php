@@ -34,6 +34,10 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::post('/delete-image', ['as' => 'backend.ajax.deleteImage', 'uses' => 'AdminController@ajaxDeleteImage']);
 	Route::post('/get-slug', ['as' => 'backend.ajax.getSlug', 'uses' => 'AdminController@ajaxGetSlug']);
 
+	Route::group(['prefix' => 'photo'], function(){
+		Route::get('/', ['as' => 'backend.photo', 'uses' => 'Admin\PhotoController@index', 'middleware'=>'ability:root|admin,v_photo']);
+	});
+
 	Route::group(['prefix' => 'news'], function(){
 		Route::group(['prefix' => 'category'], function(){
 			Route::get('/', ['as' => 'backend.news.category', 'uses' => 'Admin\CategoryController@index', 'middleware'=>'ability:root|admin,v_news_cate']);

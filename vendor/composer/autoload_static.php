@@ -20,6 +20,7 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '5d3d5f1aeb2ce30d6a822fa7cecc5af9' => __DIR__ . '/../..' . '/app/helpers/basic.php',
+        'f60028fd348919a2e8e0f12d0f2b42b3' => __DIR__ . '/../..' . '/public/plugins/ckfinder_2.6.2.1/ckfinder.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -337,6 +338,7 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
 
     public static $classMap = array (
         'AddColumnUser' => __DIR__ . '/../..' . '/database/migrations/2017_07_17_164112_addColumnUser.php',
+        'App\\CatePost' => __DIR__ . '/../..' . '/app/CatePost.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Detail' => __DIR__ . '/../..' . '/app/Detail.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -347,6 +349,7 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'App\\Http\\Controllers\\Admin\\OptionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/OptionController.php',
         'App\\Http\\Controllers\\Admin\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PageController.php',
         'App\\Http\\Controllers\\Admin\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PermissionController.php',
+        'App\\Http\\Controllers\\Admin\\PhotoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PhotoController.php',
         'App\\Http\\Controllers\\Admin\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PostController.php',
         'App\\Http\\Controllers\\Admin\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RoleController.php',
         'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
@@ -385,9 +388,9 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
         'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
         'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
+        'CreateCatePostTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_27_232232_CreateCatePostTable.php',
         'CreateDetailTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_24_214449_createDetailTable.php',
         'CreateOptionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_17_164219_createOptionsTable.php',
-        'CreatePagePostTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_27_232232_CreatePagePostTable.php',
         'CreatePageTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_25_111830_createPageTable.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_26_221242_createPostsTable.php',

@@ -40,8 +40,7 @@
             @ability('root,admin', 'v_photo')
             <li class="{!! (Auth::user()->ability('root,admin', 'v_photo'))?'dropdown':''!!}{!! ($prefix=='photo')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-picture"></span> Hình ảnh</a>
                 <ul{!! ($prefix=='photo')?' style="display:block"':''!!}>
-                    <li{!! ($prefix.$action=='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news.category') }}">Danh mục</a></li>
-                    <li{!! ($prefix=='news'&&$prefix.$action!='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
+                    <li{!! ($prefix=='photo')?' class="active"':'' !!}><a href="{{ route('backend.photo') }}">Danh sách hình ảnh</a></li>
                 </ul>
             </li>
             @endability
