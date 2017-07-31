@@ -61,7 +61,7 @@
 			            			<input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/>
 			            			&nbsp;&nbsp;&nbsp;{!! str_limit($value->title, 70) !!}
 			            			@if(count($value->posts))
-			            			&nbsp;&nbsp;&nbsp;(Có {!! count($value->posts) !!} bài viết)
+			            			&nbsp;&nbsp;&nbsp;<b>(Có {!! count($value->posts) !!} bài viết)</b>
 			            			@endif
 			            		</td>
 								<td style="width:15%;" class="action">{!! $value->updated_at !!}</td>

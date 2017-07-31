@@ -37,9 +37,14 @@
                 </ul>
             </li>
             @endability
-            @ability('root,admin', 'v_photo')
-            <li class="{!! (Auth::user()->ability('root,admin', 'v_photo'))?'dropdown':''!!}{!! ($prefix=='photo')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-picture"></span> Hình ảnh</a>
-                <ul{!! ($prefix=='photo')?' style="display:block"':''!!}>
+            @ability('root,admin', 'v_photo,v_slider')
+            <?php $active_show = ($prefix=='photo'||$prefix=='slider')?true:false ?>
+            <li 
+                class="{!! (Auth::user()->ability('root,admin', 'v_photo'))?'dropdown':''!!}
+                    {!! ($active_show)?' active':'' !!}">
+                <a href="{{ route('backend.news') }}"><span class="icon-picture"></span> Hình ảnh</a>
+                <ul{!! ($active_show)?' style="display:block"':''!!}>
+                    <li{!! ($prefix=='slider')?' class="active"':'' !!}><a href="{{ route('backend.slider') }}">Danh sách Slider</a></li>
                     <li{!! ($prefix=='photo')?' class="active"':'' !!}><a href="{{ route('backend.photo') }}">Danh sách hình ảnh</a></li>
                 </ul>
             </li>

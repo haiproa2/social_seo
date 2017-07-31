@@ -18,7 +18,7 @@ class CreateDetailTable extends Migration
             $table->string('table_name', 250)->nullable();
             $table->integer('id_column')->default(0);
             $table->string('keyword_column', 250)->nullable();
-            $table->string('value_column', 250)->nullable();
+            $table->text('value_column')->nullable();
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Auth, View, Session, DB, Image, App\Page;
+use Auth, View, Session, DB, Image, App\Page, App\Detail;
 
 class AdminController extends Controller
 {
@@ -22,11 +22,19 @@ class AdminController extends Controller
         if($request->segment(3) == 'add' || $request->segment(4) == 'edit')
             $this->updateForm = true;
 
+        $companys = Detail::where('table_name', 'config')->where('id_column', 1)->get()->toArray();
+        if(count($companys)){
+            foreach ($companys as $key => $value) {
+                $company[$value['keyword_column']] = $value['value_column'];
+            }
+        } 
+
         view::share([
             'prefix' => $this->prefix,
             'action' => $this->action,
             'title' => $this->title,
         	'description' => $this->description,
+            'company' => $company,
             'disabled' => $this->disabled,
             'updateForm' => $this->updateForm,
         ]);

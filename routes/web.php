@@ -37,7 +37,18 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'photo'], function(){
 		Route::get('/', ['as' => 'backend.photo', 'uses' => 'Admin\PhotoController@index', 'middleware'=>'ability:root|admin,v_photo']);
 	});
-
+	Route::group(['prefix' => 'slider'], function(){
+		Route::get('/', ['as' => 'backend.slider', 'uses' => 'Admin\PhotoController@sliderIndex', 'middleware'=>'ability:root|admin,v_slider']);
+		Route::post('/', ['as' => 'backend.slider.updatePosition', 'uses' => 'Admin\PhotoController@sliderUpdatePosition', 'middleware'=>'ability:root|admin,u_slider']);
+		Route::get('/create', ['as' => 'backend.slider.create', 'uses' => 'Admin\PhotoController@sliderCreate', 'middleware'=>'ability:root|admin,c_slider']);
+		Route::post('/create', ['as' => 'backend.slider.store', 'uses' => 'Admin\PhotoController@sliderStore', 'middleware'=>'ability:root|admin,c_slider']);
+		Route::get('{id}', ['as' => 'backend.slider.view', 'uses' => 'Admin\PhotoController@sliderView', 'middleware'=>'ability:root|admin,v_slider']);
+		Route::get('{id}/edit', ['as' => 'backend.slider.edit', 'uses' => 'Admin\PhotoController@sliderEdit', 'middleware'=>'ability:root|admin,u_slider']);
+		Route::post('{id}/edit', ['as' => 'backend.slider.update', 'uses' => 'Admin\PhotoController@sliderUpdate', 'middleware'=>'ability:root|admin,u_slider']);
+		Route::get('{id}/active', ['as' => 'backend.slider.active', 'uses' => 'Admin\PhotoController@sliderActiveStatus', 'middleware'=>'ability:root|admin,u_slider']);
+		Route::get('{id}/delete', ['as'=>'backend.slider.delete', 'uses'=>'Admin\PhotoController@sliderDestroy', 'middleware'=>'ability:root|admin,d_slider']);
+		Route::get('deletes/{listid}', ['as'=>'backend.slider.deletes', 'uses'=>'Admin\PhotoController@sliderDestroy', 'middleware'=>'ability:root|admin,d_slider']);
+	});
 	Route::group(['prefix' => 'news'], function(){
 		Route::group(['prefix' => 'category'], function(){
 			Route::get('/', ['as' => 'backend.news.category', 'uses' => 'Admin\CategoryController@index', 'middleware'=>'ability:root|admin,v_news_cate']);

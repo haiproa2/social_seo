@@ -14,7 +14,10 @@ button[type="submit"] .icon-spin{font-size: 16px; line-height: 1}
 .stdform2 .tab-company label{padding-top: 15px;}
 .stdform2 .tab-company .field label{padding: 0px; font-weight: normal;}
 
+.ui-tabs-nav{height: auto;}
+.ui-tabs-nav:after{content: ''; display: table; clear: both;}
 .ui-tabs-nav li a{padding-top: 6px}
+.ui-tabs-panel{position: relative; margin-top: -1px;}
 
 .popover{font-family: 'Roboto', sans-serif;}
 .popover-title{font-weight: bold;}
@@ -33,7 +36,9 @@ button[type="submit"] .icon-spin{font-size: 16px; line-height: 1}
 .icon-spin{-webkit-animation: icon-spin 2s infinite linear; animation: icon-spin 2s infinite linear;}
 
 .logopanel{text-align: center;}
-.showmenu{background-image: none; font-size: 20px; padding: 7px 10px; color: #fff; text-align: center;}
+.showmenu{background-image: none; font-size: 20px; padding: 7px 10px; color: #fff; text-align: center; float: left;}
+p#website_name{float: left; width: calc(100% - 300px); text-align: center; margin: 0px;}
+p#website_name a{color: #fff; display: inline-block; padding-top: 15px; font-size: 20px;}
 .notification .dropdown-toggle .caret{color: #fff; border-top-color: #fff; margin-top: 15px;}
 .userinfo .dropdown-toggle{color: #fff;}
 .userinfo .dropdown-menu li:first-child{text-align: center;}

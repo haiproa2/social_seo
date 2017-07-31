@@ -20,7 +20,7 @@
 <div class="contentinner content-charts animate7 fadeInUp">
 	<div class="alert alert-info">
     	<button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Xin chào {{ Auth::user()->name }}!</strong> Chào mừng bạn quay trở lại trang quản lý dữ liệu website.
+        Xin chào <strong>{{ Auth::user()->name }}!</strong> Chào mừng bạn quay trở lại trang quản lý dữ liệu website.
     </div>
 	<div class="row-fluid">
 		<div class="span6">

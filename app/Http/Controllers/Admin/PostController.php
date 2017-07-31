@@ -89,19 +89,14 @@ class PostController extends AdminController
     }
     public function activeStatus($id){
         $item = Post::findOrFail($id);
-        if($id!=89){
-            if($item->active==0)
-                $item->active = 1;
-            else
-                $item->active = 0;
-            $status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
-            $flash_messager = 'Cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b> cho bài viết<br/><b>'.$item->title.'</b>';
-            $flash_type = 'success animate3 fadeInUp';
-            $item->save();
-        } else {
-            $flash_messager = 'Không tìm thấy thông tin bài viết';
-            $flash_type = 'info animate3 fadeInUp';
-        }
+        if($item->active==0)
+            $item->active = 1;
+        else
+            $item->active = 0;
+        $status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
+        $flash_messager = 'Cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b> cho bài viết<br/><b>'.$item->title.'</b>';
+        $flash_type = 'success animate3 fadeInUp';
+        $item->save();
         return redirect()->route('backend.'.$this->prefix)->with(['flash_messager'=>$flash_messager, 'flash_type'=>$flash_type]);
     }
     public function view($id){

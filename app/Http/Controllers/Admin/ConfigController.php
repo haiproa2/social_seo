@@ -17,12 +17,10 @@ class ConfigController extends AdminController
     	if(Auth::user()->ability('root,admin', 'u_config')){
     		$updateForm = true;
     		$disabled = false;
-    	}
-    	else if(Auth::user()->ability('root,admin', 'v_config')){
+    	} else if(Auth::user()->ability('root,admin', 'v_config')){
     		$updateForm = false;
     		$disabled = true;
-    	}
-    	else
+    	} else
     		return route('backend.index');
     	$items = Detail::where('table_name', 'config')->where('id_column', 1)->get()->toArray();
         if(count($items)){

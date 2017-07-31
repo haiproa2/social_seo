@@ -51,10 +51,18 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="google_map">google_map</label>
+							<label for="google_map">Google map location</label>
 							<span class="field">
 								{!! Form::text('details[google_map]', (!empty($item['google_map']))?$item['google_map']:'', [
 									'id'=>'google_map', 'class'=>'span8', 'disabled'=>$disabled,
+								]) !!}
+							</span>
+						</p>
+						<p class="control-group">
+							<label for="copyright">Copyright</label>
+							<span class="field">
+								{!! Form::text('details[copyright]', (!empty($item['copyright']))?$item['copyright']:'', [
+									'id'=>'copyright', 'class'=>'span8', 'disabled'=>$disabled,
 								]) !!}
 							</span>
 						</p>
@@ -93,66 +101,45 @@
 					</div>
 					<div id="tabs-2">
 						<p class="control-group">
-							<label for="seo_title_one">SEO Title</label>
+							<label for="seo_title">SEO Title</label>
 							<span class="field">
-								{{ Form::text('details[seo_title_one]', (!empty($item['seo_title_one'])) ? $item['seo_title_one'] : '', ['id' => 'seo_title_one', 'class' => 'span8', 'disabled'=>$disabled]) }}
+								{{ Form::text('details[seo_title]', (!empty($item['seo_title'])) ? $item['seo_title'] : '', ['id' => 'seo_title', 'class' => 'span8', 'disabled'=>$disabled]) }}
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="seo_keywords_one">SEO Keywords<br>
+							<label for="seo_keywords">SEO Keywords<br>
 								<small> 
 									<a href="https://laptrinh-website.com/cach-su-dung-the-meta-keywords/" target="_blank"> Xem hướng dẫn cách khai báo từ khóa trong seo</a> tối đa 200 ký tự.
 								</small>
 							</label>
 							<span class="field">
-								{{ Form::textarea('details[seo_keywords_one]', (!empty($item['seo_keywords_one'])) ? $item['seo_keywords_one'] : '', ['id' => 'seo_keywords_one', 'class' => 'span8', 'rows' => '3', 'disabled'=>$disabled]) }}
+								{{ Form::textarea('details[seo_keywords]', (!empty($item['seo_keywords'])) ? $item['seo_keywords'] : '', ['id' => 'seo_keywords', 'class' => 'span8', 'rows' => '3', 'disabled'=>$disabled]) }}
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="seo_description_one">SEO Description<br>
+							<label for="seo_description">SEO Description<br>
 								<small>
 									<a href="https://laptrinh-website.com/cach-su-dung-the-meta-description/" target="_blank"> Xem hướng dẫn cách khai báo mô tả trong seo</a> tối đa 200 ký tự.
 								</small>
 							</label>
 							<span class="field">
-								{{ Form::textarea('details[seo_description_one]', (!empty($item['seo_description_one'])) ? $item['seo_description_one'] : '', ['id' => 'seo_description_one', 'class' => 'span8', 'rows' => '3', 'disabled'=>$disabled]) }}
+								{{ Form::textarea('details[seo_description]', (!empty($item['seo_description'])) ? $item['seo_description'] : '', ['id' => 'seo_description', 'class' => 'span8', 'rows' => '3', 'disabled'=>$disabled]) }}
 							</span>
 						</p>
 						<p class="control-group">
 							<label for="seo_script_head">Script Head</label>
 							<span class="field">
-								{{ Form::textarea('details[seo_script_head]', (!empty($item['seo_script_head'])) ? $item['seo_script_head'] : '', ['id' => 'seo_script_head', 'class' => 'span8', 'rows' => '7', 'disabled'=>$disabled]) }}
+								{{ Form::textarea('details[seo_script_head]', (!empty($item['seo_script_head'])) ? $item['seo_script_head'] : '', ['id' => 'seo_script_head', 'class' => 'span12', 'rows' => '7', 'disabled'=>$disabled]) }}
 							</span>
 						</p>
 						<p class="control-group">
 							<label for="seo_script_body">Script Body</label>
 							<span class="field">
-								{{ Form::textarea('details[seo_script_body]', (!empty($item['seo_script_body'])) ? $item['seo_script_body'] : '', ['id' => 'seo_script_body', 'class' => 'span8', 'rows' => '7', 'disabled'=>$disabled]) }}
+								{{ Form::textarea('details[seo_script_body]', (!empty($item['seo_script_body'])) ? $item['seo_script_body'] : '', ['id' => 'seo_script_body', 'class' => 'span12', 'rows' => '7', 'disabled'=>$disabled]) }}
 							</span>
 						</p>
 					</div>
 					<div id="tabs-3">
-						<p class="control-group">
-							<label for="website">Favicon</label>
-							<span class="field">
-								<?php /*?>
-								<span class="area-photos" 
-									id-img="favicon_img" id-thumb="favicon_thumb" id-photo="favicon_photo" 
-									data-width="30" data-height="30" data-type="background" data-startup-path="">
-									<span class="area-photo {{ (!empty($item['favicon']) || old('favicon_thumb')) ?'':'hidden' }}">
-										<span class="profilethumb">
-											<img src="{{ (old('favicon_thumb')) ? old('favicon_thumb') : Image::url('uploads/images/'.((isset($item['favicon']) && $item['favicon'])?$item['favicon']:''), 30, 30, array('crop')) }}" alt="Chưa có hình" title="Chọn hình khác" class="chooseFile" id="favicon_img">
-										</span>
-										<small>Click hình ảnh để thay đổi hoặc chỉnh sửa.</small>
-										{{ Form::hidden('favicon_thumb', Image::url('uploads/images/'.((isset($item['favicon']) && $item['favicon'])?$item['favicon']:''), 30, 30, array('crop')), ['id' => 'favicon_thumb']) }}
-										{{ Form::hidden('details[favicon]', (!empty($item['favicon']))?$item['favicon']:'', ['id' => 'favicon_photo']) }}
-									</span>
-									<a href="choose-photo" class="chooseFile" title="Chọn hình ảnh">Chọn hình ảnh</a> / 
-									<a href="remove-photo" class="btn-remove-file" title="Loại bỏ ảnh">Loại bỏ ảnh</a>
-								</span>
-								<?php */ ?>
-							</span>
-						</p>
 						<p class="control-group">
 							<label for="website">Địa chỉ Website</label>
 							<span class="field">
@@ -215,9 +202,9 @@
 						</div>
 						<div>
 							<p class="control-group">
-								<label for="email_title_one">Tên hiển thị</label>
+								<label for="email_title">Tên hiển thị</label>
 								<span class="field">
-									{{ Form::text('details[email_title_one]', (!empty($item['email_title_one'])) ? $item['email_title_one'] : '', ['id' => 'email_title_one', 'class' => 'span5']) }}
+									{{ Form::text('details[email_title]', (!empty($item['email_title'])) ? $item['email_title'] : '', ['id' => 'email_title', 'class' => 'span5']) }}
 								</span>
 							</p>
 							<p class="control-group">
@@ -241,7 +228,20 @@
 						</div>
 					</div>
 					<div id="tabs-6">
-						{{ Form::textarea('details[footer_one]', (!empty($item['footer_one'])) ? $item['footer_one'] : '', ['id' => 'footer_one', 'class' => 'ckeditor', 'rows' => '20']) }}
+						<div class="row-fluid">
+							<div class="span4">
+								<b>Nội dung cột trái</b>
+								{{ Form::textarea('details[footer_left]', (!empty($item['footer_left'])) ? $item['footer_left'] : '', ['id' => 'footer_left', 'class' => 'ckeditor', 'contenteditable'=>true, 'rows' => '10']) }}
+							</div>
+							<div class="span4">
+								<b>Nội dung cột giữa</b>
+								{{ Form::textarea('details[footer_center]', (!empty($item['footer_center'])) ? $item['footer_center'] : '', ['id' => 'footer_center', 'class' => 'ckeditor', 'contenteditable'=>true, 'rows' => '10']) }}
+							</div>
+							<div class="span4">
+								<b>Nội dung cột phải</b>
+								{{ Form::textarea('details[footer_right]', (!empty($item['footer_right'])) ? $item['footer_right'] : '', ['id' => 'footer_right', 'class' => 'ckeditor', 'contenteditable'=>true, 'rows' => '10']) }}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -256,4 +256,55 @@
 		@endif
 	</div><!--row-fluid-->
 </div><!--contentinner-->
+<style>
+	@media (min-width: 768px){
+		#tabs-6 .span4{margin: 0px; padding: 0px; width: 33.3333%;}
+	}
+
+	.ckeditor{height: 300px;}
+</style>
+<script>
+	CKEDITOR.replace( 'footer_left', {
+	    toolbar: [
+			{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+			{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+			{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+			{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+			'/',
+			{ name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+			'/',
+			{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
+			{ name: 'tools', items: [ 'Source' ] },
+		],
+		toolbarStartupExpanded : false
+	});
+	CKEDITOR.replace( 'footer_center', {
+	    toolbar: [
+			{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+			{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+			{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+			{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+			'/',
+			{ name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+			'/',
+			{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
+			{ name: 'tools', items: [ 'Source' ] },
+		],
+		toolbarStartupExpanded : false
+	});
+	CKEDITOR.replace( 'footer_right', {
+	    toolbar: [
+			{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+			{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+			{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+			{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+			'/',
+			{ name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+			'/',
+			{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
+			{ name: 'tools', items: [ 'Source' ] },
+		],
+		toolbarStartupExpanded : false
+	});
+</script>
 @endsection

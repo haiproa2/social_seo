@@ -393,6 +393,7 @@ class ComposerStaticInitbc84b25a68dcb7f8be127aeb67695816
         'CreateOptionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_17_164219_createOptionsTable.php',
         'CreatePageTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_25_111830_createPageTable.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreatePhotoTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_28_230750_createPhotoTable.php',
         'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_26_221242_createPostsTable.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',

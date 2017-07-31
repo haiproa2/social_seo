@@ -1,6 +1,8 @@
 <div class="headerpanel animate1 fadeInUp">
-	<a href="{{ route('fontend.index') }}" title="Show/ Hide menu" class="showmenu"><span class="iconfa-arrow-right"></span></a>
-    
+	<a href="#" title="Show/ Hide menu" class="showmenu"><span class="iconfa-arrow-right"></span></a>
+    <p id="website_name">
+        <a href="{{ route('fontend.index') }}" target="_blank" title="Xem website">{!! $company['website'] !!}</a>
+    </p>
     <div class="headerright">
     	<div class="dropdown notification">
             <a class="dropdown-toggle" target="_blank" href="{{ route('fontend.index') }}" title="Xem website">

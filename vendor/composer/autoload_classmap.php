@@ -62,6 +62,7 @@ return array(
     'CreateOptionsTable' => $baseDir . '/database/migrations/2017_07_17_164219_createOptionsTable.php',
     'CreatePageTable' => $baseDir . '/database/migrations/2017_07_25_111830_createPageTable.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePhotoTable' => $baseDir . '/database/migrations/2017_07_28_230750_createPhotoTable.php',
     'CreatePostsTable' => $baseDir . '/database/migrations/2017_07_26_221242_createPostsTable.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'Cron\\AbstractField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/AbstractField.php',

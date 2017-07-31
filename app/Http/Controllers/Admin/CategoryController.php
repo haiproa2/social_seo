@@ -54,19 +54,14 @@ class CategoryController extends AdminController
     }
     public function activeStatus($id){
         $item = Page::findOrFail($id);
-        if($id!=89){
-            if($item->active==0)
-                $item->active = 1;
-            else
-                $item->active = 0;
-            $status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
-            $flash_messager = 'Danh mục [<b>'.$item->title.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
-            $flash_type = 'success animate3 fadeInUp';
-            $item->save();
-        } else {
-            $flash_messager = 'Không tìm thấy thông tin danh mục';
-            $flash_type = 'info animate3 fadeInUp';
-        }
+        if($item->active==0)
+            $item->active = 1;
+        else
+            $item->active = 0;
+        $status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
+        $flash_messager = 'Danh mục [<b>'.$item->title.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
+        $flash_type = 'success animate3 fadeInUp';
+        $item->save();
         return redirect()->route('backend.'.$this->prefix.'.category')->with(['flash_messager'=>$flash_messager, 'flash_type'=>$flash_type]);
     }
     public function view($id){
