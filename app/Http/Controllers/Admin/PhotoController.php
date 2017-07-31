@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 
+use App\Option, App\Page, Image, Auth;
+
 class PhotoController extends AdminController
 {
     public function __construct(Request $request){
@@ -16,6 +18,192 @@ class PhotoController extends AdminController
             'title' => 'Danh sách hình ảnh',
             'description' => 'Xem, thêm, sửa hoặc xóa hình ảnh.',
     	]);
+    }
+
+    public function favicon(Request $request){
+        $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
+    	if(Auth::user()->ability('root,admin', 'u_photo')){
+    		$updateForm = true;
+    		$disabled = false;
+    	} else {
+    		$updateForm = false;
+    		$disabled = true;
+    	}
+    	$item = Page::where('type', 'favicon')->first();
+    	if(!isset($item->id)){
+    		$item = new Page;
+    		$item->title = 'Favicon';
+	        $item->type = 'favicon';
+	        $item->no = 10;
+	        $item->created_by = Auth::user()->id;
+	        $item->updated_by = Auth::user()->id;
+	        $item->active = 1;
+	        $item->save();
+    	}
+    	return view('backend.photos.favicon')->with([
+            'title' => 'Favicon',
+            'description' => 'Xem, cập nhật favicon của website.',
+            'updateForm' => $updateForm,
+            'disabled' => $disabled,
+            'actives' => $actives,
+            'item' => $item
+    	]);
+    }
+    public function faviconUpdate(Request $request){
+        $id = $request->id;
+        $item = Page::where([['id', $id]])->firstOrFail();
+
+        if($request->photo){
+            $file = $request->photo;
+            $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+            $ext = $file->getClientOriginalExtension();
+            $pathImage = 'photos/';
+            $image = Image::make($file);
+            $newFilename = 'favicon-'.date('YdmHis', time()).'.'.$ext;
+
+            $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
+            if(!$uploadSuccess){
+                $flash_type = 'error animate3 swing';
+                $flash_messager = 'Không thể upload hình ảnh.';
+
+                return back()->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+            } else{
+                Image::delete('uploads/'.$item->photo);
+                $item->photo = $pathImage.$newFilename;
+            }
+        }
+        $item->updated_by = Auth::user()->id;
+        $item->active = $request->active;
+        $item->save();
+
+        $flash_type = 'success animate3 fadeInUp';
+        $flash_messager = 'Favicon đã được cập nhật.';
+
+        return redirect()->route('backend.favicon')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+    }
+
+    public function logo(Request $request){
+        $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
+    	if(Auth::user()->ability('root,admin', 'u_photo')){
+    		$updateForm = true;
+    		$disabled = false;
+    	} else {
+    		$updateForm = false;
+    		$disabled = true;
+    	}
+    	$item = Page::where('type', 'logo')->first();
+    	if(!isset($item->id)){
+    		$item = new Page;
+    		$item->title = 'Logo';
+	        $item->type = 'logo';
+	        $item->no = 10;
+	        $item->created_by = Auth::user()->id;
+	        $item->updated_by = Auth::user()->id;
+	        $item->active = 1;
+	        $item->save();
+    	}
+    	return view('backend.photos.logo')->with([
+            'title' => 'Logo',
+            'description' => 'Xem, cập nhật logo của website.',
+            'updateForm' => $updateForm,
+            'disabled' => $disabled,
+            'actives' => $actives,
+            'item' => $item
+    	]);
+    }
+    public function logoUpdate(Request $request){
+        $id = $request->id;
+        $item = Page::where([['id', $id]])->firstOrFail();
+
+        if($request->photo){
+            $file = $request->photo;
+            $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+            $ext = $file->getClientOriginalExtension();
+            $pathImage = 'photos/';
+            $image = Image::make($file);
+            $newFilename = 'logo-'.date('YdmHis', time()).'.'.$ext;
+
+            $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
+            if(!$uploadSuccess){
+                $flash_type = 'error animate3 swing';
+                $flash_messager = 'Không thể upload hình ảnh.';
+
+                return back()->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+            } else{
+                Image::delete('uploads/'.$item->photo);
+                $item->photo = $pathImage.$newFilename;
+            }
+        }
+        $item->updated_by = Auth::user()->id;
+        $item->active = $request->active;
+        $item->save();
+
+        $flash_type = 'success animate3 fadeInUp';
+        $flash_messager = 'Logo đã được cập nhật.';
+
+        return redirect()->route('backend.logo')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+    }
+
+    public function banner(Request $request){
+        $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
+    	if(Auth::user()->ability('root,admin', 'u_photo')){
+    		$updateForm = true;
+    		$disabled = false;
+    	} else {
+    		$updateForm = false;
+    		$disabled = true;
+    	}
+    	$item = Page::where('type', 'banner')->first();
+    	if(!isset($item->id)){
+    		$item = new Page;
+    		$item->title = 'Banner';
+	        $item->type = 'banner';
+	        $item->no = 10;
+	        $item->created_by = Auth::user()->id;
+	        $item->updated_by = Auth::user()->id;
+	        $item->active = 1;
+	        $item->save();
+    	}
+    	return view('backend.photos.banner')->with([
+            'title' => 'Banner',
+            'description' => 'Xem, cập nhật banner của website.',
+            'updateForm' => $updateForm,
+            'disabled' => $disabled,
+            'actives' => $actives,
+            'item' => $item
+    	]);
+    }
+    public function bannerUpdate(Request $request){
+        $id = $request->id;
+        $item = Page::where([['id', $id]])->firstOrFail();
+
+        if($request->photo){
+            $file = $request->photo;
+            $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
+            $ext = $file->getClientOriginalExtension();
+            $pathImage = 'photos/';
+            $image = Image::make($file);
+            $newFilename = 'banner-'.date('YdmHis', time()).'.'.$ext;
+
+            $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
+            if(!$uploadSuccess){
+                $flash_type = 'error animate3 swing';
+                $flash_messager = 'Không thể upload hình ảnh.';
+
+                return back()->withInput()->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+            } else{
+                Image::delete('uploads/'.$item->photo);
+                $item->photo = $pathImage.$newFilename;
+            }
+        }
+        $item->updated_by = Auth::user()->id;
+        $item->active = $request->active;
+        $item->save();
+
+        $flash_type = 'success animate3 fadeInUp';
+        $flash_messager = 'Banner đã được cập nhật.';
+
+        return redirect()->route('backend.banner')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
 
     public function sliderIndex(Request $request){
@@ -43,12 +231,12 @@ class PhotoController extends AdminController
 
         if($keyword || ($limit && $limit != 20)){
             $flash_type = 'info animate3 fadeInUp';
-            $flash_messager = 'Danh sách ảnh slider đã được lọc.';
+            $flash_messager = 'Danh sách slider đã được lọc.';
         }
         return view('backend.photos.sliderlist')->with([
             'action' => 'list',
-            'title' => 'Danh sách ảnh slider',
-            'description' => 'Xem, thêm, sửa hoặc xóa ảnh slider.',
+            'title' => 'Danh sách slider',
+            'description' => 'Xem, thêm, sửa hoặc xóa slider.',
             'items' => $items,
             'limits' => $limits,
             'flash_type' => $flash_type,
@@ -62,19 +250,19 @@ class PhotoController extends AdminController
             for ($i=0; $i < count($positions['id']); $i++) {
                 $item = Page::findOrFail($positions['id'][$i]);
                 if($item->id && $item->no != $positions['no'][$i]){
-                    $titles .= '<b>'.$item->title.'</b>, ';
+                    $titles .= '<b>'.$item->title.'</b><br/>';
                     Page::where("id", $item->id)->update(['no' => $positions['no'][$i], 'updated_by' => Auth::user()->id]);
                 }
             }
             if($titles){
-                $flash_messager = 'Slider ['.rtrim($titles, ', ').'].<br/>Đã được cập nhật lại STT.';
+                $flash_messager = 'Slider <br/>'.rtrim($titles, ' ').'Đã được cập nhật lại STT.';
                 $flash_type = 'success animate3 fadeInUp';
             } else {
-                $flash_messager = 'Không có ảnh nào được cập nhật.';
+                $flash_messager = 'Không có slider nào được cập nhật.';
                 $flash_type = 'info animate3 fadeInUp';
             }
         } else {
-            $flash_messager = 'Không tìm thấy ảnh.';
+            $flash_messager = 'Không tìm thấy dữ liệu.';
             $flash_type = 'warning animate3 swing';         
         }
         return redirect()->route('backend.slider')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
@@ -86,7 +274,7 @@ class PhotoController extends AdminController
         else
             $item->active = 0;
         $status = Option::select('value_type')->where([['type', 'active'], ['id_type', $item->active]])->first();
-        $flash_messager = 'Hình ảnh [<b>'.$item->title.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
+        $flash_messager = 'Slider [<b>'.$item->title.'</b>] được cập nhật trạng thái thành <b>'.strip_tags($status->value_type).'</b>';
         $flash_type = 'success animate3 fadeInUp';
         $item->save();
         return redirect()->route('backend.slider')->with(['flash_messager'=>$flash_messager, 'flash_type'=>$flash_type]);
@@ -95,8 +283,8 @@ class PhotoController extends AdminController
     	$item = Page::where([['id', $id]])->firstOrFail();
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.photos.slideredit')->with([
-            'title' => 'Chi tiết ảnh',
-            'description' => 'Xem tất cả thông tin của ảnh.',
+            'title' => 'Chi tiết slider',
+            'description' => 'Xem tất cả thông tin của slider.',
     		'disabled'=>true,
             'actives'=>$actives,
             'item'=>$item,
@@ -105,16 +293,18 @@ class PhotoController extends AdminController
     public function sliderCreate(){
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
     	return view('backend.photos.slidercreate')->with([
-            'title' => 'Thêm mới ảnh',
-            'description' => 'Thêm mới dữ liệu cho ảnh slider.',
+            'title' => 'Thêm mới slider',
+            'description' => 'Thêm mới dữ liệu cho slider.',
             'actives' => $actives,
     		]);
     }
     public function sliderStore(Request $request){
     	
         $this->validate($request, [
+                'photo' => 'required',
                 'title' => 'required',
             ], [
+                'photo.required' => trans('admin.required'),
                 'title.required' => trans('admin.required'),
             ]
         );
@@ -122,7 +312,7 @@ class PhotoController extends AdminController
             $file = $request->photo;
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
             $ext = $file->getClientOriginalExtension();
-            $pathImage = 'pages/';
+            $pathImage = 'photos/';
             $image = Image::make($file);
             $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
 
@@ -131,13 +321,8 @@ class PhotoController extends AdminController
             	$item = new Page;
                 $item->photo = $pathImage.$newFilename;
 		        $item->type = $this->prefix;
-		        $item->template = 2;
 		        $item->title = $request->title;
 		        $item->slug = $request->slug;
-		        $item->content = $request->content;
-		        $item->seo_title = $request->seo_title;
-		        $item->seo_keywords = $request->seo_keywords;
-		        $item->seo_description = $request->seo_description;
 		        $item->no = $request->no;
 		        $item->created_by = Auth::user()->id;
 		        $item->updated_by = Auth::user()->id;
@@ -145,18 +330,18 @@ class PhotoController extends AdminController
 		        $item->save();
 
 		        $flash_type = 'success animate3 fadeInUp';
-		        $flash_messager = 'Đã thêm mới trang tĩnh [<b>'.$item->title.'</b>]';
+		        $flash_messager = 'Đã thêm mới slider [<b>'.$item->title.'</b>]';
             }
         }
 
-        return redirect()->route('backend.page')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+        return redirect()->route('backend.slider')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
     public function sliderEdit($id){
     	$item = Page::where([['id', $id]])->firstOrFail();
         $actives = Option::select('value_type', 'id_type')->where([['type', 'active'], ['active', 1]])->orderby('id_type', 'DESC')->get();
-    	return view('backend.pages.edit')->with([
-            'title' => 'Cập nhật trang',
-            'description' => 'Chỉnh sửa tất cả thông tin của trang tĩnh.',
+    	return view('backend.photos.slideredit')->with([
+            'title' => 'Cập nhật slider',
+            'description' => 'Chỉnh sửa tất cả thông tin của slider.',
     		'actives'=>$actives,
     		'item'=>$item
     		]);
@@ -165,12 +350,9 @@ class PhotoController extends AdminController
         $id = $request->id;
         $item = Page::where([['id', $id]])->firstOrFail();
         $this->validate($request, [
-                'title' => 'required',
-                'slug' => 'required|unique:mysql_data.pages,slug,'.$id,
+                'title' => 'required'
             ], [
-                'title.required' => trans('admin.required'),
-                'slug.required' => trans('admin.required'),
-                'slug.unique' => trans('admin.slug_unique'),
+                'title.required' => trans('admin.required')
             ]
         );
 
@@ -178,7 +360,7 @@ class PhotoController extends AdminController
             $file = $request->photo;
             $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file->getClientOriginalName());
             $ext = $file->getClientOriginalExtension();
-            $pathImage = 'pages/';
+            $pathImage = 'photos/'.$this->prefix.'s/';
             $image = Image::make($file);
             $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
 
@@ -194,32 +376,27 @@ class PhotoController extends AdminController
             }
         }
 
-        $item->template = $request->template;
         $item->title = $request->title;
         $item->slug = $request->slug;
-        $item->content = $request->content;
-        $item->seo_title = $request->seo_title;
-        $item->seo_keywords = $request->seo_keywords;
-        $item->seo_description = $request->seo_description;
         $item->no = $request->no;
         $item->updated_by = Auth::user()->id;
         $item->active = $request->active;
         $item->save();
 
         $flash_type = 'success animate3 fadeInUp';
-        $flash_messager = 'Trang tĩnh [<b>'.$item->title.'</b>]<br/>đã được cập nhật dữ liệu.';
+        $flash_messager = 'Slider [<b>'.$item->title.'</b>]<br/>đã được cập nhật dữ liệu.';
 
-        return redirect()->route('backend.page')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+        return redirect()->route('backend.slider')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
     public function sliderDestroy(Request $request){
     	$router = $request->route()->getName();
-    	if($router == 'backend.page.delete'){ // Xóa 1 phần tử
+    	if($router == 'backend.slider.delete'){ // Xóa 1 phần tử
     		$item = Page::where([['id', $request->id]])->firstOrFail();
             Image::delete('uploads/'.$item->photo);
     		$item->delete();
     		$flash_type = 'success animate3 fadeInUp';
-    		$flash_messager = 'Trang [<b>'.$item->title.'</b>]<br/>đã bị xóa.';
-    	} elseif($router == 'backend.page.deletes'){ // Xóa nhiều phần tử
+    		$flash_messager = 'Slider [<b>'.$item->title.'</b>]<br/>đã bị xóa.';
+    	} elseif($router == 'backend.slider.deletes'){ // Xóa nhiều phần tử
     		$listid = $request->listid;
     		if($listid){
     			$listids = explode("-", $listid);
@@ -227,17 +404,17 @@ class PhotoController extends AdminController
 				foreach ($listids as $key => $id) {
 					$item = Page::where([['id', $id]])->first();
 					if($item){
-						$titles .= '[<b>'.$item->title.'</b>], ';
+						$titles .= '<b>'.$item->title.'</b><br/>';
                         Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}
 				}
 				if($titles){
 		    		$flash_type = 'success animate3 fadeInUp';
-		    		$flash_messager = 'Trang '.rtrim($titles, ', ').'<br/>đã bị xóa.';
+		    		$flash_messager = 'Slider<br/>'.rtrim($titles, ', ').'đã bị xóa.';
 		    	} else {
 		    		$flash_type = 'info animate3 fadeInUp';
-		    		$flash_messager = 'Không xóa được trang.';
+		    		$flash_messager = 'Không xóa được slider.';
 		    	}
     		} else {
 	    		$flash_type = 'info animate3 fadeInUp';
@@ -248,6 +425,6 @@ class PhotoController extends AdminController
     		$flash_type = 'error animate3 swing';
     		$flash_messager = 'Đường dẫn không tồn tại.';
     	}
-    	return redirect()->route('backend.page')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
+    	return redirect()->route('backend.slider')->with(['flash_type'=>$flash_type, 'flash_messager'=>$flash_messager]);
     }
 }

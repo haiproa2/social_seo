@@ -11,7 +11,11 @@ CKEDITOR.editorConfig = function( config ) {
 	config.height = 300;
 	config.toolbarCanCollapse = true;
 
-	config.extraPlugins = 'youtube';
+	config.extraPlugins = 'fontawesome,youtube';
+
+	config.contentsCss = base+'/plugins/ckeditor_4.6.0/plugins/fontawesome/font-awesome/css/font-awesome.min.css';
+
+	config.allowedContent = true; 
 	
 	/*config.filebrowserBrowseUrl = baseURL+'admin/plugin/ckfinder/ckfinder.html';
 	config.filebrowserImageBrowseUrl = baseURL+'admin/plugin/ckfinder/ckfinder.html?type=Images';
@@ -32,7 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
 		'/',
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
 		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
-		{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak' ] },
+		{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule', '-', 'FontAwesome', 'Smiley', 'SpecialChar', 'PageBreak' ] },
 		'/',
 		{ name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
 		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },

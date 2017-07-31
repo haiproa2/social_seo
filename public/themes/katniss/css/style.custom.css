@@ -81,14 +81,14 @@ p#website_name a{color: #fff; display: inline-block; padding-top: 15px; font-siz
 .fileupload .uneditable-input[class*='span']{min-height: 30px; background: #fcfcfc; padding: 5px 10px; text-align: left;}
 .fileupload-new .uneditable-input.span12{width: calc(100% - 82px);}
 .fileupload-exists .uneditable-input.span12{width: calc(100% - 95px);}
-.fileupload.error .uneditable-input{
+.fileupload.error .uneditable-input, .error .fileupload .uneditable-input{
 	border-color: #b94a48; border-right-width: 2px;
 	background: rgba(253, 189, 188, 0.1);
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
-.fileupload.error small.help-inline{color: #595959}
+.fileupload.error small.help-inline, *[class*='span'].error small.help-inline, .stdform2 span.field.error small.help-inline{color: #595959; display: block;}
 
 .ui-datepicker-header > .ui-datepicker-prev{top: 5px; height: 30px; background-position-y: -30px;}
 .ui-datepicker-header > .ui-datepicker-next{top: 5px; height: 30px; background-position-y: 10px;}

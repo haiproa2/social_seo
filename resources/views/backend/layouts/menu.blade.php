@@ -7,12 +7,10 @@
     <div class="datewidget animate2 fadeInUp">Today is {{ date('l, M d, Y H:j:s A', time()) }}</div>
 
 	<div class="searchwidget animate4 fadeInUp">
-            <div class="input-append">
-                <input type="text" class="one-item with-btn-icon search-query" placeholder="Tìm kiếm menu ...">
-                <button type="submit" class="btn"><span class="icon-search"></span></button>
-            </div>
-    	<form action="" method="post">
-        </form>
+        <div class="input-append">
+            <input type="text" class="one-item with-btn-icon search-query" placeholder="Tìm kiếm menu ...">
+            <button type="button" class="btn"><span class="icon-search"></span></button>
+        </div>
     </div><!--searchwidget-->
     
     <div class="plainwidget animate6 fadeInUp">
@@ -42,10 +40,13 @@
             <li 
                 class="{!! (Auth::user()->ability('root,admin', 'v_photo'))?'dropdown':''!!}
                     {!! ($active_show)?' active':'' !!}">
-                <a href="{{ route('backend.news') }}"><span class="icon-picture"></span> Hình ảnh</a>
+                <a href="{{ route('backend.photo') }}"><span class="icon-picture"></span> Hình ảnh</a>
                 <ul{!! ($active_show)?' style="display:block"':''!!}>
                     <li{!! ($prefix=='slider')?' class="active"':'' !!}><a href="{{ route('backend.slider') }}">Danh sách Slider</a></li>
-                    <li{!! ($prefix=='photo')?' class="active"':'' !!}><a href="{{ route('backend.photo') }}">Danh sách hình ảnh</a></li>
+                    <li{!! ($prefix=='photo'&&$title=='Favicon')?' class="active"':'' !!}><a href="{{ route('backend.favicon') }}">Favicon</a></li>
+                    <li{!! ($prefix=='photo'&&$title=='Logo')?' class="active"':'' !!}><a href="{{ route('backend.logo') }}">Logo</a></li>
+                    <li{!! ($prefix=='photo'&&$title=='Banner')?' class="active"':'' !!}><a href="{{ route('backend.banner') }}">Banner</a></li>
+                    <li{!! ($prefix=='photo'&&$title=='Danh sách hình ảnh')?' class="active"':'' !!}><a href="{{ route('backend.photo') }}">Danh sách hình ảnh</a></li>
                 </ul>
             </li>
             @endability

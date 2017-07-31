@@ -36,6 +36,12 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 
 	Route::group(['prefix' => 'photo'], function(){
 		Route::get('/', ['as' => 'backend.photo', 'uses' => 'Admin\PhotoController@index', 'middleware'=>'ability:root|admin,v_photo']);
+		Route::get('/favicon', ['as' => 'backend.favicon', 'uses' => 'Admin\PhotoController@favicon', 'middleware'=>'ability:root|admin,v_photo']);
+		Route::post('/favicon', ['as' => 'backend.favicon.update', 'uses' => 'Admin\PhotoController@faviconUpdate', 'middleware'=>'ability:root|admin,u_photo']);
+		Route::get('/logo', ['as' => 'backend.logo', 'uses' => 'Admin\PhotoController@logo', 'middleware'=>'ability:root|admin,v_photo']);
+		Route::post('/logo', ['as' => 'backend.logo.update', 'uses' => 'Admin\PhotoController@logoUpdate', 'middleware'=>'ability:root|admin,u_photo']);
+		Route::get('/banner', ['as' => 'backend.banner', 'uses' => 'Admin\PhotoController@banner', 'middleware'=>'ability:root|admin,v_photo']);
+		Route::post('/banner', ['as' => 'backend.banner.update', 'uses' => 'Admin\PhotoController@bannerUpdate', 'middleware'=>'ability:root|admin,u_photo']);
 	});
 	Route::group(['prefix' => 'slider'], function(){
 		Route::get('/', ['as' => 'backend.slider', 'uses' => 'Admin\PhotoController@sliderIndex', 'middleware'=>'ability:root|admin,v_slider']);

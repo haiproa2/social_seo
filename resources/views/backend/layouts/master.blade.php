@@ -51,15 +51,16 @@ $_SESSION['ckfinder']['canDelete'] = Auth::user()->ability('root,admin', 'd_phot
     <meta http-equiv="refresh" content="{!! session('redirect_second') !!}; url={!! session('redirect') !!}" />
     @endif
 
+    <script type="text/javascript" src="{{ asset('plugins/ckeditor_4.6.0/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/ckfinder_2.6.2.1/ckfinder.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/sumoselect/jquery.sumoselect.min.js') }}"></script>
+
     <script type="text/javascript">
         var base = "{{ route('fontend.index') }}";
         var route_delete_image = "{{ route('backend.ajax.deleteImage') }}";
         var route_get_slug = "{{ route('backend.ajax.getSlug') }}";
+        CKEDITOR.dtd.$removeEmpty['span'] = false;
     </script>
-
-    <script type="text/javascript" src="{{ asset('plugins/ckeditor_4.6.0/ckeditor.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('plugins/ckfinder_2.6.2.1/ckfinder.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('plugins/sumoselect/jquery.sumoselect.min.js') }}"></script>
 
 </head>
 <body>
