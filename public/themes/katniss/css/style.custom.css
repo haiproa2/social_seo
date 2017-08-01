@@ -6,7 +6,10 @@ button[type="submit"] .icon-spin{font-size: 16px; line-height: 1}
 .btn.disabled, .btn[disabled]{opacity: 0.5}
 .row-fluid [class*="span"]{min-height: auto;}
 .stdform2 [class*="span"]{min-height: 30px;}
-.stdform2 span.field, .stdform2 div.field{padding: 10px 15px;}
+.stdform2 > .control-group{margin:0px}
+.stdform2 span.field, .stdform2 div.field{padding: 10px 15px; margin-left: 200px;}
+.stdformsmall .control-group > span.field, .stdformsmall .control-group > div.field{margin-left: 150px;}
+.stdformsmall .control-group > label{width: 150px;}
 .stdform2 label{padding: 15px 0 0 15px;}
 .stdform2 .tab-company p, .stdform2 .tab-company div.par{border: 1px solid #ddd; border-top: 0px;}
 .stdform2 .tab-company p:first-child, .stdform2 .tab-company div.par:first-child{border-top: 1px solid #ddd;}
@@ -250,6 +253,7 @@ select.SumoSelect.SumoUnder{display: none;}
 .SumoSelect>.optWrapper>.options li.opt:hover {background-color: #E4E4E4; cursor: pointer;}
 .SumoSelect .select-all>span, .SumoSelect>.optWrapper.multiple>.options li.opt span.label{display: inline-block; position: static; width: auto; margin: 0px;}
 .SumoSelect.disabled>.CaptionCont{background-color: #f3f3f3;}
+.SumoSelect>.CaptionCont{clear: none;}
 
 .widgetphoto{text-align: center;}
 .widgetphoto .thumb{margin: 0px auto 7px; max-width: 100%;}

@@ -27,9 +27,10 @@
             @ability('root,admin', 'v_page')
             <li{!! ($prefix=='page')?' class="active"':'' !!}><a href="{{ route('backend.page') }}"><span class="icon-file"></span> Trang tĩnh</a></li>
             @endability
-            @ability('root,admin', 'v_news')
-            <li class="{!! (Auth::user()->ability('root,admin', 'v_catenews'))?'dropdown':''!!}{!! ($prefix=='news')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-list-alt"></span> Bài viết</a>
-                <ul{!! ($prefix=='news')?' style="display:block"':'' !!}>
+            @ability('root,admin', 'v_news,v_cronjob')
+            <li class="{!! (Auth::user()->ability('root,admin', 'v_catenews,v_cronjob'))?'dropdown':''!!}{!! ($prefix=='news'||$prefix=='cronjob')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-list-alt"></span> Bài viết</a>
+                <ul{!! ($prefix=='news'||$prefix=='cronjob')?' style="display:block"':'' !!}>
+                    <li{!! ($prefix=='cronjob')?' class="active"':'' !!}><a href="{{ route('backend.cronjob') }}">Lấy tin tự động</a></li>
                     <li{!! ($prefix.$action=='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news.category') }}">Danh mục</a></li>
                     <li{!! ($prefix=='news'&&$prefix.$action!='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
                 </ul>

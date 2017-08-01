@@ -21,4 +21,8 @@ class Page extends Model
     public function posts(){
         return $this->belongsToMany('App\Post', 'cate_post', 'cate_id', 'post_id');
     }
+
+    public function crons(){
+        return $this->belongsToMany('App\Cronjob', 'cate_cron', 'cate_id', 'cron_id');
+    }
 }
