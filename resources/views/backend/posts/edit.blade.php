@@ -122,7 +122,7 @@
 				<h4 class="widgettitle nomargin shadowed">Danh mục</h4>
 				<div class="widgetcontent widgetsmall widgetcategory bordered shadowed">
 					<div class="{{ $errors->has('template') ? ' error' : '' }}">
-						{!! showTrees($categorys, $checked, 'cate_id[]', 'radio', 'Không chọn danh mục') !!}
+						{!! showTrees($categorys, $checked, 'cate_id[]', 'radio', 'Không chọn danh mục', $disabled) !!}
 					</div>
 				</div>
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>

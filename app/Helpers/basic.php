@@ -4,7 +4,9 @@
 @define ('PATH_IMAGE_AVATAR','uploads/images/members');
 @define ('PATH_IMAGE_AVATAR_ADMIN','../uploads/images/members');
 
-
+function isValidURL($url){
+	return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
+}
 function getCountViewYoutube($url){
 	preg_match('[\\?&](?:v=)([^&#]*)', $url, $matches);
 	$id = ($matches === null)?$url:$matches[1];
@@ -60,7 +62,7 @@ function showSelectTable($listOriginal, $listCurrent=array(), $disabled = '', $n
 	$str .= '</table>';
 	return $str;
 }
-function showTrees($items, $checkeds, $name = 'cate_id[]', $type = 'checkbox', $titledefault = 'Danh mục chính'){
+function showTrees($items, $checkeds, $name = 'cate_id[]', $type = 'checkbox', $titledefault = 'Danh mục chính', $disabled = false){
 	$str = '
 	<div class="item" style="padding-left:0px">
 		<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" value="0" checked>'.$titledefault.'</label>
@@ -84,7 +86,7 @@ function showTrees($items, $checkeds, $name = 'cate_id[]', $type = 'checkbox', $
 
 			$str .= '
 				<div class="item" style="padding-left:'.($value['level']*22).'px">
-					<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" '.(($name=='cate_id')?' data-slug="'.$value['slug'].'/"':'').' value="'.$value['id'].'"'.$checked.'>'.$value['title'].'</label>
+					<label><input type="'.$type.'" class="'.$type.'" name="'.$name.'" '.(($name=='cate_id')?' data-slug="'.$value['slug'].'/"':'').' value="'.$value['id'].'"'.$checked.' '.(($disabled)?'disabled':'').'>'.$value['title'].'</label>
 				</div>
 			';
 		}
@@ -1896,4 +1898,22 @@ class simple_html_dom
 	function getElementByTagName($name) {return $this->find($name, 0);}
 	function getElementsByTagName($name, $idx=-1) {return $this->find($name, $idx);}
 	function loadFile() {$args = func_get_args();$this->load_file($args);}
+}
+
+
+function getHrefTitleDesc($link, $tag_topic, $tag_href, $tag_title, $tag_desc = '', $quantity=0){
+	$html = file_get_html($link);
+	$infos = array();
+	foreach($html->find($tag_topic) as $key => $value){
+		$infos[$key]['link'] = $infos[$key]['title'] = $infos[$key]['desc'] = '';
+		if($tag_href)
+			$infos[$key]['link'] = trim($value->find($tag_href, 0)->href);
+		if($tag_title)
+			$infos[$key]['title'] = trim($value->find($tag_title, 0)->plaintext);
+		if($tag_desc)
+			$infos[$key]['desc'] = trim($value->find($tag_desc, 0)->plaintext);
+
+		if($quantity > 0 && $key >= $quantity-1) break;
+	}
+	return $infos;
 }

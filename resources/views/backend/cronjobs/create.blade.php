@@ -12,7 +12,7 @@
     </ul><!--skins-->
     <ul class="breadcrumb">
         <li><a href="{{ route('backend.index') }}">Admin Area</a> <span class="divider">/</span></li>
-        <li><a href="{{ route('backend.index') }}">Admin Area</a> <span class="divider">/</span></li>
+        <li><a href="{{ route('backend.news') }}">Bài viết</a> <span class="divider">/</span></li>
         <li class="active">Lấy tin tự động</li>
     </ul>
 </div><!--breadcrumbs-->

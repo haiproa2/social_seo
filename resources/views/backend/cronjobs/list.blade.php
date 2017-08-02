@@ -60,8 +60,8 @@
 							<th data-sortable="false" style="width:3%" class="noBackground"><input type="checkbox" name="selectall" id="selectall" class="checkall" /></th>
 							<th style="width:5%;" class="sort" id="sortNO" title="Sắp xếp theo STT">STT</th>
 							<th class="text-left" id="sortLINK">Tiêu đề / Liên kết</th>
-							<th class="text-left" data-sortable="false">Tag list / Tag remove</th>
-							<th class="text-left" data-sortable="false">Tag link / Tag title</th>
+							<th class="text-left" data-sortable="false">Tag list / Tag link</th>
+							<th class="text-left" data-sortable="false">Tag title / Tag content</th>
 							<th style="width:15%;">Ngày cập nhật</th>
 							<th data-sortable="false" style="width:10%;" class="noBackground">Thao tác</th>
 						</tr>
@@ -83,11 +83,11 @@
 			            		</td>
 								<td style="width:15%;" class="text-left">
 									{!! $value->tag_list !!} <hr style="margin:0px;">
-									{!! $value->tag_remove !!}
+									{!! $value->tag_link !!}
 								</td>
 								<td style="width:15%;" class="text-left">
-									{!! $value->tag_link !!} <hr style="margin:0px;">
-									{!! $value->tag_title !!}
+									{!! $value->tag_title !!} <hr style="margin:0px;">
+									{!! $value->tag_content !!}
 								</td>
 								<td style="width:7%;">{!! str_replace(' ', '<br/>', $value->updated_at) !!}</td>
 								<td style="width:7%;" class="action">
