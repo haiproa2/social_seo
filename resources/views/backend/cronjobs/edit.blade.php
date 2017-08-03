@@ -66,7 +66,7 @@
 							<label for="count_page">Tổng số trang</label>
 							<span class="field">
 								{!! Form::number('count_page', $item->count_page, [
-									'id'=>'count_page', 'class'=>'span6', 'min'=>0, 'max'=>999, 'disabled'=>$disabled,
+									'id'=>'count_page', 'class'=>'span6', 'min'=>1, 'max'=>999, 'disabled'=>$disabled,
 									'placeholder'=>'VD: 9'
 								]) !!}
 								@if ($errors->has('count_page'))
@@ -196,7 +196,7 @@
 							<label for="tag_remove">Loại bỏ thẻ</label>
 							<span class="field">
 								{!! Form::text('tag_remove', $item->tag_remove, [
-									'id'=>'tag_remove', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled,
+									'id'=>'tag_remove', 'class'=>'span12', 'disabled'=>$disabled,
 									'placeholder'=>'VD: .adv-area; .row-more'
 								]) !!}
 								<span class="help-inline">Các thẻ (tags) cách nhau bởi dấu ;</span>
@@ -222,7 +222,7 @@
 						<p class="stdformbutton">
 							@if($updateForm)
 							{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
-							{{ Form::button('<span class="iconfa-save"></span> Lấy bài viết', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
+							<a href="#runcron" title="Lấy bài viết" class="btn btn-primary" data-toggle="modal"><span class="iconfa-save"></span> Lấy bài viết</a> - Or -
 							@endif
 							<a href="{!! route('backend.cronjob') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
 						</p>
@@ -234,4 +234,20 @@
 	{{ Form::close() }}
 	@endif
 </div><!--contentinner-->
+
+<div aria-hidden="false" role="dialog" tabindex="-1" class="modal hide fade in" id="runcron">
+	<div class="modal-header">
+		<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+		<h3>Cronjob</h3>
+	</div>
+	<div class="modal-body">
+		<h4>Đang lấy các bài viết</h4>
+		<div class="result_cron">
+			<p><span>1 - </span> Những món ngon níu chân du khách ở Quảng Bình <span class="loading"></span> </p>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button data-dismiss="modal" class="btn">Close</button>
+	</div>
+</div><!--#myModal-->
 @endsection

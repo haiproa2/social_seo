@@ -1899,21 +1899,3 @@ class simple_html_dom
 	function getElementsByTagName($name, $idx=-1) {return $this->find($name, $idx);}
 	function loadFile() {$args = func_get_args();$this->load_file($args);}
 }
-
-
-function getHrefTitleDesc($link, $tag_topic, $tag_href, $tag_title, $tag_desc = '', $quantity=0){
-	$html = file_get_html($link);
-	$infos = array();
-	foreach($html->find($tag_topic) as $key => $value){
-		$infos[$key]['link'] = $infos[$key]['title'] = $infos[$key]['desc'] = '';
-		if($tag_href)
-			$infos[$key]['link'] = trim($value->find($tag_href, 0)->href);
-		if($tag_title)
-			$infos[$key]['title'] = trim($value->find($tag_title, 0)->plaintext);
-		if($tag_desc)
-			$infos[$key]['desc'] = trim($value->find($tag_desc, 0)->plaintext);
-
-		if($quantity > 0 && $key >= $quantity-1) break;
-	}
-	return $infos;
-}

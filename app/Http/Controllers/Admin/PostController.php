@@ -140,7 +140,7 @@ class PostController extends AdminController
             $ext = $file->getClientOriginalExtension();
             $pathImage = 'posts/';
             $image = Image::make($file);
-            $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
+            $newFilename = str_slug($request->title).date('-YmdHis', time()).'.'.$ext;
 
             $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
             if(!$uploadSuccess){
@@ -218,7 +218,7 @@ class PostController extends AdminController
             $ext = $file->getClientOriginalExtension();
             $pathImage = 'posts/';
             $image = Image::make($file);
-            $newFilename = str_slug($request->title).date('-YdmHis', time()).'.'.$ext;
+            $newFilename = str_slug($request->title).date('-YmdHis', time()).'.'.$ext;
 
             $uploadSuccess = $file->move('uploads/'.$pathImage, $newFilename);
             if(!$uploadSuccess){

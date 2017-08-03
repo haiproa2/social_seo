@@ -63,8 +63,8 @@
 						<p class="control-group">
 							<label for="count_page">Tổng số trang</label>
 							<span class="field">
-								{!! Form::number('count_page', 0, [
-									'id'=>'count_page', 'class'=>'span6', 'min'=>0, 'max'=>999,
+								{!! Form::number('count_page', 1, [
+									'id'=>'count_page', 'class'=>'span6', 'min'=>1, 'max'=>999,
 									'placeholder'=>'VD: 9'
 								]) !!}
 								@if ($errors->has('count_page'))
@@ -194,7 +194,7 @@
 							<label for="tag_remove">Loại bỏ thẻ</label>
 							<span class="field">
 								{!! Form::text('tag_remove', '', [
-									'id'=>'tag_remove', 'class'=>'span12', 'required'=>true,
+									'id'=>'tag_remove', 'class'=>'span12',
 									'placeholder'=>'VD: .adv-area; .row-more'
 								]) !!}
 								<span class="help-inline">Các thẻ (tags) cách nhau bởi dấu ;</span>
