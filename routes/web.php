@@ -63,6 +63,7 @@ Route::group(['prefix' => 'control', 'middleware' => 'auth'], function(){
 		Route::get('/create', ['as' => 'backend.cronjob.create', 'uses' => 'Admin\CronjobController@create', 'middleware'=>'ability:root|admin,c_cronjob']);
 		Route::post('/create', ['as' => 'backend.cronjob.store', 'uses' => 'Admin\CronjobController@store', 'middleware'=>'ability:root|admin,c_cronjob']);
 		Route::get('{id}', ['as' => 'backend.cronjob.view', 'uses' => 'Admin\CronjobController@view', 'middleware'=>'ability:root|admin,v_cronjob']);
+		Route::post('{id}', ['as' => 'backend.cronjob.run', 'uses' => 'CronjobController@runCron', 'middleware'=>'ability:root|admin,c_news']);
 		Route::get('{id}/edit', ['as' => 'backend.cronjob.edit', 'uses' => 'Admin\CronjobController@edit', 'middleware'=>'ability:root|admin,u_cronjob']);
 		Route::post('{id}/edit', ['as' => 'backend.cronjob.update', 'uses' => 'Admin\CronjobController@update', 'middleware'=>'ability:root|admin,u_cronjob']);
 		Route::get('{id}/active', ['as' => 'backend.cronjob.active', 'uses' => 'Admin\CronjobController@activeStatus', 'middleware'=>'ability:root|admin,u_cronjob']);

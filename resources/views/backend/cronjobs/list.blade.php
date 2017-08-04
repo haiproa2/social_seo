@@ -95,8 +95,11 @@
 									@ability('root,admin', 'u_cronjob')
 									<a href="{{ route('backend.cronjob.edit', $value->id) }}" title="Chỉnh sửa" data-toggle="tooltip" class="btn-update"><span class="iconfa-edit muted"></span></a>
 									@endability
+									@ability('root,admin', 'c_news')
+									<br/><a href="{{ route('backend.cronjob.view', $value->id).'#runcron' }}" title="Lấy tin tự động" style="margin:0px;" data-toggle="tooltip" class="btn-read"><span class="iconfa-truck muted"></span></a>
+									@endability
 									@ability('root,admin', 'd_cronjob')
-									<br><a href="javascript: void(0)" title="Xóa" style="margin:0px;" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Khi bạn đồng ý xóa thì tất cả dữ liệu của cronjob sẽ <span class=&quot;text-error&quot;>bị xóa vĩnh viễn</span>. <br/><p class=&quot;text-error text-center&quot;><strong style=&quot;max-width:100%;width:370px;display:inline-block&quot;>{{ $value->title }}</strong><br/>Bạn có chắc vẫn muốn xóa cronjob này?</p>', '{!! route('backend.cronjob.delete', $value->id) !!}')"><span class="iconfa-trash muted"></span></a>
+									<a href="javascript: void(0)" title="Xóa" data-toggle="tooltip" class="btn-delete" onClick="return deleteItem('Khi bạn đồng ý xóa thì tất cả dữ liệu của cronjob sẽ <span class=&quot;text-error&quot;>bị xóa vĩnh viễn</span>. <br/><p class=&quot;text-error text-center&quot;><strong style=&quot;max-width:100%;width:370px;display:inline-block&quot;>{{ $value->title }}</strong><br/>Bạn có chắc vẫn muốn xóa cronjob này?</p>', '{!! route('backend.cronjob.delete', $value->id) !!}')"><span class="iconfa-trash muted"></span></a>
 									@endability
 								</td>
 							</tr>

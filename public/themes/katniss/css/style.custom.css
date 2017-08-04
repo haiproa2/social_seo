@@ -258,6 +258,10 @@ select.SumoSelect.SumoUnder{display: none;}
 .widgetphoto{text-align: center;}
 .widgetphoto .thumb{margin: 0px auto 7px; max-width: 100%;}
 
+.modal-footer .area-result{text-align: left; float: left; width: calc(100% - 60px); padding-top: 5px;}
+.modal-footer .area-result ul{margin: 0px; padding: 0px; list-style: none;}
+.modal-footer .area-result li{float: left; width: 50%; padding: 0px 5px;}
+
 @-webkit-keyframes icon-spin {
   0% {
     -webkit-transform: rotate(0deg);

@@ -57,6 +57,7 @@
 									'id'=>'url_page', 'class'=>'span6', 'disabled'=>$disabled, 
 									'placeholder'=>'VD: /page/ hoặc /?page='
 								]) !!}
+								<small class="help-inline">/page/ hoặc /?page=</small>
 								@if ($errors->has('url_page'))
 								<span class="help-inline">{!! $errors->first('url_page') !!}</span>
 								@endif
@@ -69,6 +70,7 @@
 									'id'=>'count_page', 'class'=>'span6', 'min'=>1, 'max'=>999, 'disabled'=>$disabled,
 									'placeholder'=>'VD: 9'
 								]) !!}
+								<small class="help-inline">Điền khi các trang có số trang nằm cuối url</small>
 								@if ($errors->has('count_page'))
 								<span class="help-inline">{!! $errors->first('count_page') !!}</span>
 								@endif
@@ -111,6 +113,14 @@
 							</span>
 						</p>
 						<p class="control-group">
+							<label>Nơi lấy tiêu đề</label>
+							<span class="field">
+								@if(count($getfroms))
+								{!! Form::select('where_title', $getfroms, $item->where_title, ['id'=>'where_title', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
 							<label for="tag_desc">Thẻ mô tả</label>
 							<span class="field{{ $errors->has('tag_desc') ? ' error' : '' }}">
 								{!! Form::text('tag_desc', $item->tag_desc, [
@@ -119,6 +129,14 @@
 								]) !!}
 								@if ($errors->has('tag_desc'))
 								<span class="help-inline">{!! $errors->first('tag_desc') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
+							<label>Noi lấy mô tả</label>
+							<span class="field">
+								@if(count($getfroms))
+								{!! Form::select('where_desc', $getfroms, $item->where_desc, ['id'=>'where_desc', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
 								@endif
 							</span>
 						</p>
@@ -135,6 +153,14 @@
 							</span>
 						</p>
 						<p class="control-group">
+							<label>Nơi lấy ảnh đại diện</label>
+							<span class="field">
+								@if(count($getfroms))
+								{!! Form::select('where_photo', $getfroms, $item->where_photo, ['id'=>'where_photo', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
 							<label for="tag_content">Thẻ chi tiết <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('tag_content') ? ' error' : '' }}">
 								{!! Form::text('tag_content', $item->tag_content, [
@@ -143,15 +169,6 @@
 								]) !!}
 								@if ($errors->has('tag_content'))
 								<span class="help-inline">{!! $errors->first('tag_content') !!}</span>
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
-							<label for="no">Số thứ tự</label>
-							<span class="field{{ $errors->has('no') ? ' error' : '' }}">
-								{{ Form::number('no', $item->no, ['id'=>'no', 'class'=>'span4', 'min'=>0, 'max'=>999, 'disabled'=>$disabled]) }}
-								@if ($errors->has('no'))
-								<span class="help-inline">{!! $errors->first('no') !!}</span>
 								@endif
 							</span>
 						</p>
@@ -169,44 +186,29 @@
 							</div>
 						</div>
 						<p class="control-group">
-							<label>Tiêu đề</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_title', $getfroms, $item->where_title, ['id'=>'where_title', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
-							<label>Mô tả</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_desc', $getfroms, $item->where_desc, ['id'=>'where_desc', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
-							<label>Ảnh đại diện</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_photo', $getfroms, $item->where_photo, ['id'=>'where_photo', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
 							<label for="tag_remove">Loại bỏ thẻ</label>
 							<span class="field">
-								{!! Form::text('tag_remove', $item->tag_remove, [
-									'id'=>'tag_remove', 'class'=>'span12', 'disabled'=>$disabled,
+								{!! Form::textarea('tag_remove', $item->tag_remove, [
+									'id'=>'tag_remove', 'class'=>'span12', 'rows'=>4, 'disabled'=>$disabled,
 									'placeholder'=>'VD: .adv-area; .row-more'
 								]) !!}
 								<span class="help-inline">Các thẻ (tags) cách nhau bởi dấu ;</span>
 							</span>
 						</p>
 						<p class="control-group">
+							<label for="no">Số thứ tự</label>
+							<span class="field{{ $errors->has('no') ? ' error' : '' }}">
+								{{ Form::number('no', $item->no, ['id'=>'no', 'class'=>'span4', 'min'=>0, 'max'=>999, 'disabled'=>$disabled]) }}
+								@if ($errors->has('no'))
+								<span class="help-inline">{!! $errors->first('no') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
 							<label>Mã cronjob</label>
 							<span class="field">
-								{!! Form::textarea('tag_remove', '/usr/local/bin/php -q '.dirname(dirname($_SERVER['SCRIPT_FILENAME'])).'/fetch_news.php?sources=1&amp;quan_news=2', [
-									'class'=>'span12', 'rows'=>3, 'disabled'=>true
+								{!! Form::textarea('tag_remove', '/usr/local/bin/php -q '.dirname(dirname($_SERVER['SCRIPT_FILENAME'])).'/cronjob?source=6&limit=5', [
+									'class'=>'span12', 'rows'=>4, 'disabled'=>true
 								]) !!}
 							</span>
 						</p>
@@ -222,7 +224,8 @@
 						<p class="stdformbutton">
 							@if($updateForm)
 							{{ Form::button('<span class="iconfa-save"></span> Lưu', ['class' => 'btn btn-primary', 'type' => 'submit']) }} - Or -
-							<a href="#runcron" title="Lấy bài viết" class="btn btn-primary" data-toggle="modal"><span class="iconfa-save"></span> Lấy bài viết</a> - Or -
+							@else
+							<button data-target="#runcron" title="Lấy bài viết" class="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="iconfa-truck"></span> Lấy bài viết</button> - Or -
 							@endif
 							<a href="{!! route('backend.cronjob') !!}" title="Thoát" class="btn"><span class="iconfa-off"></span> Thoát</a>
 						</p>
@@ -238,16 +241,117 @@
 <div aria-hidden="false" role="dialog" tabindex="-1" class="modal hide fade in" id="runcron">
 	<div class="modal-header">
 		<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-		<h3>Cronjob</h3>
+		<h3>Đang lấy bài viết <span class="loading hidden"></span></h3>
 	</div>
 	<div class="modal-body">
-		<h4>Đang lấy các bài viết</h4>
-		<div class="result_cron">
-			<p><span>1 - </span> Những món ngon níu chân du khách ở Quảng Bình <span class="loading"></span> </p>
+		<div class="result-cron">
 		</div>
 	</div>
 	<div class="modal-footer">
+		<div class="area-result">
+			<ul>
+				<li>Đã lấy được <span class="text-success">0</span> bài viết</li>
+				<li>Bị lỗi <span class="text-error">0</span> bài viết</li>
+			</ul>
+		</div>
 		<button data-dismiss="modal" class="btn">Close</button>
 	</div>
 </div><!--#myModal-->
+<script>
+	var dots = 0;
+	var number = 0;
+	var success = 0;
+	var error = 0;
+	var CSRF_TOKEN = jQuery('input[name="_token"]').attr('value');
+	function loading(){
+		if(dots < 3){
+			jQuery(".loading").append('.');
+			dots++;
+		} else {
+			jQuery(".loading").html('');
+			dots = 0;
+		}
+	}
+	function getDat(source, title, link){
+		jQuery.ajax({
+			headers: {
+				'X-CSRF-TOKEN': CSRF_TOKEN
+			},
+			url: "{!! route('backend.cronjob.run', $item->id) !!}",
+			method: "POST",
+			data: {
+				"_token": CSRF_TOKEN, 
+				"source": source, 
+				"link": link
+			},
+			before: function(){
+				setInterval(loading(".modal-header .loading"), 600);
+			},
+			success: function (data) {
+				console.log(data);
+				/*var data = jQuery.parseJSON(data);
+				if(data.status == 'success'){
+					success++;
+					jQuery(".area-result .text-success").html(success);
+				} else if (data.status == 'error'){
+					error++;
+					jQuery(".area-result .text-error").html(error);
+				}*/
+			},
+			error: function (data) {
+			}
+		});
+	}
+	jQuery(window).ready(function(){
+		setInterval(loading, 600);
+		jQuery('#runcron').on('show.bs.modal', function (event) {
+			jQuery.ajax({
+				headers: {
+					'X-CSRF-TOKEN': CSRF_TOKEN
+				},
+				url: "{!! route('backend.cronjob.run', $item->id) !!}",
+				method: "POST",
+				data: {
+					"_token": CSRF_TOKEN, 
+					"source": "source", 
+					"link": "link"
+				},
+				before: function(data){
+					//jQuery(".result-cron").append('<p> - '+title.' <span class="loading"></span>'); // Set src for img
+					//setInterval(loading(jQuery(".modal-header .loading")), 600);
+				},
+				success: function (data) {
+					dots = 0;
+					jQuery(".modal-header .loading").removeClass("hidden").html('');
+					var data = jQuery.parseJSON(data);
+					console.log(data);
+					if(data.status == 'success'){
+						jQuery.each(data.items, function(key, item) {
+							setTimeout(
+								function() {
+									number++;
+									jQuery(".result-cron .loading").addClass('hidden');
+									jQuery(".result-cron").append('<p>'+number+' - '+item.title+' <span class="loading"></span> </p>');
+								}, 5000
+							);
+						});
+					}
+				},
+				error: function (data) {
+				}
+			});
+		});
+		jQuery('#runcron').on('hidden.bs.modal', function (event) {
+			jQuery(".loading").addClass('hidden');
+		});
+		if(window.location.hash) {
+			var hash = window.location.hash;
+			jQuery(hash).modal({
+				show: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		}
+	});
+</script>
 @endsection
