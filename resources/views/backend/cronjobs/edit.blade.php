@@ -113,14 +113,6 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label>Nơi lấy tiêu đề</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_title', $getfroms, $item->where_title, ['id'=>'where_title', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
 							<label for="tag_desc">Thẻ mô tả</label>
 							<span class="field{{ $errors->has('tag_desc') ? ' error' : '' }}">
 								{!! Form::text('tag_desc', $item->tag_desc, [
@@ -252,6 +244,7 @@
 			<ul>
 				<li>Đã lấy được <span class="text-success">0</span> bài viết</li>
 				<li>Bị lỗi <span class="text-error">0</span> bài viết</li>
+				<li>Bỏ qua <span class="muted">0</span> bài viết</li>
 			</ul>
 		</div>
 		<button data-dismiss="modal" class="btn">Close</button>
@@ -262,6 +255,7 @@
 	var number = 0;
 	var success = 0;
 	var error = 0;
+	var skip = 0;
 	var CSRF_TOKEN = jQuery('input[name="_token"]').attr('value');
 	function loading(){
 		if(dots < 3){
@@ -271,36 +265,6 @@
 			jQuery(".loading").html('');
 			dots = 0;
 		}
-	}
-	function getDat(source, title, link){
-		jQuery.ajax({
-			headers: {
-				'X-CSRF-TOKEN': CSRF_TOKEN
-			},
-			url: "{!! route('backend.cronjob.run', $item->id) !!}",
-			method: "POST",
-			data: {
-				"_token": CSRF_TOKEN, 
-				"source": source, 
-				"link": link
-			},
-			before: function(){
-				setInterval(loading(".modal-header .loading"), 600);
-			},
-			success: function (data) {
-				console.log(data);
-				/*var data = jQuery.parseJSON(data);
-				if(data.status == 'success'){
-					success++;
-					jQuery(".area-result .text-success").html(success);
-				} else if (data.status == 'error'){
-					error++;
-					jQuery(".area-result .text-error").html(error);
-				}*/
-			},
-			error: function (data) {
-			}
-		});
 	}
 	jQuery(window).ready(function(){
 		setInterval(loading, 600);
@@ -316,24 +280,46 @@
 					"source": "source", 
 					"link": "link"
 				},
-				before: function(data){
-					//jQuery(".result-cron").append('<p> - '+title.' <span class="loading"></span>'); // Set src for img
-					//setInterval(loading(jQuery(".modal-header .loading")), 600);
-				},
 				success: function (data) {
 					dots = 0;
 					jQuery(".modal-header .loading").removeClass("hidden").html('');
 					var data = jQuery.parseJSON(data);
-					console.log(data);
 					if(data.status == 'success'){
 						jQuery.each(data.items, function(key, item) {
-							setTimeout(
-								function() {
+							jQuery.ajax({
+								headers: {
+									'X-CSRF-TOKEN': CSRF_TOKEN
+								},
+								url: "{!! route('backend.cronjob.run', $item->id) !!}",
+								method: "POST",
+								data: {
+									"_token": CSRF_TOKEN,
+									"link": item.link
+								},
+								success: function (data) {
 									number++;
 									jQuery(".result-cron .loading").addClass('hidden');
-									jQuery(".result-cron").append('<p>'+number+' - '+item.title+' <span class="loading"></span> </p>');
-								}, 5000
-							);
+									var data = jQuery.parseJSON(data);
+									if(data.status=='success'){
+										success++;
+										jQuery(".area-result .text-success").html(success);
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title+' - <span class="text-success">Done</span></p>');
+									} else if(data.status=='skip'){
+										skip++;
+										jQuery(".area-result .muted").html(skip);
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title+' - <span class="muted">Skip</span></p>');
+									} else {
+										error++;
+										jQuery(".area-result .text-error").html(error);
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title+' - <span class="text-error">Error</span></p>');
+									}
+									jQuery(".modal-body").animate({ scrollTop: jQuery(".result-cron").height() }, 500);
+								},
+								error: function (data) {
+									success++;
+									jQuery(".area-result .text-success").html(success);
+								}
+							});
 						});
 					}
 				},

@@ -132,63 +132,55 @@ class CronjobController extends Controller
     		$item['count_page'] = ($item['count_page'] <= 10)?intval($item['count_page']):10;
     		for ($i=2; $i <= $item['count_page']; $i++) {
     			$topic = $item['url_topic'].$item['url_page'].$i;
-    			$newItem = $item;
-    			$newItem['url_topic'] = $topic;
-    			$items[$i] = $newItem;
+    			$items[$i] = $item;
+    			$items[$i]['url_topic'] = $topic;
     		}
-    	}
-
-    	foreach($items as $key => $item){
-    		$infos = $this->getInfos($item);
     	}
 
     	return json_encode([
             'token' => Session::token(),
             'status' => 'success',
-            'messager' => 'Xóa ảnh thành công.',
-            'items' => $infos
+            'messager' => 'Lấy danh sách bài viết thành công.',
+            'items' => $this->getInfos($items)
             ]);
     }
 
-    public function getInfos($source, $limit = 0){
-		$tag_title = $tag_photo = $tag_desc = '';
-		if($source['where_title']) // [1] Lấy tiêu đề từ danh sách
-			$tag_title = $source['tag_title'];
-		if($source['where_photo']) // [1] Lấy ảnh đại diện từ danh sách
-			$tag_photo = $source['tag_photo'];
-		if($source['where_desc']) // [1] Lấy mô tả từ danh sách
-			$tag_desc = $source['tag_desc'];
-
-		$html = file_get_html($source['url_topic']);
+    public function getInfos($sources, $limit = 0){
 		$infos = array();
 		
-		foreach($html->find($source['tag_list']) as $key => $value){
-			if($source['tag_link']){
-				$href_ = $value->find($source['tag_link'], 0);
-				$infos[$key]['link'] = ($href_)?$href_->href:'';
-			}
+		foreach ($sources as $k => $source) {
+			$tag_photo = $tag_desc = '';
+			if($source['where_photo']==1) // [1] Lấy ảnh đại diện từ danh sách
+				$tag_photo = $source['tag_photo'];
+			if($source['where_desc']==1) // [1] Lấy mô tả từ danh sách
+				$tag_desc = $source['tag_desc'];
 
-			if($tag_title&&$source['where_title']==1){
-				$title_ = $value->find($tag_title, 0);
-				$infos[$key]['title'] = trim(($title_)?$title_->plaintext:'');
-			}
-			else
-				$infos[$key]['title'] = '';
+			$html = file_get_html($source['url_topic']);
+			foreach($html->find($source['tag_list']) as $key => $value){
+				if($source['tag_link']){
+					$href_ = $value->find($source['tag_link'], 0);
+					$infos[$key+$k]['link'] = ($href_)?$href_->href:'';
+				}
 
-			if($tag_photo&&$source['where_photo']==1){
-				$infos[$key]['photo'] = trim($value->find($tag_photo, 0)->src);
-			}
-			else
-				$infos[$key]['photo'] = '';
+				$title_ = $value->find($source['tag_title'], 0);
+				$infos[$key+$k]['title'] = trim(($title_)?$title_->plaintext:'');
 
-			if($tag_desc&&$source['where_desc']==1){
-				$desc_ = $value->find($tag_desc, 0);
-				$infos[$key]['desc'] = trim(($desc_)?$desc_->plaintext:'');
-			}
-			else
-				$infos[$key]['desc'] = '';
+				if($tag_photo){
+					$infos[$key+$k]['photo'] = trim($value->find($tag_photo, 0)->src);
+				}
+				else
+					$infos[$key+$k]['photo'] = '';
 
-			if($limit > 0 && $key >= $limit-1) break;
+				if($tag_desc){
+					$desc_ = $value->find($tag_desc, 0);
+					$infos[$key+$k]['desc'] = trim(($desc_)?$desc_->plaintext:'');
+				}
+				else
+					$infos[$key+$k]['desc'] = '';
+
+				if($limit > 0 && $key >= $limit-1) break;
+			}
+			krsort($infos);
 		}
 		return $infos;
     }
@@ -235,7 +227,7 @@ class CronjobController extends Controller
 		            if($save) $post->photo = $filename;
 				}
 				if($news_title && $news_content){
-					$post->type = 'news';
+					/*$post->type = 'news';
 					$post->title = $news_title;
 					$post->slug = str_slug($news_title).'-'.time();
 			        $post->content = $news_content;
@@ -251,10 +243,9 @@ class CronjobController extends Controller
 						$CatePost->post_id = $post->id;
 						$CatePost->save();
 
-					}
+					}*/
 					echo $k.' - '.$post->title.' - Done<br/>';
-				} 
-				else
+				} else
 					echo $k.' - '.$post->title.' - Title or Content empty. <br/>';
 				
 			}

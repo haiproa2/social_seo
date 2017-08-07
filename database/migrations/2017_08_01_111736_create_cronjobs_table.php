@@ -24,7 +24,6 @@ class CreateCronjobsTable extends Migration
             $table->string('tag_list', 250)->nullable();
             $table->string('tag_link', 250)->nullable();
             $table->string('tag_title', 250)->nullable();
-            $table->integer('where_title')->default(0);
             $table->string('tag_desc', 250)->nullable();
             $table->integer('where_desc')->default(0);
             $table->string('tag_content', 250)->nullable();

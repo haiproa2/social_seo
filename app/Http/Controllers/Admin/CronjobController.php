@@ -125,7 +125,6 @@ class CronjobController extends AdminController
         $item->tag_list = $request->tag_list;
         $item->tag_link = $request->tag_link;
         $item->tag_title = $request->tag_title;
-        $item->where_title = $request->where_title;
         $item->tag_desc = $request->tag_desc;
         $item->where_desc = $request->where_desc;
         $item->tag_content = $request->tag_content;
@@ -198,7 +197,6 @@ class CronjobController extends AdminController
         $item->tag_list = $request->tag_list;
         $item->tag_link = $request->tag_link;
         $item->tag_title = $request->tag_title;
-        $item->where_title = $request->where_title;
         $item->tag_desc = $request->tag_desc;
         $item->where_desc = $request->where_desc;
         $item->tag_content = $request->tag_content;

@@ -121,6 +121,14 @@
 							</span>
 						</p>
 						<p class="control-group">
+							<label>Nơi lấy mô tả</label>
+							<span class="field">
+								@if(count($getfroms))
+								{!! Form::select('where_desc', $getfroms, 1, ['id'=>'where_desc', 'class'=>'span12 SumoSelect']) !!}
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
 							<label for="tag_photo">Thẻ ảnh <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('tag_photo') ? ' error' : '' }}">
 								{!! Form::text('tag_photo', '', [
@@ -133,6 +141,14 @@
 							</span>
 						</p>
 						<p class="control-group">
+							<label>Nơi lấy ảnh</label>
+							<span class="field">
+								@if(count($getfroms))
+								{!! Form::select('where_photo', $getfroms, 1, ['id'=>'where_photo', 'class'=>'span12 SumoSelect']) !!}
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
 							<label for="tag_content">Thẻ chi tiết <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('tag_content') ? ' error' : '' }}">
 								{!! Form::text('tag_content', '', [
@@ -141,15 +157,6 @@
 								]) !!}
 								@if ($errors->has('tag_content'))
 								<span class="help-inline">{!! $errors->first('tag_content') !!}</span>
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
-							<label for="no">Số thứ tự</label>
-							<span class="field{{ $errors->has('no') ? ' error' : '' }}">
-								{{ Form::number('no', 10, ['id'=>'no', 'class'=>'span4', 'min'=>0, 'max'=>999]) }}
-								@if ($errors->has('no'))
-								<span class="help-inline">{!! $errors->first('no') !!}</span>
 								@endif
 							</span>
 						</p>
@@ -167,37 +174,22 @@
 							</div>
 						</div>
 						<p class="control-group">
-							<label>Tiêu đề</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_title', $getfroms, 1, ['id'=>'where_title', 'class'=>'span12 SumoSelect']) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
-							<label>Mô tả</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_desc', $getfroms, 1, ['id'=>'where_desc', 'class'=>'span12 SumoSelect']) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
-							<label>Ảnh đại diện</label>
-							<span class="field">
-								@if(count($getfroms))
-								{!! Form::select('where_photo', $getfroms, 1, ['id'=>'where_photo', 'class'=>'span12 SumoSelect']) !!}
-								@endif
-							</span>
-						</p>
-						<p class="control-group">
 							<label for="tag_remove">Loại bỏ thẻ</label>
 							<span class="field">
-								{!! Form::text('tag_remove', '', [
-									'id'=>'tag_remove', 'class'=>'span12',
+								{!! Form::textarea('tag_remove', '', [
+									'id'=>'tag_remove', 'class'=>'span12', 'rows'=>4, 
 									'placeholder'=>'VD: .adv-area; .row-more'
 								]) !!}
 								<span class="help-inline">Các thẻ (tags) cách nhau bởi dấu ;</span>
+							</span>
+						</p>
+						<p class="control-group">
+							<label for="no">Số thứ tự</label>
+							<span class="field{{ $errors->has('no') ? ' error' : '' }}">
+								{{ Form::number('no', 10, ['id'=>'no', 'class'=>'span4', 'min'=>0, 'max'=>999]) }}
+								@if ($errors->has('no'))
+								<span class="help-inline">{!! $errors->first('no') !!}</span>
+								@endif
 							</span>
 						</p>
 					</div>
