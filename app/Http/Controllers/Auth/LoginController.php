@@ -129,9 +129,9 @@ class LoginController extends Controller
         ]))
             return redirect()->back()
                 ->with([
-                    'status' => trans('auth.register_success', ['name' => $request->name, 'second' => 5, 'redirect' => route('fontend.index')]),
+                    'status' => trans('auth.register_success', ['name' => $request->name, 'second' => 5, 'redirect' => route('frontend.index')]),
                     'redirect_second' => 5,
-                    'redirect' => route('fontend.index'),
+                    'redirect' => route('frontend.index'),
                 ]);
         else
             return redirect()->route('auth.getLogin')

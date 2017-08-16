@@ -21,7 +21,7 @@ class PageController extends AdminController
     	$limits = Option::where([['type', 'limit'], ['active', '1']])->orderby('id_type', 'ASC')->pluck('value_type', 'id_type')->toArray();
 
         $template = $request->cate ? $request->cate : '';
-        $limit = $request->limit ? $request->limit : 20;
+        $limit = $request->limit ? $request->limit : 10;
         $keyword = $request->keyword ? $request->keyword : '';
 
         $flash_type = $flash_messager = '';
@@ -40,7 +40,7 @@ class PageController extends AdminController
         if($request->limit)
             $items->appends(['limit' => $limit]);
 
-        if($keyword || ($limit && $limit != 20)){
+        if($keyword || ($limit && $limit != 10)){
             $flash_type = 'info animate3 fadeInUp';
             $flash_messager = 'Danh sách trang đã được lọc.';
         }

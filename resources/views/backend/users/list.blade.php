@@ -38,7 +38,7 @@
 				<div class="span6">
 					<span>Hiển thị:</span>
 					@if(count($limits))
-					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):20, ['id'=>'limit', 'data-route'=>$prefix]) !!}
+					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):10, ['id'=>'limit', 'data-route'=>$prefix]) !!}
 					@endif
 				</div>
 				<div class="span6 text-right search-area">

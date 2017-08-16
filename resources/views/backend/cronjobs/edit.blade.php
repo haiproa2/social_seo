@@ -54,25 +54,37 @@
 							<label for="url_page">Link phân trang</label>
 							<span class="field">
 								{!! Form::text('url_page', $item->url_page, [
-									'id'=>'url_page', 'class'=>'span6', 'disabled'=>$disabled, 
-									'placeholder'=>'VD: /page/ hoặc /?page='
+									'id'=>'url_page', 'class'=>'span4', 'disabled'=>$disabled, 
+									'placeholder'=>'VD: /page/_ hoặc /?page=_ hoặc /page/_.html'
 								]) !!}
-								<small class="help-inline">/page/ hoặc /?page=</small>
+								<small class="help-inline">Dấu _ sẽ được thay bằng số trang</small>
 								@if ($errors->has('url_page'))
 								<span class="help-inline">{!! $errors->first('url_page') !!}</span>
 								@endif
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="count_page">Tổng số trang</label>
+							<label for="count_page">Số trang cần duyệt</label>
 							<span class="field">
 								{!! Form::number('count_page', $item->count_page, [
-									'id'=>'count_page', 'class'=>'span6', 'min'=>1, 'max'=>999, 'disabled'=>$disabled,
+									'id'=>'count_page', 'class'=>'span4', 'min'=>1, 'max'=>100, 'disabled'=>$disabled,
 									'placeholder'=>'VD: 9'
 								]) !!}
-								<small class="help-inline">Điền khi các trang có số trang nằm cuối url</small>
 								@if ($errors->has('count_page'))
 								<span class="help-inline">{!! $errors->first('count_page') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
+							<label for="count_post">Số bài cần lấy</label>
+							<span class="field">
+								{!! Form::number('count_post', $item->count_post, [
+									'id'=>'count_post', 'class'=>'span4', 'min'=>0, 'max'=>100, 'disabled'=>$disabled,
+									'placeholder'=>'VD: 10'
+								]) !!}
+								<small class="help-inline">Lấy từ cuối danh sách; Để số 0 nếu muốn lấy tất cả.</small>
+								@if ($errors->has('count_post'))
+								<span class="help-inline">{!! $errors->first('count_post') !!}</span>
 								@endif
 							</span>
 						</p>
@@ -104,7 +116,7 @@
 							<label for="tag_title">Thẻ tiêu đề <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('tag_title') ? ' error' : '' }}">
 								{!! Form::text('tag_title', $item->tag_title, [
-									'id'=>'tag_title', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled,
+									'id'=>'tag_title', 'class'=>'span12', 'disabled'=>$disabled,
 									'placeholder'=>'VD: h2.title a'
 								]) !!}
 								@if ($errors->has('tag_title'))
@@ -116,7 +128,7 @@
 							<label for="tag_desc">Thẻ mô tả</label>
 							<span class="field{{ $errors->has('tag_desc') ? ' error' : '' }}">
 								{!! Form::text('tag_desc', $item->tag_desc, [
-									'id'=>'tag_desc', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled,
+									'id'=>'tag_desc', 'class'=>'span12', 'disabled'=>$disabled,
 									'placeholder'=>'VD: .entry'
 								]) !!}
 								@if ($errors->has('tag_desc'))
@@ -125,7 +137,7 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label>Noi lấy mô tả</label>
+							<label>Nơi lấy mô tả</label>
 							<span class="field">
 								@if(count($getfroms))
 								{!! Form::select('where_desc', $getfroms, $item->where_desc, ['id'=>'where_desc', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
@@ -133,10 +145,10 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="tag_photo">Thẻ ảnh <span class="text-error">*</span></label>
+							<label for="tag_photo">Thẻ ảnh</label>
 							<span class="field{{ $errors->has('tag_photo') ? ' error' : '' }}">
 								{!! Form::text('tag_photo', $item->tag_photo, [
-									'id'=>'tag_photo', 'class'=>'span12', 'required'=>true, 'disabled'=>$disabled,
+									'id'=>'tag_photo', 'class'=>'span12', 'disabled'=>$disabled,
 									'placeholder'=>'VD: #content .entry img'
 								]) !!}
 								@if ($errors->has('tag_photo'))
@@ -145,7 +157,19 @@
 							</span>
 						</p>
 						<p class="control-group">
-							<label>Nơi lấy ảnh đại diện</label>
+							<label for="remove_text_photo">Text loại bỏ khỏi ảnh</label>
+							<span class="field{{ $errors->has('remove_text_photo') ? ' error' : '' }}">
+								{!! Form::text('remove_text_photo', $item->remove_text_photo, [
+									'id'=>'remove_text_photo', 'class'=>'span12', 'disabled'=>$disabled,
+									'placeholder'=>'VD: _180x108', 'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'- Nếu ảnh cần lấy chỉ là thumb và muốn lấy ảnh gốc, cần thêm đoạn ký tự cần loại bỏ để lấy ảnh gốc.<br/>- Ví dụ:<br/>&nbsp;&nbsp;&nbsp;+ Thumb:<br/><span class="text-warning">/images/no-image-available<span class="text-success">-thumb(1110x130-crop)</span>.jpg</span><br/>&nbsp;&nbsp;&nbsp;+ Gốc là:<br/><span class="text-warning">/images/no-image-available.jpg</span><br/>&nbsp;&nbsp;&nbsp;+ Đoạn ký tự cần ghi là:<br/><span class="text-error">-thumb(1110x130-crop)</span>', 'data-placement'=>'top', 'data-html'=>'true'
+								]) !!}
+								@if ($errors->has('remove_text_photo'))
+								<span class="help-inline">{!! $errors->first('remove_text_photo') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
+							<label>Nơi lấy ảnh</label>
 							<span class="field">
 								@if(count($getfroms))
 								{!! Form::select('where_photo', $getfroms, $item->where_photo, ['id'=>'where_photo', 'class'=>'span12 SumoSelect', 'disabled'=>$disabled]) !!}
@@ -199,7 +223,7 @@
 						<p class="control-group">
 							<label>Mã cronjob</label>
 							<span class="field">
-								{!! Form::textarea('tag_remove', '/usr/local/bin/php -q '.dirname(dirname($_SERVER['SCRIPT_FILENAME'])).'/cronjob?source=6&limit=5', [
+								{!! Form::textarea('tag_remove', '/usr/local/bin/php -q '.dirname(dirname($_SERVER['SCRIPT_FILENAME'])).'/get-post?source='.$item->id.'&limit='.$item->count_post, [
 									'class'=>'span12', 'rows'=>4, 'disabled'=>true
 								]) !!}
 							</span>
@@ -233,7 +257,7 @@
 <div aria-hidden="false" role="dialog" tabindex="-1" class="modal hide fade in" id="runcron">
 	<div class="modal-header">
 		<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-		<h3>Đang lấy bài viết <span class="loading hidden"></span></h3>
+		<h3>Loading <span class="loading hidden"></span></h3>
 	</div>
 	<div class="modal-body">
 		<div class="result-cron">
@@ -244,7 +268,7 @@
 			<ul>
 				<li>Đã lấy được <span class="text-success">0</span> bài viết</li>
 				<li>Bị lỗi <span class="text-error">0</span> bài viết</li>
-				<li>Bỏ qua <span class="muted">0</span> bài viết</li>
+				<li>Bỏ qua <span class="text-warning">0</span> bài viết</li>
 			</ul>
 		</div>
 		<button data-dismiss="modal" class="btn">Close</button>
@@ -252,9 +276,9 @@
 </div><!--#myModal-->
 <script>
 	var dots = 0;
-	var number = 0;
 	var success = 0;
 	var error = 0;
+	var number = 0;
 	var skip = 0;
 	var CSRF_TOKEN = jQuery('input[name="_token"]').attr('value');
 	function loading(){
@@ -269,61 +293,102 @@
 	jQuery(window).ready(function(){
 		setInterval(loading, 600);
 		jQuery('#runcron').on('show.bs.modal', function (event) {
+			dots = 0;
+			number = 0;
+			jQuery(".loading").html('');
+			jQuery(".modal-header h3").html('Loading <span class="loading"></span>');
+			jQuery(".result-cron").html('');
+			jQuery(".area-result .text-success").html('0');
+			jQuery(".area-result .text-error").html('0');
+			jQuery(".area-result .text-warning").html('0');
 			jQuery.ajax({
 				headers: {
 					'X-CSRF-TOKEN': CSRF_TOKEN
 				},
-				url: "{!! route('backend.cronjob.run', $item->id) !!}",
+				url: "{!! route('backend.cronjob.getList', $item->id) !!}",
 				method: "POST",
 				data: {
-					"_token": CSRF_TOKEN, 
-					"source": "source", 
-					"link": "link"
+					"_token": CSRF_TOKEN,
+					"id": {{ $item->id }}
 				},
-				success: function (data) {
-					dots = 0;
-					jQuery(".modal-header .loading").removeClass("hidden").html('');
-					var data = jQuery.parseJSON(data);
-					if(data.status == 'success'){
+				success: function (datas) {
+					var data = jQuery.parseJSON(datas);
+					var length = Object.keys(data.items).length;
+					var limit = data.limit;
+					if(data.status == 'success' && length){
 						jQuery.each(data.items, function(key, item) {
 							jQuery.ajax({
 								headers: {
 									'X-CSRF-TOKEN': CSRF_TOKEN
 								},
-								url: "{!! route('backend.cronjob.run', $item->id) !!}",
+								url: "{!! route('backend.cronjob.getContent', $item->id) !!}",
 								method: "POST",
 								data: {
 									"_token": CSRF_TOKEN,
-									"link": item.link
+									"item": item,
+									"id": {{ $item->id }}
 								},
-								success: function (data) {
+								success: function (data_detail) {
 									number++;
 									jQuery(".result-cron .loading").addClass('hidden');
-									var data = jQuery.parseJSON(data);
-									if(data.status=='success'){
+									var data_detail = jQuery.parseJSON(data_detail);
+									if(data_detail.status==2){
+										error++;
+										jQuery(".area-result .text-error").html(error);
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title.substring(0, 60)+' ... <span class="text-error">Can\'t Save</span></p>');
+									} else if(data_detail.status==1){
 										success++;
 										jQuery(".area-result .text-success").html(success);
-										jQuery(".result-cron").append('<p>'+number+' - '+item.title+' - <span class="text-success">Done</span></p>');
-									} else if(data.status=='skip'){
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title.substring(0, 60)+' ... <span class="text-success">Done</span></p>');
+									} else if(data_detail.status==0){
 										skip++;
-										jQuery(".area-result .muted").html(skip);
-										jQuery(".result-cron").append('<p>'+number+' - '+item.title+' - <span class="muted">Skip</span></p>');
+										jQuery(".area-result .text-warning").html(skip);
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title.substring(0, 60)+' ... <span class="text-warning">Link Unknow</span></p>');
+									} else if(data_detail.status==-1){
+										skip++;
+										jQuery(".area-result .text-warning").html(skip);
+										if(item.title=='')jQuery(".result-cron").append('<p>'+number+' - <span class="text-warning">Title Null</span></p>');
+										else jQuery(".result-cron").append('<p>'+number+' - '+item.title.substring(0, 60)+' ... <span class="text-warning">Can\'t Get Content</span></p>');
+									} else if(data_detail.status==-2){
+										skip++;
+										jQuery(".area-result .text-warning").html(skip);
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title.substring(0, 60)+' ... <span class="text-warning">Post Exist</span></p>');
 									} else {
 										error++;
 										jQuery(".area-result .text-error").html(error);
-										jQuery(".result-cron").append('<p>'+number+' - '+item.title+' - <span class="text-error">Error</span></p>');
+										jQuery(".result-cron").append('<p>'+number+' - '+item.title.substring(0, 60)+' ... <span class="text-error">ERROR</span></p>');
 									}
-									jQuery(".modal-body").animate({ scrollTop: jQuery(".result-cron").height() }, 500);
+									jQuery(".modal-body").animate({ scrollTop: jQuery(".result-cron").height() }, 10);
+									if(key == length - 1 || (limit > 0 && key == limit - 1)){
+										jQuery(".loading").addClass("hidden");
+										jQuery(".modal-header h3").html('<p class="text-success text-center">DONE</p>');
+									}
 								},
-								error: function (data) {
-									success++;
-									jQuery(".area-result .text-success").html(success);
+								error: function (xhr,err) {
+									jQuery(".result-cron").append('<p class="text-error">Server Lỗi, Kiểm tra lại các trường dữ liệu.</p>');
+									setTimeout(function () {
+										var w = window.open();
+										jQuery(w.document.body).html(xhr.responseText);
+									}, 1000);
 								}
 							});
+ 							if(limit > 0 && key == limit - 1){
+								return false;
+ 							}
 						});
+					} else if(length === 0) {
+						jQuery(".result-cron").append('<p class="text-warning">WARNING - Không lấy được danh sách bài viết.</p>');
+					} else {
+						jQuery(".result-cron").append('<p class="text-error">ERROR - Lỗi không xác định, vui lòng kiểm tra lại các trường dữ liệu.</p>');
 					}
 				},
-				error: function (data) {
+				error: function (xhr,err) {
+					jQuery(".result-cron").html('<p class="text-error">Server Lỗi, Kiểm tra lại các trường dữ liệu.</p>');
+					setTimeout(function () {
+						var w = window.open();
+						jQuery(w.document.body).html(xhr.responseText);
+						jQuery('#runcron').modal('hide');
+					}, 1000);
 				}
 			});
 		});

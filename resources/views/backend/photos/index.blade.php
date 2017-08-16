@@ -14,7 +14,7 @@
     </ul>
 </div><!--breadcrumbs-->
 <div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
-<div class="contentinner animate5 fadeInUp" style="background: url('{!! route('fontend.index') !!}/themes/katniss/img/loaders/loader9.gif') no-repeat center center;">
+<div class="contentinner animate5 fadeInUp" style="background: url('{!! route('frontend.index') !!}/themes/katniss/img/loaders/loader9.gif') no-repeat center center;">
 	<div id="ckfinder-widget">
 		<?php
 		CKFinder::CreateStatic('../plugins/ckfinder_2.6.2.1/', '100%', '650') ;

@@ -56,7 +56,7 @@ $_SESSION['ckfinder']['canDelete'] = Auth::user()->ability('root,admin', 'd_phot
     <script type="text/javascript" src="{{ asset('plugins/sumoselect/jquery.sumoselect.min.js') }}"></script>
 
     <script type="text/javascript">
-        var base = "{{ route('fontend.index') }}";
+        var base = "{{ route('frontend.index') }}";
         var route_delete_image = "{{ route('backend.ajax.deleteImage') }}";
         var route_get_slug = "{{ route('backend.ajax.getSlug') }}";
         CKEDITOR.dtd.$removeEmpty['span'] = false;

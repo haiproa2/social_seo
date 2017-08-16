@@ -24,7 +24,7 @@
 			<div class="span4">
 				<h4 class="widgettitle nomargin shadowed">Ảnh đại diện</h4>
 				<div class="widgetcontent widgetsmall widgetphoto bordered shadowed">
-					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 310, 230, array('crop')) !!}" alt="Avatar" class="thumb img-polaroid" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 310, 230, array('crop')) !!}';">
+					<img src="{!! Image::url(((isset($item->photo) && $item->photo)?'uploads/'.$item->photo:''), 590, 360, array('crop')) !!}" alt="Avatar" class="thumb img-polaroid" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 590, 360, array('crop')) !!}';">
 					@if(isset($item->photo) && $item->photo)
 					<div class="info-photo">
 						<a class="btn btn-small btn-info" href="{!! asset('uploads/'.$item->photo) !!}" target="_blank" title="Xem ảnh"><span class="iconfa-eye-open"></span> Xem ảnh gốc</a>

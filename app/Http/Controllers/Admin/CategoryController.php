@@ -26,7 +26,7 @@ class CategoryController extends AdminController
             'title' => 'Danh sách danh mục',
             'description' => 'Xem, thêm, sửa hoặc xóa danh mục.',
             'items' => $items,
-            ]);
+        ]);
     }
     public function updatePosition(Request $request){
         $positions = $request->no;
@@ -228,7 +228,7 @@ class CategoryController extends AdminController
 				}
 				if($titles){
 		    		$flash_type = 'success animate3 fadeInUp';
-		    		$flash_messager = 'Đã xóa danh mục<br/>'.rtrim($names, ', ');
+		    		$flash_messager = 'Đã xóa danh mục<br/>'.rtrim($titles, ', ');
 		    	} else {
 		    		$flash_type = 'info animate3 fadeInUp';
 		    		$flash_messager = 'Không xóa được danh mục.';

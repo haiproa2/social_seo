@@ -18,9 +18,6 @@
 <div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
 <div class="contentinner animate5 fadeInUp">
 	<div class="row-fluid">
-		<?php
-			$array = array('0'=>'- Tất cả -'); $limits = array_replace($limits, $array);
-		?>
 		<div class="span12 text-right text-top">
 			<div class="actionfull">
 				@ability('root,admin', 'c_slider')
@@ -41,7 +38,7 @@
 				<div class="span6">
 					<span>Hiển thị:</span>
 					@if(count($limits))
-					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):20, ['id'=>'limit', 'data-route'=>$prefix]) !!}
+					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):10, ['id'=>'limit', 'data-route'=>$prefix]) !!}
 					@endif
 				</div>
 				<div class="span6 text-right search-area">
@@ -77,11 +74,11 @@
 			            		<td style="width:3%;"><input type="checkbox" name="chose" id="chose" value="{!! $value->id !!}" class="chose" /></td>
 			            		<td style="width:5%;" data-order="<?=$key?>"><input type="number" min="0" name="no[no][]" id="no" value="{!! $value->no !!}" class="inputNo"/></td>
 								<td style="width:15%;" class="text-left">
-									<img src="{!! Image::url(((isset($value->photo) && $value->photo)?'uploads/'.$value->photo:''), 140, 140, array('crop')) !!}" alt="Avatar" class="thumb img-polaroid" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 140, 140, array('crop')) !!}';">
+									<img src="{!! Image::url(((isset($value->photo) && $value->photo)?'uploads/'.$value->photo:''), 140, 85, array('crop')) !!}" alt="Avatar" class="thumb img-polaroid" onError="this.onerror=null;this.src='{!! Image::url(('images/no-image-available.jpg'), 140, 85, array('crop')) !!}';">
 			            		</td>
 			            		<td class="text-left">
 			            			<u>Tiêu đề</u>: {!! str_limit($value->title, 100) !!}<br/>
-			            			<u>Liên kết</u>: <a href="{!! str_limit($value->slug, 100) !!}" target="_blank" title="Click xem liên kết">{!! str_limit($value->slug, 100) !!}</a>
+			            			<u>Liên kết</u>: <a href="{!! (isValidURL($value->slug))?'':'../' !!}{!! $value->slug !!}" target="_blank" title="Click xem liên kết">{!! str_limit($value->slug, 100) !!}</a>
 			            		</td>
 								<td style="width:15%;">{!! $value->updated_at !!}</td>
 								<td style="width:10%;" class="action">

@@ -30,7 +30,8 @@
             @ability('root,admin', 'v_news,v_cronjob')
             <li class="{!! (Auth::user()->ability('root,admin', 'v_catenews,v_cronjob'))?'dropdown':''!!}{!! ($prefix=='news'||$prefix=='cronjob')?' active':'' !!}"><a href="{{ route('backend.news') }}"><span class="icon-list-alt"></span> Bài viết</a>
                 <ul{!! ($prefix=='news'||$prefix=='cronjob')?' style="display:block"':'' !!}>
-                    <li{!! ($prefix=='cronjob')?' class="active"':'' !!}><a href="{{ route('backend.cronjob') }}">Lấy tin tự động</a></li>
+                    <li{!! ($prefix.$action=='cronjoblog')?' class="active"':'' !!}><a href="{{ route('backend.cronjob.log') }}">Thống kê lấy tin</a></li>
+                    <li{!! ($prefix=='cronjob'&&$prefix.$action!='cronjoblog')?' class="active"':'' !!}><a href="{{ route('backend.cronjob') }}">Lấy tin tự động</a></li>
                     <li{!! ($prefix.$action=='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news.category') }}">Danh mục</a></li>
                     <li{!! ($prefix=='news'&&$prefix.$action!='newscategory')?' class="active"':'' !!}><a href="{{ route('backend.news') }}">Danh sách bài viết</a></li>
                 </ul>
@@ -43,10 +44,10 @@
                     {!! ($active_show)?' active':'' !!}">
                 <a href="{{ route('backend.photo') }}"><span class="icon-picture"></span> Hình ảnh</a>
                 <ul{!! ($active_show)?' style="display:block"':''!!}>
-                    <li{!! ($prefix=='slider')?' class="active"':'' !!}><a href="{{ route('backend.slider') }}">Danh sách Slider</a></li>
                     <li{!! ($prefix=='photo'&&$title=='Favicon')?' class="active"':'' !!}><a href="{{ route('backend.favicon') }}">Favicon</a></li>
                     <li{!! ($prefix=='photo'&&$title=='Logo')?' class="active"':'' !!}><a href="{{ route('backend.logo') }}">Logo</a></li>
                     <li{!! ($prefix=='photo'&&$title=='Banner')?' class="active"':'' !!}><a href="{{ route('backend.banner') }}">Banner</a></li>
+                    <li{!! ($prefix=='slider')?' class="active"':'' !!}><a href="{{ route('backend.slider') }}">Danh sách Slider</a></li>
                     <li{!! ($prefix=='photo'&&$title=='Danh sách hình ảnh')?' class="active"':'' !!}><a href="{{ route('backend.photo') }}">Danh sách hình ảnh</a></li>
                 </ul>
             </li>

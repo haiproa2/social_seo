@@ -52,23 +52,37 @@
 							<label for="url_page">Link phân trang</label>
 							<span class="field">
 								{!! Form::text('url_page', '', [
-									'id'=>'url_page', 'class'=>'span6',
-									'placeholder'=>'VD: /page/ hoặc /?page='
+									'id'=>'url_page', 'class'=>'span4', 'disabled'=>$disabled, 
+									'placeholder'=>'VD: /page/_ hoặc /?page=_ hoặc /page/_.html'
 								]) !!}
+								<small class="help-inline">Dấu _ sẽ được thay bằng số trang</small>
 								@if ($errors->has('url_page'))
 								<span class="help-inline">{!! $errors->first('url_page') !!}</span>
 								@endif
 							</span>
 						</p>
 						<p class="control-group">
-							<label for="count_page">Tổng số trang</label>
+							<label for="count_page">Số trang cần duyệt</label>
 							<span class="field">
 								{!! Form::number('count_page', 1, [
-									'id'=>'count_page', 'class'=>'span6', 'min'=>1, 'max'=>999,
+									'id'=>'count_page', 'class'=>'span4', 'min'=>1, 'max'=>100,
 									'placeholder'=>'VD: 9'
 								]) !!}
 								@if ($errors->has('count_page'))
 								<span class="help-inline">{!! $errors->first('count_page') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
+							<label for="count_post">Số bài cần lấy</label>
+							<span class="field">
+								{!! Form::number('count_post', 1, [
+									'id'=>'count_post', 'class'=>'span4', 'min'=>0, 'max'=>100,
+									'placeholder'=>'VD: 10'
+								]) !!}
+								<small class="help-inline">Lấy từ cuối danh sách; Để số 0 nếu muốn lấy tất cả.</small>
+								@if ($errors->has('count_post'))
+								<span class="help-inline">{!! $errors->first('count_post') !!}</span>
 								@endif
 							</span>
 						</p>
@@ -112,7 +126,7 @@
 							<label for="tag_desc">Thẻ mô tả</label>
 							<span class="field{{ $errors->has('tag_desc') ? ' error' : '' }}">
 								{!! Form::text('tag_desc', '', [
-									'id'=>'tag_desc', 'class'=>'span12', 'required'=>true,
+									'id'=>'tag_desc', 'class'=>'span12',
 									'placeholder'=>'VD: .entry'
 								]) !!}
 								@if ($errors->has('tag_desc'))
@@ -132,11 +146,23 @@
 							<label for="tag_photo">Thẻ ảnh <span class="text-error">*</span></label>
 							<span class="field{{ $errors->has('tag_photo') ? ' error' : '' }}">
 								{!! Form::text('tag_photo', '', [
-									'id'=>'tag_photo', 'class'=>'span12', 'required'=>true,
+									'id'=>'tag_photo', 'class'=>'span12',
 									'placeholder'=>'VD: #content .entry img'
 								]) !!}
 								@if ($errors->has('tag_photo'))
 								<span class="help-inline">{!! $errors->first('tag_photo') !!}</span>
+								@endif
+							</span>
+						</p>
+						<p class="control-group">
+							<label for="remove_text_photo">Text loại bỏ khỏi ảnh</label>
+							<span class="field{{ $errors->has('remove_text_photo') ? ' error' : '' }}">
+								{!! Form::text('remove_text_photo', '', [
+									'id'=>'remove_text_photo', 'class'=>'span12', 'disabled'=>$disabled,
+									'placeholder'=>'VD: _180x108', 'data-toggle'=>'popfocus', 'title'=>'Hướng dẫn', 'data-content'=>'- Nếu ảnh cần lấy chỉ là thumb và muốn lấy ảnh gốc, cần thêm đoạn ký tự cần loại bỏ để lấy ảnh gốc.<br/>- Ví dụ:<br/>&nbsp;&nbsp;&nbsp;+ Thumb:<br/><span class="text-warning">/images/no-image-available<span class="text-success">-thumb(1110x130-crop)</span>.jpg</span><br/>&nbsp;&nbsp;&nbsp;+ Gốc là:<br/><span class="text-warning">/images/no-image-available.jpg</span><br/>&nbsp;&nbsp;&nbsp;+ Đoạn ký tự cần ghi là:<br/><span class="text-error">-thumb(1110x130-crop)</span>', 'data-placement'=>'top', 'data-html'=>'true'
+								]) !!}
+								@if ($errors->has('remove_text_photo'))
+								<span class="help-inline">{!! $errors->first('remove_text_photo') !!}</span>
 								@endif
 							</span>
 						</p>

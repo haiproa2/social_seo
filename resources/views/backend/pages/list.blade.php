@@ -20,12 +20,11 @@
 	<div class="row-fluid">
 		<?php
 			$array = array('-'=>'- Tất cả Template -'); $templates = array_merge($array, $templates);
-			$array = array('0'=>'- Tất cả -'); $limits = array_replace($limits, $array);
 		?>
 		<div class="span6 text-top">
 			<span>Template:</span>
 			<span style="width: auto; display: inline-flex;"> 
-			{{ Form::select('category', $templates, (Request::get('cate') || Request::get('cate') == 0)?Request::get('cate'):20, ['id' => 'category', 'class'=>'span12 SumoSelect', 'data-route'=>$prefix]) }}
+			{{ Form::select('category', $templates, (Request::get('limit'))?Request::get('limit'):10, ['id' => 'category', 'class'=>'span12 SumoSelect', 'data-route'=>$prefix]) }}
 			</span>
 		</div>
 		<div class="span6 text-right text-top">

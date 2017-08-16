@@ -42,7 +42,7 @@ function fillter(route){
 	var keyword = jQuery('#keyword').val();
 	var limit = jQuery('#limit').find(":selected").val();
 	var link = link_limit = "";
-	if(limit != 20)
+	if(limit != 10)
 		link_limit = "&limit="+limit;
 	if(cate && cate != '-' && keyword)
 		var link = "?cate="+cate+"&keyword="+keyword+link_limit;
@@ -50,7 +50,7 @@ function fillter(route){
 		var link = "?cate="+cate+link_limit;
 	else if(keyword)
 		var link = "?keyword="+keyword+link_limit;
-	else if(limit != 20)
+	else if(limit != 10)
 		var link = "?limit="+limit;
 	//console.log(route+link);
 	window.location.href = route+link;

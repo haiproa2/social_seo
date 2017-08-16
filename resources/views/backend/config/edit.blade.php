@@ -273,7 +273,7 @@
 			'/',
 			{ name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
 			'/',
-			{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
+			{ name: 'insert', items: [ 'FontAwesome', 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
 			{ name: 'tools', items: [ 'Source' ] },
 		],
 		toolbarStartupExpanded : false
@@ -287,7 +287,7 @@
 			'/',
 			{ name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
 			'/',
-			{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
+			{ name: 'insert', items: [ 'FontAwesome', 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
 			{ name: 'tools', items: [ 'Source' ] },
 		],
 		toolbarStartupExpanded : false
@@ -301,7 +301,7 @@
 			'/',
 			{ name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
 			'/',
-			{ name: 'insert', items: [ 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
+			{ name: 'insert', items: [ 'FontAwesome', 'Image', 'Youtube', 'Flash', 'Iframe', 'Table', 'HorizontalRule' ] },
 			{ name: 'tools', items: [ 'Source' ] },
 		],
 		toolbarStartupExpanded : false

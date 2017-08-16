@@ -22,7 +22,7 @@ class PostController extends AdminController
     	$limits = Option::where([['type', 'limit'], ['active', '1']])->orderby('id_type', 'ASC')->pluck('value_type', 'id_type')->toArray();
 
         $cate = $request->cate ? $request->cate : '';
-        $limit = $request->limit ? $request->limit : 20;
+        $limit = $request->limit ? $request->limit : 10;
         $keyword = $request->keyword ? $request->keyword : '';
 
         $flash_type = $flash_messager = '';
@@ -50,7 +50,7 @@ class PostController extends AdminController
         if($request->limit)
             $items->appends(['limit' => $limit]);
 
-        if($cate || $keyword || ($limit && $limit != 20)){
+        if($cate || $keyword || ($limit && $limit != 10)){
             $flash_type = 'info animate3 fadeInUp';
             $flash_messager = 'Danh sách bài viết đã được lọc.';
         }
@@ -281,15 +281,18 @@ class PostController extends AdminController
 				foreach ($listids as $key => $id) {
 					$item = Post::where([['id', $id]])->first();
 					if($item){
-						$titles .= '<b>- '.$item->title.'</b><br/>';
+						$titles .= '- '.$item->title.'<br/>';
                         CatePost::where('post_id', $item->id)->delete();
 						Image::delete('uploads/'.$item->photo);
 						$item->delete();
 					}
 				}
-				if($titles){
+				if($titles && count($listids) < 5){
+                    $flash_type = 'success animate3 fadeInUp';
+                    $flash_messager = 'Đã xóa bài viết<br/><b>'.rtrim($titles, ', ').'</b>';
+                } else if($titles && count($listids) > 4){
 		    		$flash_type = 'success animate3 fadeInUp';
-		    		$flash_messager = 'Đã xóa bài viết<br/>'.rtrim($titles, ', ');
+		    		$flash_messager = 'Các bài viết được chọn đã bị xóa';
 		    	} else {
 		    		$flash_type = 'info animate3 fadeInUp';
 		    		$flash_messager = 'Không xóa được bài viết.';

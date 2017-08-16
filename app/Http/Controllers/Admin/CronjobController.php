@@ -22,7 +22,7 @@ class CronjobController extends AdminController
         $limits = Option::where([['type', 'limit'], ['active', '1']])->orderby('id_type', 'ASC')->pluck('value_type', 'id_type')->toArray();
 
         $cate = $request->cate ? $request->cate : '';
-        $limit = $request->limit ? $request->limit : 20;
+        $limit = $request->limit ? $request->limit : 10;
         $keyword = $request->keyword ? $request->keyword : '';
 
         $flash_type = $flash_messager = '';
@@ -45,7 +45,7 @@ class CronjobController extends AdminController
         if($request->limit)
             $items->appends(['limit' => $limit]);
 
-        if($cate || $keyword || ($limit && $limit != 20)){
+        if($cate || $keyword || ($limit && $limit != 10)){
             $flash_type = 'info animate3 fadeInUp';
             $flash_messager = 'Danh sách cronjob đã được lọc.';
         }
@@ -101,7 +101,6 @@ class CronjobController extends AdminController
                 'tag_list' => 'required',
                 'tag_link' => 'required',
                 'tag_title' => 'required',
-                'tag_photo' => 'required',
                 'tag_content' => 'required',
             ], [
                 'title.required' => trans('admin.required'),
@@ -109,7 +108,6 @@ class CronjobController extends AdminController
                 'tag_list.required' => trans('admin.required'),
                 'tag_link.required' => trans('admin.required'),
                 'tag_title.required' => trans('admin.required'),
-                'tag_photo.required' => trans('admin.required'),
                 'tag_content.required' => trans('admin.required'),
             ]
         );
@@ -122,6 +120,7 @@ class CronjobController extends AdminController
         $item->url_topic = $request->url_topic;
         $item->url_page = $request->url_page;
         $item->count_page = $request->count_page;
+        $item->count_post = $request->count_post;
         $item->tag_list = $request->tag_list;
         $item->tag_link = $request->tag_link;
         $item->tag_title = $request->tag_title;
@@ -130,6 +129,7 @@ class CronjobController extends AdminController
         $item->tag_content = $request->tag_content;
         $item->tag_photo = $request->tag_photo;
         $item->where_photo = $request->where_photo;
+        $item->remove_text_photo = $request->remove_text_photo;
         $item->tag_remove = $request->tag_remove;
         $item->no = $request->no;
         $item->created_by = Auth::user()->id;
@@ -174,7 +174,6 @@ class CronjobController extends AdminController
                 'tag_list' => 'required',
                 'tag_link' => 'required',
                 'tag_title' => 'required',
-                'tag_photo' => 'required',
                 'tag_content' => 'required',
             ], [
                 'title.required' => trans('admin.required'),
@@ -182,7 +181,6 @@ class CronjobController extends AdminController
                 'tag_list.required' => trans('admin.required'),
                 'tag_link.required' => trans('admin.required'),
                 'tag_title.required' => trans('admin.required'),
-                'tag_photo.required' => trans('admin.required'),
                 'tag_content.required' => trans('admin.required'),
             ]
         );
@@ -194,6 +192,7 @@ class CronjobController extends AdminController
         $item->url_topic = $request->url_topic;
         $item->url_page = $request->url_page;
         $item->count_page = $request->count_page;
+        $item->count_post = $request->count_post;
         $item->tag_list = $request->tag_list;
         $item->tag_link = $request->tag_link;
         $item->tag_title = $request->tag_title;
@@ -202,6 +201,7 @@ class CronjobController extends AdminController
         $item->tag_content = $request->tag_content;
         $item->tag_photo = $request->tag_photo;
         $item->where_photo = $request->where_photo;
+        $item->remove_text_photo = $request->remove_text_photo;
         $item->tag_remove = $request->tag_remove;
         $item->no = $request->no;
         $item->updated_by = Auth::user()->id;

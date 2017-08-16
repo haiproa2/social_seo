@@ -86,7 +86,7 @@ class UserController extends AdminController
     public function listUsers(Request $request){
     	$limits = Option::where([['type', 'limit'], ['active', '1']])->orderby('id_type', 'ASC')->pluck('value_type', 'id_type')->toArray();
 
-        $limit = $request->limit ? $request->limit : 20;
+        $limit = $request->limit ? $request->limit : 10;
         $keyword = $request->keyword ? $request->keyword : '';
 
         $flash_type = $flash_messager = '';
@@ -104,7 +104,7 @@ class UserController extends AdminController
         if($request->limit)
             $items->appends(['limit' => $limit]);
 
-        if($keyword || ($limit && $limit != 20)){
+        if($keyword || ($limit && $limit != 10)){
             $flash_type = 'info animate3 fadeInUp';
             $flash_messager = 'Danh sách thành viên đã được lọc.';
         }

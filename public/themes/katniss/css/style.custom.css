@@ -22,6 +22,12 @@ button[type="submit"] .icon-spin{font-size: 16px; line-height: 1}
 .ui-tabs-nav li a{padding-top: 6px}
 .ui-tabs-panel{position: relative; margin-top: -1px;}
 
+input[data-toggle="popfocus"]{
+	background-image: url("../img/glyphicons-info-opacity.png")!important;
+	background-repeat: no-repeat !important;
+	background-position: right center !important;
+	padding-right: 20px !important;
+}
 .popover{font-family: 'Roboto', sans-serif;}
 .popover-title{font-weight: bold;}
 .popover-content{font-size: 13px!important;}

@@ -18,9 +18,6 @@
 <div class="pagetitle animate4 fadeInUp"><h1>{!! $title !!}</h1> <span>{!! $description !!}</span></div><!--pagetitle-->
 <div class="contentinner animate5 fadeInUp">
 	<div class="row-fluid">
-		<?php
-			$array = array('0'=>'- Tất cả -'); $limits = array_replace($limits, $array);
-		?>
 		<div class="span6 text-top">
 			<span>Danh mục:</span>
 			<span style="width: auto; display: inline-flex;"> 
@@ -54,7 +51,7 @@
 				<div class="span6">
 					<span>Hiển thị:</span>
 					@if(count($limits))
-					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):20, ['id'=>'limit', 'data-route'=>$prefix]) !!}
+					{!! Form::select('limit', $limits, (Request::get('limit'))?Request::get('limit'):10, ['id'=>'limit', 'data-route'=>$prefix]) !!}
 					@endif
 				</div>
 				<div class="span6 text-right search-area">
